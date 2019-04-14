@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Prototype 001</title>
+<style type="text/css">
+.textareasize {
+	height: 200px;
+	width: 800px;
+}
+.inputtextemailtopic {
+	width: 500px;
+}
+</style>
+</head>
+
+<body>
+<table width="1411" border="2">
+  <tr>
+    <th colspan="4" scope="col"><h1>Compose email to company/companys</h1></th>
+  </tr>
+  <tr>
+    <th width="415" scope="col"><a href="LandingPage.html">Manage your applications</a> (drop down menu)</th>
+    <th width="309" scope="col">Current date: 29.03.2019 10:00</th>
+    <th width="377" scope="col">User selection fo language UI ENG , DEU</th>
+    <th width="280" scope="col">Logged as: Username</th>
+     <th width="146" scope="col"><a href="Login.html">Logout</a></th>
+  </tr>
+</table>
+<br>
+<table width="1411" border="0" cellpadding="1" cellspacing="1">
+  <tr>
+    <th colspan="3" scope="col"><div align="left">Email Topic:
+        <input name="textfield" type="text" class="inputtextemailtopic" id="textfield"> </div>     
+    </th>
+  </tr>
+  <tr>
+    <td colspan="3"><strong>Your email letter to a comany:</strong></td>
+  </tr>
+  <tr>
+    <td width="810" rowspan="4"><textarea name="textarea" class="textareasize" id="textarea" ></textarea></td>
+    <td width="322"><strong>Front page:</strong></td>
+    <td width="269"><p>
+      <select name="select" id="select">
+        <option value="Fp1">Fp1</option>
+        <option value="Fp2">Fp2</option>
+        <option value="Fp3">Fp3</option>
+        <option value="Fp4">Fp4</option>
+    </select>
+      <br>
+    </p></td>
+  </tr>
+  <tr>
+    <td height="60"><strong>Coverletter:</strong></td>
+    <td><select name="select2" id="select2">
+      <option value="cl1">cl1</option>
+      <option value="cl2">cl2</option>
+      <option value="cl3">cl3</option>
+      <option value="cl4">cl4</option>
+    </select></td>
+  </tr>
+  <tr>
+    <td height="53"><strong>Curriculum vitae:</strong></td>
+    <td><select name="select3" id="select3">
+      <option value="cv1">cv1</option>
+      <option value="cv2">cv2</option>
+      <option value="cv3">cv3</option>
+      <option value="cv4">cv4</option>
+    </select></td>
+  </tr>
+  <tr>
+    <td><strong>School credentials and/or certificates</strong></td>
+    <td><select name="select4" id="select4">
+      <option value="credent1">credent1</option>
+      <option value="credent2">credent2</option>
+      <option value="credent3">credent3</option>
+      <option value="credent4">credent4</option>
+    </select></td>
+  </tr>
+
+  <tr>
+    <td colspan="3"><div align="right"></div></td>
+  </tr>
+   
+</table>
+<table width="1411" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <th width="29" scope="col"><input type="checkbox" name="checkbox" id="checkbox"></th>
+    <th width="1382" scope="col"><div align="left"><u>Here by i as $Username  acknowledge and take full responsibility for sending this email to a $Companyname. </u><br>
+    <strong>(The user allowed to compose a mail to one and the same company max 3 times in one day</strong>)<br>
+    In conformity with GDPR this email will be send to user of this web platform, the user itself should takes own responsibility to sending the email to a third party!<br>
+    </div></th>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><div align="right">
+      <input type="button" name="button" id="button" value="Send this email to $Username">
+    </div></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Amounts of application to send: <strong>25</strong></td>
+  </tr>
+</table>
+<br>
+</body>
+</html>

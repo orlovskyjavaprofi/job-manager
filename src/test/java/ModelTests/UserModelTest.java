@@ -59,6 +59,14 @@ class UserModelTest
 	}
 	
 	@Test
+	void checkIfAUserCanBeCreatedWithFirstAndLastNameAndAccountDisabled() {
+		String firstNameOfUser = "John";
+		String lastNameOfUser = "Doe";
+		User newUser = new User(firstNameOfUser,lastNameOfUser );
+		assertEquals(false,newUser.getUserAccountState(), "Firstname and Lastname and user account was not correctly set up!");
+	}
+	
+	@Test
 	void checkIfAUserBirthdayCanBetSetUp() {
 		String userBirthDay = "25.03.1978";		
 		userObj.setUserBirthDate(userBirthDay);
@@ -139,4 +147,25 @@ class UserModelTest
 	   assertEquals(userAccountState,userObj.getUserAccountState(),"User account is not set up to enabled state!" );
 	}
 	
+	@Test
+	void checkIfUserRegDateWasSetUp() {
+		User newUser = new User();
+		
+		assertNotNull(newUser.getUserRegistrationDate(),"Registration date missing!");
+	}
+	
+	@Test
+	void checkIfNewUserCanBeCreated() {
+		User newUser= new User("John","Doe");
+		newUser.setUserEmail("johndoe@redhat.com");
+		newUser.setUserStreetName("AlexanderPlatz");
+		newUser.setUserStreetNumber(17);
+		newUser.setUserCity("Berlin");
+		newUser.setUserCountryName("Germany");
+		newUser.setUserBirthDate("12.02.1978");
+		newUser.setCurrentEmploymentState(UserEmploymentState.SELFEMPLOYED);
+//		System.out.println(newUser.toString());
+		
+		assertNotNull(newUser,"New user creation failed!");
+	}
 }

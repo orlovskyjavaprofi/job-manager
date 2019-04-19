@@ -13,7 +13,7 @@ public class User
     private String userStreetName;
     private String userCountryName;
     private LocalDate userBirthDate;
-   
+    private UserEmploymentState currentEmploymentState;
     private Integer userStreetNumber;
     
 	public User()
@@ -26,6 +26,7 @@ public class User
 	  this.setUserStreetNumber(0);
 	  this.setUserCity(textplacer);
 	  this.setUserCountryName(textplacer);
+	  this.setCurrentEmploymentState(UserEmploymentState.UNEMPLOYED);
 	}
 
 	public User(String firstNameOfUser, String lastNameOfUser)
@@ -115,6 +116,16 @@ public class User
 	public void setUserCountryName(String userCountryName)
 	{
 		this.userCountryName = userCountryName;
+	}
+
+	public UserEmploymentState getCurrentEmploymentState()
+	{
+		return currentEmploymentState;
+	}
+
+	public void setCurrentEmploymentState(UserEmploymentState currentEmploymentState)
+	{
+		this.currentEmploymentState = currentEmploymentState;
 	}
 
 

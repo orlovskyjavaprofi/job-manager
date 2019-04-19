@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import models.User;
+import models.UserEmploymentState;
 
 class UserModelTest
 {
@@ -102,5 +103,25 @@ class UserModelTest
 		userObj.setUserCountryName(userCountryName);
 		
 		assertEquals(userCountryName,userObj.getUserCountryName(), "User country name was not set up!");
+	}
+	
+	@Test
+	void checkIfuserEmploymentStateUnemployedSetUp() {
+		UserEmploymentState currentEmploymentState = UserEmploymentState.UNEMPLOYED;
+		
+		assertEquals(currentEmploymentState,userObj.getCurrentEmploymentState(), "User unemployed state was not set up!");
+	}
+	@Test
+	void checkIfuserEmploymentStateEmployedSetUp() {
+		UserEmploymentState currentEmploymentState = UserEmploymentState.EMPLOYED;
+		userObj.setCurrentEmploymentState(UserEmploymentState.EMPLOYED);
+		assertEquals(currentEmploymentState,userObj.getCurrentEmploymentState(), "User Employed state was not set up!");
+	}
+	
+	@Test
+	void checkIfuserEmploymentStateSelfEmployedSetUp() {
+		UserEmploymentState currentEmploymentState = UserEmploymentState.SELFEMPLOYED;
+		userObj.setCurrentEmploymentState(UserEmploymentState.SELFEMPLOYED);
+		assertEquals(currentEmploymentState,userObj.getCurrentEmploymentState(), "User Selfemployed state was not set up!");
 	}
 }

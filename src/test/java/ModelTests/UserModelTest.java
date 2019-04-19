@@ -2,6 +2,8 @@ package ModelTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -53,6 +55,13 @@ class UserModelTest
 		String lastNameOfUser = "Doe";
 		User newUser = new User(firstNameOfUser,lastNameOfUser );
 		assertEquals(firstNameOfUser+" "+lastNameOfUser,newUser.getUserFirstName()+" "+newUser.getUserLastName(), "Firstname and Lastname of user was not correctly set up!");
+	}
+	
+	@Test
+	void checkIfAUserBirthdayCanBetSetUp() {
+		String userBirthDay = "25.03.1978";		
+		userObj.setUserBirthDate(userBirthDay);
+		assertEquals(userBirthDay,userObj.getUserBirthDate());
 	}
 	
 }

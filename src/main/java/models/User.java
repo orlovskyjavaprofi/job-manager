@@ -8,14 +8,25 @@ public class User
 {
 	private String userFirstName;
     private String userLastName;
-    private LocalDate userBirthDate;
     private String userEmail; 
+    private String userCity;
+    private String userStreetName;
+    private String userCountryName;
+    private LocalDate userBirthDate;
+   
+    private Integer userStreetNumber;
     
 	public User()
 	{	
-	  this.setUserFirstName("undefined");
+	  String textplacer = "undefined";
+	  this.setUserFirstName(textplacer);
+	  this.setUserLastName(textplacer);
+	  this.setUserEmail(textplacer);
+	  this.setUserStreetName(textplacer);
+	  this.setUserStreetNumber(0);
+	  this.setUserCity(textplacer);
+	  this.setUserCountryName(textplacer);
 	}
-	
 
 	public User(String firstNameOfUser, String lastNameOfUser)
 	{
@@ -23,6 +34,18 @@ public class User
 		this.setUserLastName(lastNameOfUser);
 	}
 
+	public String getUserBirthDate()
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY");
+		return userBirthDate.format(formatter);
+	}
+
+	public void setUserBirthDate(String userBirthDate)
+	{		
+		userBirthDate = userBirthDate.replaceAll("[.]", "-");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		this.userBirthDate = LocalDate.parse(userBirthDate,formatter);
+	}
 
 	public String getUserFirstName()
 	{
@@ -43,34 +66,56 @@ public class User
 	{
 		this.userLastName = userLastName;
 	}
-
-
-	public String getUserBirthDate()
-	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY");
-		return userBirthDate.format(formatter);
-	}
-
-
-	public void setUserBirthDate(String userBirthDate)
-	{		
-		userBirthDate = userBirthDate.replaceAll("[.]", "-");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		this.userBirthDate = LocalDate.parse(userBirthDate,formatter);
-	}
-
-
+	
 	public String getUserEmail()
 	{
 		return userEmail;
 	}
-
 
 	public void setUserEmail(String userEmail)
 	{
 		this.userEmail = userEmail;
 	}
 
+	public String getUserCity()
+	{
+		return userCity;
+	}
+
+	public void setUserCity(String userCity)
+	{
+		this.userCity = userCity;
+	}
+
+	public String getUserStreetName()
+	{
+		return userStreetName;
+	}
+
+	public void setUserStreetName(String userStreetName)
+	{
+		this.userStreetName = userStreetName;
+	}
+
+	public Integer getUserStreetNumber()
+	{
+		return userStreetNumber;
+	}
+
+	public void setUserStreetNumber(Integer userStreetNumber)
+	{
+		this.userStreetNumber = userStreetNumber;
+	}
+
+	public String getUserCountryName()
+	{
+		return userCountryName;
+	}
+
+	public void setUserCountryName(String userCountryName)
+	{
+		this.userCountryName = userCountryName;
+	}
 
 
 }

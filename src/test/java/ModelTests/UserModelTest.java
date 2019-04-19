@@ -72,4 +72,35 @@ class UserModelTest
 		assertEquals(userEmail,userObj.getUserEmail(), "User email was not set up!");
 	}
 	
+	@Test
+	void checkIfuserCitySetUp() {
+		String userCity = "Berlin";
+		userObj.setUserCity(userCity);
+		
+		assertEquals(userCity,userObj.getUserCity(), "User city was not set up!");
+	}
+	
+	@Test
+	void checkIfuserStreetnameSetUp() {
+		String userStreetName = "Alexanderplatz";
+		userObj.setUserStreetName(userStreetName);
+		
+		assertEquals(userStreetName,userObj.getUserStreetName(), "User street name was not set up!");
+	}
+	
+	@Test
+	void checkIfuserStreetnumberSetUp() {
+		Integer userStreetNumber = 3456;
+		userObj.setUserStreetNumber(userStreetNumber);
+		
+		assertEquals(userStreetNumber,userObj.getUserStreetNumber(), "User street number was not set up!");
+	}
+	
+	@Test
+	void checkIfuserCountrySetUp() {
+		String userCountryName = "Germany";
+		userObj.setUserCountryName(userCountryName);
+		
+		assertEquals(userCountryName,userObj.getUserCountryName(), "User country name was not set up!");
+	}
 }

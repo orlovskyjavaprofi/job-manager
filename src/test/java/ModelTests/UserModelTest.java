@@ -64,4 +64,12 @@ class UserModelTest
 		assertEquals(userBirthDay,userObj.getUserBirthDate());
 	}
 	
+	@Test
+	void checkIfuserEmailSetUp() {
+		String userEmail = "johndoe@redhat.com";
+		userObj.setUserEmail(userEmail);
+		
+		assertEquals(userEmail,userObj.getUserEmail(), "User email was not set up!");
+	}
+	
 }

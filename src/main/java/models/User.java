@@ -9,6 +9,7 @@ public class User
 	private String userFirstName;
     private String userLastName;
     private LocalDate userBirthDate;
+    private String userEmail; 
     
 	public User()
 	{	
@@ -56,6 +57,18 @@ public class User
 		userBirthDate = userBirthDate.replaceAll("[.]", "-");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		this.userBirthDate = LocalDate.parse(userBirthDate,formatter);
+	}
+
+
+	public String getUserEmail()
+	{
+		return userEmail;
+	}
+
+
+	public void setUserEmail(String userEmail)
+	{
+		this.userEmail = userEmail;
 	}
 
 

@@ -47,4 +47,12 @@ class UserModelTest
 		assertEquals(firstNameOfUser+" "+lastNameOfUser,userObj.getUserFirstName()+" "+userObj.getUserLastName(), "Firstname and Lastname of user was not correctly set up!");
 	}
 	
+	@Test
+	void checkIfAUserCanBeCreatedWithFirstAndLastName() {
+		String firstNameOfUser = "John";
+		String lastNameOfUser = "Doe";
+		User newUser = new User(firstNameOfUser,lastNameOfUser );
+		assertEquals(firstNameOfUser+" "+lastNameOfUser,newUser.getUserFirstName()+" "+newUser.getUserLastName(), "Firstname and Lastname of user was not correctly set up!");
+	}
+	
 }

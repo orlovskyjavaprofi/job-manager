@@ -10,11 +10,14 @@ public class User
 	  this.setUserFirstName("undefined");
 	}
 	
-	public User(String firstName)
-	{	
-		this.userFirstName = firstName;
+
+	public User(String firstNameOfUser, String lastNameOfUser)
+	{
+		this.setUserFirstName(firstNameOfUser);
+		this.setUserLastName(lastNameOfUser);
 	}
-	
+
+
 	public String getUserFirstName()
 	{
 		return userFirstName;

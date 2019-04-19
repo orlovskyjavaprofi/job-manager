@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<description>This project is a frontend for the project job manager</description>
-	
+
 	<groupId>job-manager</groupId>
 	<artifactId>job-manager</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	
+
 	<licenses>
 		<license>
 			<name>GNU General Public License</name>
@@ -55,6 +55,14 @@
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
+
+			<resource>
+				<directory>.</directory>
+				<targetPath>META-INF</targetPath>
+				<includes>
+					<include>LICENSE.txt</include>
+				</includes>
+			</resource>
 		</resources>
 
 		<testResources>
@@ -63,7 +71,7 @@
 			</testResource>
 		</testResources>
 
-		<plugins>		
+		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -106,7 +114,7 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<!-- exclude junit 4 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

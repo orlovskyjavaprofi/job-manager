@@ -124,4 +124,19 @@ class UserModelTest
 		userObj.setCurrentEmploymentState(UserEmploymentState.SELFEMPLOYED);
 		assertEquals(currentEmploymentState,userObj.getCurrentEmploymentState(), "User Selfemployed state was not set up!");
 	}
+	
+	@Test
+	void checkIfuserAccountIsDisabledSetUp() {
+	   Boolean userAccountState = false;
+	   assertEquals(userAccountState,userObj.getUserAccountState(),"User account is not set up to disable state!" );
+	}
+	
+	@Test
+	void checkIfuserAccountIsEnabledSetUp() {
+	   Boolean userAccountState = true;
+	   userObj.setUserAccountState(true);
+	   
+	   assertEquals(userAccountState,userObj.getUserAccountState(),"User account is not set up to enabled state!" );
+	}
+	
 }

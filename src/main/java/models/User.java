@@ -15,6 +15,7 @@ public class User
     private LocalDate userBirthDate;
     private UserEmploymentState currentEmploymentState;
     private Integer userStreetNumber;
+    private Boolean userAccountState;
     
 	public User()
 	{	
@@ -27,6 +28,7 @@ public class User
 	  this.setUserCity(textplacer);
 	  this.setUserCountryName(textplacer);
 	  this.setCurrentEmploymentState(UserEmploymentState.UNEMPLOYED);
+	  this.setUserAccountState(false);
 	}
 
 	public User(String firstNameOfUser, String lastNameOfUser)
@@ -126,6 +128,16 @@ public class User
 	public void setCurrentEmploymentState(UserEmploymentState currentEmploymentState)
 	{
 		this.currentEmploymentState = currentEmploymentState;
+	}
+
+	public Boolean getUserAccountState()
+	{
+		return userAccountState;
+	}
+
+	public void setUserAccountState(Boolean userAccountState)
+	{
+		this.userAccountState = userAccountState;
 	}
 
 

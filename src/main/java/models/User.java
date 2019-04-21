@@ -14,6 +14,7 @@ public class User
 	private String userCountryName;
 	private LocalDate userBirthDate;
 	private UserEmploymentState currentEmploymentState;
+	private UserSexState currentUserSexState;
 	private Integer userStreetNumber;
 	private Boolean userAccountState;
 	private LocalDate userRegistrationDate;
@@ -34,6 +35,7 @@ public class User
 		this.setUserCity(textplacer);
 		this.setUserCountryName(textplacer);
 		this.setCurrentEmploymentState(UserEmploymentState.UNEMPLOYED);
+		this.setCurrentUserSexState(UserSexState.UNDEFINED);
 		this.setUserAccountState(false);
 		formaRegDate();
 		// To-do implement a Reference to List or of some sort collection of job
@@ -166,13 +168,25 @@ public class User
 		this.userRegistrationDate = userRegistrationDate;
 	}
 
+	public UserSexState getCurrentUserSexState()
+	{
+		return currentUserSexState;
+	}
+
+	public void setCurrentUserSexState(UserSexState currentUserSexState)
+	{
+		this.currentUserSexState = currentUserSexState;
+	}
+
 	@Override
 	public String toString()
 	{
-		return "User: \nuserFirstName=" + userFirstName + "\n userLastName=" + userLastName + "\n userEmail=" + userEmail
+		return "User: \nuserFirstName=" + userFirstName + "\n userLastName=" + userLastName 
+				+ "\n userEmail=" + userEmail
 				+ "\n userCity=" + userCity + "\n userStreetName=" + userStreetName + "\n userCountryName="
-				+ userCountryName + "\n userBirthDate=" + userBirthDate + "\n currentEmploymentState="
-				+ currentEmploymentState + "\n userStreetNumber=" + userStreetNumber + "\n userAccountState="
+				+ userCountryName + "\n userBirthDate=" + userBirthDate +"\n userSex=" + currentUserSexState
+				+ "\n currentEmploymentState=" + currentEmploymentState 
+				+ "\n userStreetNumber=" + userStreetNumber + "\n userAccountState="
 				+ userAccountState + "\n userRegistrationDate=" + userRegistrationDate ;
 	}
 

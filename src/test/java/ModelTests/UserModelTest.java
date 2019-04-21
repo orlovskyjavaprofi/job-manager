@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import models.User;
 import models.UserEmploymentState;
+import models.UserSexState;
 
 class UserModelTest
 {
@@ -114,6 +115,20 @@ class UserModelTest
 	}
 	
 	@Test
+	void checkIfUserMaleSexSetUp() {
+		UserSexState currentUserSexState = UserSexState.MALE;
+		userObj.setCurrentUserSexState(currentUserSexState);
+		assertEquals(currentUserSexState,userObj.getCurrentUserSexState(), "User male sex was not set up!");
+	}
+	
+	@Test
+	void checkIfUserFemaleSexSetUp() {
+		UserSexState currentUserSexState = UserSexState.FEMALE;
+		userObj.setCurrentUserSexState(currentUserSexState);
+		assertEquals(currentUserSexState,userObj.getCurrentUserSexState(), "User female sex was not set up!");
+	}
+	
+	@Test
 	void checkIfuserEmploymentStateUnemployedSetUp() {
 		UserEmploymentState currentEmploymentState = UserEmploymentState.UNEMPLOYED;
 		
@@ -156,6 +171,14 @@ class UserModelTest
 	
 	@Test
 	void checkIfNewUserCanBeCreated() {
+		User newUser = setUpANewUser();
+//		System.out.println(newUser.toString());
+		
+		assertNotNull(newUser,"New user creation failed!");
+	}
+
+	private User setUpANewUser()
+	{
 		User newUser= new User("John","Doe");
 		newUser.setUserEmail("johndoe@redhat.com");
 		newUser.setUserStreetName("AlexanderPlatz");
@@ -164,8 +187,7 @@ class UserModelTest
 		newUser.setUserCountryName("Germany");
 		newUser.setUserBirthDate("12.02.1978");
 		newUser.setCurrentEmploymentState(UserEmploymentState.SELFEMPLOYED);
-//		System.out.println(newUser.toString());
-		
-		assertNotNull(newUser,"New user creation failed!");
+		newUser.setCurrentUserSexState(UserSexState.MALE);
+		return newUser;
 	}
 }

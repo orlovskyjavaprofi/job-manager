@@ -1,9 +1,6 @@
 package ModelTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -115,6 +112,14 @@ class UserModelTest
 	}
 	
 	@Test
+	void checkIfuserNickNameSetUp() {
+		String userNickName = "bird";
+		userObj.setUserNickName(userNickName);
+		
+		assertEquals(userNickName,userObj.getUserNickName(), "User nick name was not set up!");
+	}
+	
+	@Test
 	void checkIfUserMaleSexSetUp() {
 		UserSexState currentUserSexState = UserSexState.MALE;
 		userObj.setCurrentUserSexState(currentUserSexState);
@@ -180,6 +185,7 @@ class UserModelTest
 	private User setUpANewUser()
 	{
 		User newUser= new User("John","Doe");
+		newUser.setUserNickName("Bird");
 		newUser.setUserEmail("johndoe@redhat.com");
 		newUser.setUserStreetName("AlexanderPlatz");
 		newUser.setUserStreetNumber(17);

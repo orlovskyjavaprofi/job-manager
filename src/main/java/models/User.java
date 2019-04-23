@@ -2,7 +2,9 @@ package models;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Formatter;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class User
 {
@@ -18,7 +20,10 @@ public class User
 	private Integer userStreetNumber;
 	private Boolean userAccountState;
 	private LocalDate userRegistrationDate;
-
+	private String userNickName;
+	private List<UserSexState> typesOfUserSex = new ArrayList<UserSexState>();
+	private List<UserEmploymentState> typesOfUserEmploymentState = new ArrayList<UserEmploymentState>();
+	
 	public User()
 	{
 		setUpDefaultValues();
@@ -26,7 +31,7 @@ public class User
 
 	private void setUpDefaultValues()
 	{
-		String textplacer = "undefined";
+		String textplacer = "";
 		this.setUserFirstName(textplacer);
 		this.setUserLastName(textplacer);
 		this.setUserEmail(textplacer);
@@ -37,6 +42,8 @@ public class User
 		this.setCurrentEmploymentState(UserEmploymentState.UNEMPLOYED);
 		this.setCurrentUserSexState(UserSexState.UNDEFINED);
 		this.setUserAccountState(false);
+		this.setUserNickName("");
+		this.setUserBirthDate("25.03.1978");
 		formaRegDate();
 		// To-do implement a Reference to List or of some sort collection of job
 		// applications where belong to this user
@@ -178,16 +185,46 @@ public class User
 		this.currentUserSexState = currentUserSexState;
 	}
 
+	public String getUserNickName()
+	{
+		return userNickName;
+	}
+
+	public void setUserNickName(String userNickName)
+	{
+		this.userNickName = userNickName;
+	}
+
+	public List<UserSexState> getTypesOfUserSex()
+	{
+		return typesOfUserSex;
+	}
+
+	public void setTypesOfUserSex(List<UserSexState> typesOfUserSex)
+	{
+		this.typesOfUserSex = typesOfUserSex;
+	}
+
+	public List<UserEmploymentState> getTypesOfUserEmploymentState()
+	{
+		return typesOfUserEmploymentState;
+	}
+
+	public void setTypesOfUserEmploymentState(List<UserEmploymentState> typesOfUserEmploymentState)
+	{
+		this.typesOfUserEmploymentState = typesOfUserEmploymentState;
+	}
+
 	@Override
 	public String toString()
 	{
-		return "User: \nuserFirstName=" + userFirstName + "\n userLastName=" + userLastName 
-				+ "\n userEmail=" + userEmail
-				+ "\n userCity=" + userCity + "\n userStreetName=" + userStreetName + "\n userCountryName="
-				+ userCountryName + "\n userBirthDate=" + userBirthDate +"\n userSex=" + currentUserSexState
-				+ "\n currentEmploymentState=" + currentEmploymentState 
-				+ "\n userStreetNumber=" + userStreetNumber + "\n userAccountState="
-				+ userAccountState + "\n userRegistrationDate=" + userRegistrationDate ;
+		return "User: "+ userNickName + "\nuserFirstName=" + userFirstName + "\nuserLastName=" + userLastName 
+				+ "\nuserEmail=" + userEmail
+				+ "\nuserCity=" + userCity + "\nuserStreetName=" + userStreetName + "\nuserCountryName="
+				+ userCountryName + "\nuserBirthDate=" + userBirthDate +"\nuserSex=" + currentUserSexState
+				+ "\ncurrentEmploymentState=" + currentEmploymentState 
+				+ "\nuserStreetNumber=" + userStreetNumber + "\nuserAccountState="
+				+ userAccountState + "\nuserRegistrationDate=" + userRegistrationDate ;
 	}
 
 }

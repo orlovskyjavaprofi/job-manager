@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <meta name="regnewuserform" http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>New member registration</title>
+</head>
+<body>
+<form action="#" th:action="@{/addNewUser}" th:object="${user}" method="post">
+	<table width="1200" height="488" border="0" align="center" cellpadding="0" cellspacing="0">
+		<tr>
+			<th colspan="4" scope="col"><h1>New member registration</h1></th>
+		</tr>
+		<tr>
+			<td width="168" height="37" class="l">First name</td>
+			<td colspan="3">
+			<input type="text" name="inputNewUserFirstName"	 id="inputNewUserFirstName" th:field="*{userFirstName}" /></td>
+		</tr>
+		<tr>
+			<td height="32" class="l">Last name</td>
+			<td colspan="3"><input type="text" name="inputNewUserLastName"	id="inputNewUserLastName" th:field="*{userLastName}" /></td>
+		</tr>
+		<tr>
+			<td height="44" class="l">Birthdate</td>
+			<td colspan="3"><input type="text" name="inputNewUserBirthdate"	id="inputNewUserBirthdate" th:field="*{userBirthDate}" /></td>
+		</tr>
+		<tr>
+			<td height="41" class="l">Email</td>
+			<td colspan="3"><input type="text" name="inputNewUserEmail"	id="inputNewUserEmail" th:field="*{userEmail}" /></td>
+		</tr>
+		<tr>
+			<td height="51" class="l">City</td>
+			<td colspan="3"><input type="text" name="inputNewUserCity" id="inputNewUserCity" th:field="*{userCity}" /></td>
+		</tr>
+		<tr>
+			<td height="43" class="l">Street</td>
+			<td colspan="3"><input type="text" name="inputNewUserStreetName" id="inputNewUserStreetName" th:field="*{userStreetName}" /></td>
+		</tr>
+		<tr>
+			<td height="51" class="l">Street number</td>
+			<td colspan="3"><input type="text" name="inputNewUserStreetNum"	id="inputNewUserStreetNum" th:field="*{userStreetNumber}" /></td>
+		</tr>
+		<tr>
+			<td height="51" class="l">Country</td>
+			<td colspan="3"><input type="text" name="inputNewUserCountry" id="inputNewUserCountry" th:field="*{userCountryName}" /></td>
+		</tr>
+		<tr>
+			<td height="39" class="l">Sex</td>
+			<td colspan="3">
+					<ul>
+						<li th:each="type : ${allUserSexTypes}">
+						    <input type="checkbox" th:field="*{typesOfUserSex}" th:value="${type}" />
+							<label th:for="${#ids.prev('typesOfUserSex')}" th:text="${type}"></label>
+						</li>
+					</ul> 
+		</tr>
+		<tr>
+			<td height="39" class="l">Username</td>
+			<td colspan="3"><input type="text" name="inputNewUserUserName"	id="inputNewUserUserName" th:field="*{userNickName}" /></td>
+		</tr>
+		<tr>
+			<td class="l">Job state</td>
+			<td colspan="3">
+			<select name="selectionBoxEmploymentState" id="selectionBoxEmploymentState" th:field="*{currentEmploymentState}">
+			<option th:each="currentEmploymentState : ${allUserEmployeeStateTypes}" 
+			        th:value="${currentEmploymentState}" 
+			        th:text="${currentEmploymentState}"></option>
+			</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="l">Captcha</td>
+			<td colspan="3"><input name="textfield9" type="text" id="textfield9" value="to be implemented!!!" /></td>
+		</tr>
+		<tr>
+			<td >&nbsp;</td>
+			<td width="60" >
+			<input type="reset"	name="resetButOfNewUserReg" id="resetButOfNewUserReg" value="Reset" />
+			</td>
+			<td width="77" >
+			   <input type="submit"	name="submitNewUserReg" id="submitNewUserReg" value="Submit registration!" /></td>
+			<td width="895" class="cen">&nbsp;</td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>

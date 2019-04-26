@@ -21,7 +21,6 @@ class RegistrationControllerTest
 	{
 		regController = new RegistrationController();
 		mockMvc = MockMvcBuilders.standaloneSetup(regController).build();
-
 	}
 
 	@Test

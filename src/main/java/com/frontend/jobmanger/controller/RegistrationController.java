@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import models.User;
 import models.UserEmploymentState;
@@ -22,6 +24,12 @@ public class RegistrationController
     	    model.addAttribute("user", new User());
 		return "regnewuserform";
 	}
+    
+    @PostMapping("/submitNewUserReg")
+    public String handleAddNewUser(@RequestBody User submitedNewUser ) {
+    	
+    	  return "test";   
+    }
     
     @ModelAttribute("allUserSexTypes")
     public List<UserSexState> populateUserSexType() {

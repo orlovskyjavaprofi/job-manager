@@ -5,10 +5,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 public class User
 {
+	@NotNull
+	@Size(min=5, max=40)
 	private String userFirstName;
+	@NotNull
+	@Size(min=5, max=40)
 	private String userLastName;
 	private String userEmail;
 	private String userCity;

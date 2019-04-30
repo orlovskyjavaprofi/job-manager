@@ -1,26 +1,31 @@
 package models;
 
 import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-
 
 public class User
 {
-	@NotNull
+	@NotEmpty(message = "User first name input must be 5 or more signs!")
 	@Size(min=5, max=40)
 	private String userFirstName;
-	@NotNull
+	@NotEmpty(message = "User last name input must be 5 or more signs!")
 	@Size(min=5, max=40)
 	private String userLastName;
 	private String userEmail;
 	private String userCity;
 	private String userStreetName;
 	private String userCountryName;
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	@NotNull(message = "User date input is wrong dd mm yyy like for examle 12.01.2019") 
+	@Past
 	private LocalDate userBirthDate;
 	private UserEmploymentState currentEmploymentState;
 	private UserSexState currentUserSexState;

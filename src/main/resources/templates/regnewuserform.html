@@ -19,16 +19,23 @@
 			<td width="745"><div align="left" th:if="${#fields.hasErrors('userFirstName')}" th:errors="*{userFirstName}">Invalid input for user first name</div></td>
 			<td>&nbsp;</td>
 		</tr>
-			<td width="140" height="37" class="l">First name</td>
+		<tr>
+		<td width="140" height="37" class="l">First name</td>
 			<td>
 			<div align="left"><input type="text" name="inputNewUserLastName"	id="inputNewUserLastName" th:field="*{userLastName}" /></div>
 			 </td>
 			<td width="12">&nbsp;</td>
 			<td width="745"><div align="left" th:if="${#fields.hasErrors('userLastName')}" th:errors="*{userLastName}">Invalid input for user last name</div></td>
 			<td>&nbsp;</td>
+		</tr>
 		<tr>
-			<td height="44" class="l">Birthdate</td>
-			<td colspan="4"><input type="text" name="inputNewUserBirthdate"	id="inputNewUserBirthdate" th:field="*{userBirthDate}" /></td>
+			<td width="140" height="37" class="l">Birthday</td>
+			<td>
+			<div align="left"><input type="text" name="inputNewUserBirthdate"	id="inputNewUserBirthdate"   th:field="*{userBirthDate}" /></div>
+			 </td>
+			<td width="12">&nbsp;</td>
+			<td width="745"><div align="left" th:if="${#fields.hasErrors('userBirthDate')}" th:errors="*{userBirthDate}">Invalid input for user birthday</div></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td height="41" class="l">Email</td>

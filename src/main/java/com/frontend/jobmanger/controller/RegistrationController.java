@@ -28,8 +28,8 @@ public class RegistrationController
 		return "regnewuserform";
 	}
 
-	// @RequestParam String userLastName,
-	// @RequestParam String userBirthDate, @RequestParam String userEmail,
+
+	//  @RequestParam String userEmail,
 	// @RequestParam String userCity,
 	// @RequestParam String userStreetName, @RequestParam Integer
 	// userStreetNumber,
@@ -40,7 +40,8 @@ public class RegistrationController
 
 	@PostMapping("/submitNewUserReg")
 	public String handleAddNewUser(@RequestParam String userFirstName,@RequestParam String userLastName,
-			@Valid User currentUser, BindingResult bindingResult)
+			@RequestParam String userBirthDate,
+			@Valid @ModelAttribute User currentUser, BindingResult bindingResult)
 	{
 		// "/newUserAddConfirmation"
 		String pageAfterNewUserValidation = "newUserAddConfirmation";

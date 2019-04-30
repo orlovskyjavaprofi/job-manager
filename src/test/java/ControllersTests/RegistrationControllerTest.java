@@ -49,22 +49,34 @@ class RegistrationControllerTest
 	}
 	
 	@Test
-    void checkThatNoEmptyTextCanBePosForUserFirstName() throws Exception
+    void checkThatNoEmptyTextCanBePostedForAllInputFields() throws Exception
     {
 		String userFirstName = "";
 		String userLastName = "";
+		String userBirthDate = "";
 		mockMvc.perform(post("/submitNewUserReg")
 				.param("userFirstName", userFirstName)
 				.param("userLastName", userLastName)
+				.param("userBirthDate", userBirthDate)
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 				.andExpect(status().isOk());		
     }
+	
 	@Test
     void checkThatNoEmptyTextCanBePosForUserLastName() throws Exception
     {
 		String userLastName = "";
 		mockMvc.perform(post("/submitNewUserReg")
 				.param("userLastName", userLastName)
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(status().isBadRequest());		
+    }
+	@Test
+    void checkThatNoEmptyTextCanBePostForUserBirthDay() throws Exception
+    {
+		String userBirthDate = "";
+		mockMvc.perform(post("/submitNewUserReg")
+				.param("userBirthDate", userBirthDate)
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 				.andExpect(status().isBadRequest());		
     }

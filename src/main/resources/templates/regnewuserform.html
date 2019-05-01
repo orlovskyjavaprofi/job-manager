@@ -37,39 +37,74 @@
 			<td width="745"><div align="left" th:if="${#fields.hasErrors('userBirthDate')}" th:errors="*{userBirthDate}">Invalid input for user birthday</div></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td height="41" class="l">Email</td>
-			<td colspan="4"><input type="text" name="inputNewUserEmail"	id="inputNewUserEmail" th:field="*{userEmail}" /></td>
+			<tr>
+			<td width="140" height="37" class="l">Email</td>
+			<td>
+			<div align="left"><input type="text" name="inputNewUserEmail"	id="inputNewUserEmail" th:field="*{userEmail}" /></div>
+			 </td>
+			<td width="12">&nbsp;</td>
+			<td width="745"><div align="left" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}">Invalid input for user email</div></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td height="51" class="l">City</td>
-			<td colspan="4"><input type="text" name="inputNewUserCity" id="inputNewUserCity" th:field="*{userCity}" /></td>
+			<td width="140" height="37" class="l">City</td>
+			<td>
+			<div align="left"><input type="text" name="inputNewUserCity" id="inputNewUserCity" th:field="*{userCity}" /></div>
+			 </td>
+			<td width="12">&nbsp;</td>
+			<td width="745"><div align="left" th:if="${#fields.hasErrors('userCity')}" th:errors="*{userCity}">Invalid input for user email</div></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td height="43" class="l">Street</td>
-			<td colspan="4"><input type="text" name="inputNewUserStreetName" id="inputNewUserStreetName" th:field="*{userStreetName}" /></td>
+			<td width="140" height="37" class="l">Street name</td>
+			<td>
+			<div align="left"><input type="text" name="inputNewUserStreetName" id="inputNewUserStreetName" th:field="*{userStreetName}" /></div>
+			 </td>
+			<td width="12">&nbsp;</td>
+			<td width="745"><div align="left" th:if="${#fields.hasErrors('userStreetName')}" th:errors="*{userStreetName}">Invalid input for user email</div></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td height="51" class="l">Street number</td>
-			<td colspan="4"><input type="text" name="inputNewUserStreetNum"	id="inputNewUserStreetNum" th:field="*{userStreetNumber}" /></td>
+			<td width="140" height="37" class="l">Street number</td>
+			<td>
+			<div align="left"><input type="text" name="inputNewUserStreetNum"	id="inputNewUserStreetNum" th:field="*{userStreetNumber}" /></div>
+			 </td>
+			<td width="12">&nbsp;</td>
+			<td width="745"><div align="left" th:if="${#fields.hasErrors('userStreetNumber')}" th:errors="*{userStreetNumber}">Invalid input for user street number</div></td>
+			<td>&nbsp;</td>
+		</tr>
+  	     <tr>
+			<td width="140" height="37" class="l">Country</td>
+			<td>
+			<div align="left"><input type="text" name="inputNewUserCountry" id="inputNewUserCountry" th:field="*{userCountryName}" /></div>
+			 </td>
+			<td width="12">&nbsp;</td>
+			<td width="745"><div align="left" th:if="${#fields.hasErrors('userCountryName')}" th:errors="*{userCountryName}">Invalid input for user country</div></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td height="51" class="l">Country</td>
-			<td colspan="4"><input type="text" name="inputNewUserCountry" id="inputNewUserCountry" th:field="*{userCountryName}" /></td>
-		</tr>
-		<tr>
-			<td height="39" class="l">Sex</td>
-			<td colspan="4">
+		<td width="140" height="37" class="l">Sex</td>
+				<td>
 					<ul>
 						<li th:each="type : ${allUserSexTypes}">
-						    <input type="checkbox" th:field="*{typesOfUserSex}" th:value="${type}" />
-							<label th:for="${#ids.prev('typesOfUserSex')}" th:text="${type}"></label>
+							<div align="left">
+								<input type="radio" th:field="*{typesOfUserSex}" th:value="${type}" /> <label th:text="${type}"></label>
+							</div>
 						</li>
-					</ul> 
+					</ul>
+				</td>
+				<td width="12">&nbsp;</td>          
+		   <td width="745"><div align="right" th:if="${#fields.hasErrors('typesOfUserSex')}" th:errors="*{typesOfUserSex}">User one of the sex options must be selected!</div></td>
+			<td>&nbsp;</td>           
 		</tr>
-		<tr>
-			<td height="39" class="l">Username</td>
-			<td colspan="4"><input type="text" name="inputNewUserUserName"	id="inputNewUserUserName" th:field="*{userNickName}" /></td>
+	     <tr>
+			<td width="140" height="37" class="l">Username</td>
+			<td>
+			<div align="left"><input type="text" name="inputNewUserNickname" id="inputNewUserNickname" th:field="*{userNickName}" /></div>
+			</td>
+			<td width="12">&nbsp;</td>
+			<td width="745"><div align="left" th:if="${#fields.hasErrors('userNickName')}" th:errors="*{userNickName}">Invalid input for user nickname</div></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td class="l">Job state</td>

@@ -1,32 +1,26 @@
 package ControllersTests;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import com.frontend.jobmanger.controller.RegistrationController;
+import org.junit.runners.Parameterized;
+
+import models.UserSexState;
+
 
 class RegistrationControllerTest
 {
 	private MockMvc mockMvc;
 	private RegistrationController regController;
-
+        
 	@BeforeEach
 	public void setUp()
 	{
@@ -47,17 +41,33 @@ class RegistrationControllerTest
 	{
 		mockMvc.perform(post("/submitNewUserReg")).andExpect(status().isBadRequest());
 	}
-	
+
 	@Test
-    void checkThatNoEmptyTextCanBePostedForAllInputFields() throws Exception
+	void runWithEnumsSexState() throws Exception
+	{
+		for (UserSexState currentSex : UserSexState.values())
+		{
+			checkThatNoEmptyTextCanBePostedForAllInputFields(currentSex);
+		}
+	}
+	
+
+    void checkThatNoEmptyTextCanBePostedForAllInputFields(UserSexState currentSexState) throws Exception
     {
-		String userFirstName = "";
-		String userLastName = "";
-		String userBirthDate = "";
+    	System.out.println("Params: "+currentSexState+"\n");
+		String blankInput = "";
+        String inputForStreetNumber="0";
 		mockMvc.perform(post("/submitNewUserReg")
-				.param("userFirstName", userFirstName)
-				.param("userLastName", userLastName)
-				.param("userBirthDate", userBirthDate)
+				.param("userFirstName", blankInput)
+				.param("userLastName", blankInput)
+				.param("userBirthDate", blankInput)
+				.param("userEmail", blankInput)
+				.param("userCity", blankInput)
+				.param("userStreetName", blankInput)
+				.param("userStreetNumber", inputForStreetNumber)
+				.param("userCountryName", blankInput)
+				.param("userNickName", blankInput)
+				.param("typesOfUserSex", currentSexState.toString())
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 				.andExpect(status().isOk());		
     }
@@ -80,5 +90,63 @@ class RegistrationControllerTest
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 				.andExpect(status().isBadRequest());		
     }
+	@Test
+    void checkThatNoEmptyTextCanBePostForUserEmail() throws Exception
+    {
+		String userEmail = "";
+		mockMvc.perform(post("/submitNewUserReg")
+				.param("userEmail", userEmail)
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(status().isBadRequest());		
+    }
 	
+	@Test
+    void checkThatNoEmptyTextCanBePostForUserCity() throws Exception
+    {
+		String userCity = "";
+		mockMvc.perform(post("/submitNewUserReg")
+				.param("userCity", userCity)
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(status().isBadRequest());		
+    }
+	
+	@Test
+    void checkThatNoEmptyTextCanBePostForUserStreetName() throws Exception
+    {
+		String userStreetName = "";
+		mockMvc.perform(post("/submitNewUserReg")
+				.param("userStreetName", userStreetName)
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(status().isBadRequest());		
+    }
+	
+	@Test
+    void checkThatNoEmptyTextCanBePostForUserStreetNumber() throws Exception
+    {
+		String userStreetNumber = "";
+		mockMvc.perform(post("/submitNewUserReg")
+				.param("userStreetNumber", userStreetNumber)
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(status().isBadRequest());		
+    }
+	
+	@Test
+    void checkThatNoEmptyTextCanBePostForUserCountry() throws Exception
+    {
+		String userCountryName = "";
+		mockMvc.perform(post("/submitNewUserReg")
+				.param("userCountryName", userCountryName)
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(status().isBadRequest());		
+    }
+	
+	@Test
+    void checkThatNoEmptyTextCanBePostForUserNickname() throws Exception
+    {
+		String userNickName = "";
+		mockMvc.perform(post("/submitNewUserReg")
+				.param("userNickName", userNickName)
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(status().isBadRequest());		
+    }
 }

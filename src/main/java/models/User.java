@@ -2,10 +2,13 @@ package models;
 
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -16,23 +19,49 @@ public class User
 	@NotEmpty(message = "User first name input must be 5 or more signs!")
 	@Size(min=5, max=40)
 	private String userFirstName;
+	
 	@NotEmpty(message = "User last name input must be 5 or more signs!")
 	@Size(min=5, max=40)
 	private String userLastName;
+	
+	@NotEmpty(message = "Invalid input for User email!")
+	@Email
 	private String userEmail;
+	
+	@NotEmpty(message = "User city input must be 3 or more signs!")
+	@Size(min=3, max=40)
 	private String userCity;
+	
+	@NotEmpty(message = "User street name input must be 3 or more signs!")
+	@Size(min=3, max=40)
 	private String userStreetName;
+	
+	@NotNull(message = "User street number input must be 1 or more signs!")
+	@NumberFormat
+	private Integer userStreetNumber;
+	
+	@NotEmpty(message = "User street country input must be 2 or more signs!")
+	@Size(min=2, max=40)
 	private String userCountryName;
+	
 	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	@NotNull(message = "User date input is wrong dd mm yyy like for examle 12.01.2019") 
 	@Past
 	private LocalDate userBirthDate;
-	private UserEmploymentState currentEmploymentState;
+	
+	@NotEmpty(message = "User nickname input must be 5 or more signs!")
+	@Size(min=5, max=40)
+	private String userNickName;
+	
+	@NotNull(message = "User sex must be selected!")
 	private UserSexState currentUserSexState;
-	private Integer userStreetNumber;
+	
+	private UserEmploymentState currentEmploymentState;
+	
+	
 	private Boolean userAccountState;
 	private LocalDate userRegistrationDate;
-	private String userNickName;
+	
 	private List<UserSexState> typesOfUserSex = new ArrayList<UserSexState>();
 	private List<UserEmploymentState> typesOfUserEmploymentState = new ArrayList<UserEmploymentState>();
 	

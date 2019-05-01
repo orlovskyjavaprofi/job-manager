@@ -28,27 +28,25 @@ public class RegistrationController
 		return "regnewuserform";
 	}
 
-
-	//  @RequestParam String userEmail,
-	// @RequestParam String userCity,
-	// @RequestParam String userStreetName, @RequestParam Integer
-	// userStreetNumber,
-	// @RequestParam String userCountryName, @RequestParam String
-	// typesOfUserSex,
-	// @RequestParam String userNickName, @RequestParam String
-	// currentEmploymentState
+	
+	//  ,
+	//  @RequestParam String currentEmploymentState
 
 	@PostMapping("/submitNewUserReg")
-	public String handleAddNewUser(@RequestParam String userFirstName,@RequestParam String userLastName,
-			@RequestParam String userBirthDate,
+	public String addNewUser(@RequestParam String userFirstName,@RequestParam String userLastName,
+			@RequestParam String userBirthDate, @RequestParam String userEmail, @RequestParam String userCity,
+			@RequestParam String userStreetName, @RequestParam Integer userStreetNumber,
+			@RequestParam String userCountryName, @RequestParam String userNickName,
+			@RequestParam UserSexState typesOfUserSex,
 			@Valid @ModelAttribute User currentUser, BindingResult bindingResult)
 	{
-		// "/newUserAddConfirmation"
+
 		String pageAfterNewUserValidation = "newUserAddConfirmation";
 
 		if (bindingResult.hasErrors()) {
 			pageAfterNewUserValidation = "regnewuserform";
 		}
+
 		
 		return pageAfterNewUserValidation;
 	}

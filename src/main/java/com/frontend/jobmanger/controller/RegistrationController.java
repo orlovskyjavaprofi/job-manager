@@ -28,16 +28,12 @@ public class RegistrationController
 		return "regnewuserform";
 	}
 
-	
-	//  ,
-	//  @RequestParam String currentEmploymentState
-
 	@PostMapping("/submitNewUserReg")
 	public String addNewUser(@RequestParam String userFirstName,@RequestParam String userLastName,
 			@RequestParam String userBirthDate, @RequestParam String userEmail, @RequestParam String userCity,
 			@RequestParam String userStreetName, @RequestParam Integer userStreetNumber,
 			@RequestParam String userCountryName, @RequestParam String userNickName,
-			@RequestParam UserSexState typesOfUserSex,
+			@RequestParam UserSexState typesOfUserSex, @RequestParam UserEmploymentState currentEmploymentState,
 			@Valid @ModelAttribute User currentUser, BindingResult bindingResult)
 	{
 

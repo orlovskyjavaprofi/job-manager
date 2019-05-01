@@ -56,8 +56,8 @@ public class User
 	@NotNull(message = "User sex must be selected!")
 	private UserSexState currentUserSexState;
 	
+	@NotNull(message = "User EmploymentState must be selected!")
 	private UserEmploymentState currentEmploymentState;
-	
 	
 	private Boolean userAccountState;
 	private LocalDate userRegistrationDate;

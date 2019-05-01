@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.frontend.jobmanger.controller.RegistrationController;
 import org.junit.runners.Parameterized;
 
+import models.UserEmploymentState;
 import models.UserSexState;
 
 
@@ -47,14 +48,17 @@ class RegistrationControllerTest
 	{
 		for (UserSexState currentSex : UserSexState.values())
 		{
-			checkThatNoEmptyTextCanBePostedForAllInputFields(currentSex);
+			for (UserEmploymentState currentEmploymentState: UserEmploymentState.values()) {
+				checkThatNoEmptyTextCanBePostedForAllInputFields(currentSex, currentEmploymentState);
+			}
 		}
 	}
-	
 
-    void checkThatNoEmptyTextCanBePostedForAllInputFields(UserSexState currentSexState) throws Exception
+    void checkThatNoEmptyTextCanBePostedForAllInputFields(UserSexState currentSexState, 
+    		                     UserEmploymentState currentEmploymentState) throws Exception
     {
-    	System.out.println("Params: "+currentSexState+"\n");
+		System.out.println("Params sex: " + currentSexState );
+		System.out.println("Params employment state: " + currentEmploymentState + "\n");
 		String blankInput = "";
         String inputForStreetNumber="0";
 		mockMvc.perform(post("/submitNewUserReg")
@@ -68,6 +72,7 @@ class RegistrationControllerTest
 				.param("userCountryName", blankInput)
 				.param("userNickName", blankInput)
 				.param("typesOfUserSex", currentSexState.toString())
+				.param("currentEmploymentState", currentEmploymentState.toString())
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 				.andExpect(status().isOk());		
     }

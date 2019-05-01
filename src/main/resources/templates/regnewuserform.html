@@ -106,17 +106,28 @@
 			<td width="745"><div align="left" th:if="${#fields.hasErrors('userNickName')}" th:errors="*{userNickName}">Invalid input for user nickname</div></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td class="l">Job state</td>
-			<td colspan="4">
-			<select name="selectionBoxEmploymentState" id="selectionBoxEmploymentState" th:field="*{currentEmploymentState}">
-			<option th:each="currentEmploymentState : ${allUserEmployeeStateTypes}" 
-			        th:value="${currentEmploymentState}" 
-			        th:text="${currentEmploymentState}"></option>
-			</select>
-			</td>
-		</tr>
-		<tr>
+			<tr>
+				<td width="140" height="37" class="l">Job state</td>
+				<td>
+					<div align="left">
+						<select name="selectionBoxEmploymentState"	id="selectionBoxEmploymentState" th:field="*{currentEmploymentState}">
+							<option
+								th:each="currentEmploymentState : ${allUserEmployeeStateTypes}"
+								th:value="${currentEmploymentState}"
+								th:text="${currentEmploymentState}">
+							</option>
+						</select>
+					</div>
+				</td>
+				<td width="12">&nbsp;</td>
+				<td width="745">
+				<div align="left" th:if="${#fields.hasErrors('currentEmploymentState')}" th:errors="*{currentEmploymentState}">
+				Invalid input for user nickname</div>
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+
+			<tr>
 			<td class="l">Captcha</td>
 			<td colspan="4"><input name="textfield9" type="text" id="textfield9" value="to be implemented!!!" /></td>
 		</tr>

@@ -25,7 +25,15 @@ class LoginControllerTest
 	}
 
 	@Test
-	public void checkThatRegistrationPageHasAValidViewName() throws Exception
+	public void checkThatLoginPageHasAValidViewNameForLogin() throws Exception
+	{
+		mockMvc.perform(get("/login"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("loginUserPage"));	
+	}
+	
+	@Test
+	public void checkThatLoginPageHasAValidViewNameForSlash() throws Exception
 	{
 		mockMvc.perform(get("/"))
 		.andExpect(status().isOk())

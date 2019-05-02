@@ -10,12 +10,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.frontend.jobmanger.Application;
 
+import frontend.security.config.SecurityConfiguration;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
-@AutoConfigureMockMvc
+@SpringBootTest(classes = {Application.class, SecurityConfiguration.class})
+@AutoConfigureMockMvc()
 public class StaticContentTest
 {
 	@Autowired

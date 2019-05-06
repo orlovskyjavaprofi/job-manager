@@ -1,5 +1,6 @@
 package ModelTests;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -181,6 +182,13 @@ class UserModelTest
 		
 		assertNotNull(newUser,"New user creation failed!");
 	}
+	
+	@Test
+	void checkIfAPasswordCanBeSetUp() {		
+		String simplePassword = "Tux";
+		userObj.setUserPassword(simplePassword);
+		assertEquals(simplePassword, userObj.getUserPassword(), "User password wasnt not set up!");
+	}
 
 	private User setUpANewUser()
 	{
@@ -194,6 +202,7 @@ class UserModelTest
 		newUser.setUserBirthDate("12.02.1978");
 		newUser.setCurrentEmploymentState(UserEmploymentState.SELFEMPLOYED);
 		newUser.setCurrentUserSexState(UserSexState.MALE);
+		newUser.setUserPassword("pinguine");
 		return newUser;
 	}
 }

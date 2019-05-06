@@ -59,6 +59,10 @@ public class User
 	@NotNull(message = "User EmploymentState must be selected!")
 	private UserEmploymentState currentEmploymentState;
 	
+	@NotEmpty(message = "User password must be 8 or more signs!")
+	@Size(min=8, max=12)
+	private String userPassword;
+	
 	private Boolean userAccountState;
 	private LocalDate userRegistrationDate;
 	
@@ -85,6 +89,7 @@ public class User
 		this.setUserAccountState(false);
 		this.setUserNickName("");
 		this.setUserBirthDate("25.03.1978");
+		this.setUserPassword("tux");
 		formaRegDate();
 		// To-do implement a Reference to List or of some sort collection of job
 		// applications where belong to this user
@@ -256,6 +261,16 @@ public class User
 		this.typesOfUserEmploymentState = typesOfUserEmploymentState;
 	}
 
+	public String getUserPassword()
+	{
+		return userPassword;
+	}
+
+	public void setUserPassword(String userPassword)
+	{
+		this.userPassword = userPassword;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -265,7 +280,7 @@ public class User
 				+ userCountryName + "\nuserBirthDate=" + userBirthDate +"\nuserSex=" + currentUserSexState
 				+ "\ncurrentEmploymentState=" + currentEmploymentState 
 				+ "\nuserStreetNumber=" + userStreetNumber + "\nuserAccountState="
-				+ userAccountState + "\nuserRegistrationDate=" + userRegistrationDate ;
+				+ userAccountState + "\nuserRegistrationDate=" + userRegistrationDate +"\nUser pass: "+ userPassword;
 	}
 
 }

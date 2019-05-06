@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1 align="left">Welcome to <u>job manager</u> a new way of managing job applications in 21 century!</h1>
-<form action="#" th:action="@{/loginAsUserToJobManger}" th:object="${user}" method="post">
+
 <table width="1361" height="10" border="0"  cellpadding="0" cellspacing="0">
 <tr>
 <td width="567"><h2>Registred users: <strong>$NumberOfRegistredUsers</strong></h2></td>
@@ -17,6 +17,9 @@
 <td>&nbsp;</td>
 </tr>
 </table>
+<table>
+<tr><td>
+<form action="#" th:action="@{/loginAsUserToJobManger}" th:object="${user}" method="post">
 <table border="0" align="left" cellpadding="0" cellspacing="0">
 <tr>
 <td colspan="3"><h2><strong>Login</strong></h2></td>
@@ -24,12 +27,16 @@
 <tr>
   <td><strong>User:</strong></td>
   <td>&nbsp;</td>
-  <td><input type="text" name="inputForUserNickName" id="inputForUserNickName"></td>
+  <td><input type="text" name="inputForUserNickName" id="inputForUserNickName" th:field="*{userNickName}"></td>
+  <td>&nbsp;</td>
+  <td><div align="left" th:if="${#fields.hasErrors('userNickName')}" th:errors="*{userNickName}">Invalid input for user nickname!</div></td>
 </tr>
 <tr>
   <td><strong>Password:</strong></td>
   <td>&nbsp;</td>
-  <td><input type="password" name="inputForUserPassword" id="inputForUserPassword"></td>
+  <td><input type="password" name="inputForUserPassword" id="inputForUserPassword" th:field="*{userPassword}"></td>
+  <td>&nbsp;</td>
+  <td><div align="left" th:if="${#fields.hasErrors('userPassword')}" th:errors="*{userPassword}">Invalid input for user password!</div></td>
 </tr>
 <tr>
   <td colspan="3">&nbsp;</td>
@@ -53,10 +60,12 @@
   <td><input type="submit" name="submitButUserCridentials" id="submitButUserCridentials" value="Log in"></td>
 </tr>
 </table>
-<table width="1000" border="0" cellpadding="0" cellspacing="0">
+</form>
+</td>
+<td><table border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td>&nbsp;</td>
-    <td colspan="2"><div align="center"><strong>HERE IS YOUR PLACE FOR ADVERTISEMENT!</strong></div></td>
+    <td colspan="2"><div align="left"><strong>HERE IS YOUR PLACE FOR ADVERTISEMENT!</strong></div></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -73,7 +82,7 @@
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td colspan="2"><div align="center"><strong>HERE IS YOUR PLACE FOR ADVERTISEMENT!</strong></div></td>
+    <td colspan="2"><div align="left"><strong>HERE IS YOUR PLACE FOR ADVERTISEMENT!</strong></div></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -96,11 +105,11 @@
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td colspan="2"><div align="center"><strong>HERE IS YOUR PLACE FOR ADVERTISEMENT!</strong></div></td>
+    <td colspan="2"><div align="left"><strong>HERE IS YOUR PLACE FOR ADVERTISEMENT!</strong></div></td>
     <td>&nbsp;</td>
   </tr>
-</table>
-<table width="1365" border="0" cellpadding="0" cellspacing="0">
+</table></td></tr>
+<tr><td><table width="100" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="443"></td>
     <td width="10"></td>
@@ -149,9 +158,10 @@ the highest rate possible , but some company luck of understanding and ability t
     <td width="10">&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
+</table></td></tr>
 </table>
-</form>
-<table width="1363" border="0" cellpadding="0" cellspacing="0">
+
+<table width="1000" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td>&nbsp;</td>
     <td width="5"></td>

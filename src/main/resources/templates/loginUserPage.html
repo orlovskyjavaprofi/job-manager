@@ -5,13 +5,12 @@
 <title>Welcome to job manager!</title>
 </head>
 <body>
-<!-- <form action="#" th:action="@{/loginAsUserToJobManger}" th:object="${user}" method="post"> -->
-
 <h1 align="left">Welcome to <u>job manager</u> a new way of managing job applications in 21 century!</h1>
+<form action="#" th:action="@{/loginAsUserToJobManger}" th:object="${user}" method="post">
 <table width="1361" height="10" border="0"  cellpadding="0" cellspacing="0">
 <tr>
 <td width="567"><h2>Registred users: <strong>$NumberOfRegistredUsers</strong></h2></td>
-<td width="12">&nbsp;</td>
+<td width="5">&nbsp;</td>
 <td width="782"><h2>Users to be activated: <strong>$Number of users to be activated</strong></h2></td>
 </tr>
 <tr>
@@ -36,9 +35,14 @@
   <td colspan="3">&nbsp;</td>
   </tr>
 <tr>
-  <td>Forgot password?</td>
+  <td>New user? &nbsp;&nbsp;<strong><a href="regnewuser">Register here!</a></strong></td>
   <td>&nbsp;</td>
-  <td>New user? <strong>Register here!</strong></td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td>Forgot password? &nbsp;&nbsp;<strong> Request your new password here! </strong> </td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
 </tr>
 <tr>
   <td colspan="3">&nbsp;</td>
@@ -146,8 +150,8 @@ the highest rate possible , but some company luck of understanding and ability t
     <td>&nbsp;</td>
   </tr>
 </table>
+</form>
 <table width="1363" border="0" cellpadding="0" cellspacing="0">
-
   <tr>
     <td>&nbsp;</td>
     <td width="5"></td>
@@ -174,6 +178,6 @@ the highest rate possible , but some company luck of understanding and ability t
   </tr>
 </table>
 
-<!-- </form> -->
+
 </body>
 </html>

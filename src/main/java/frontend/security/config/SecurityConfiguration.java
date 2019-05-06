@@ -13,7 +13,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(HttpSecurity http) throws Exception
 	{
-
 		http.authorizeRequests().antMatchers("/css/**", "/img/**", "/js/**", "/","/regnewuser","/newUserAddConfirmation")
 		.permitAll()
 		.and()
@@ -21,6 +20,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	    .loginPage("/")
 	    .and()
 	    .httpBasic();
-
 	}
 }

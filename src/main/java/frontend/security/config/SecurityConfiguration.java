@@ -13,7 +13,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(HttpSecurity http) throws Exception
 	{
-		http.authorizeRequests().antMatchers("/css/**", "/img/**", "/js/**", "/","/regnewuser",
+		publicAccessForNonRegisteredUsers(http);	
+		restrictedAccesForRegUsers(http);
+		restrictedAccesForAdminOnly(http);
+	}
+
+	private void restrictedAccesForAdminOnly(HttpSecurity http) throws Exception
+	{
+		http.authorizeRequests().antMatchers("/adminarea/**").hasRole("ADMIN")
+		   .and()
+		    .httpBasic();
+	}
+
+	private void restrictedAccesForRegUsers(HttpSecurity http) throws Exception
+	{
+		http.authorizeRequests().antMatchers("/memberarea/**").hasRole("USER")
+		   .and()
+		    .httpBasic();
+	}
+
+	private void publicAccessForNonRegisteredUsers(HttpSecurity http) throws Exception
+	{
+		http.authorizeRequests().
+		antMatchers("/css/**", "/img/**", "/js/**", "/","/regnewuser",
 				"/newUserAddConfirmation","/loginAsUserToJobManger", "/recoverUserPass")
 		.permitAll()
 		.and()

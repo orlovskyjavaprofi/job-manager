@@ -4,12 +4,14 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import models.User;
 
@@ -40,5 +42,12 @@ public class LoginController
 		}
 
 		return pageAfterUserAuth;
+	}
+	
+	@GetMapping( value = { "/memberarea", "/adminarea" })
+	@ResponseStatus(code = HttpStatus.FORBIDDEN)
+	public String notAuthAccessToMemberArea(){
+		
+		return "restrictedAccess";
 	}
 }

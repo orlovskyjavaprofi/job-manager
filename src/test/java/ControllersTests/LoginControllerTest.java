@@ -52,4 +52,16 @@ class LoginControllerTest
         .andExpect(view().name("loginUserPage"));
 	}
 	
+	@Test
+	public void checkIfNotRegesteredUserTriesToAccessMemberArea() throws Exception{
+		mockMvc.perform(get("/memberarea"))
+	    .andExpect(status().isForbidden());
+	}
+	
+	@Test
+	public void checkIfNotRegesteredUserTriesToAccessAdminArea() throws Exception{
+		mockMvc.perform(get("/adminarea"))
+	    .andExpect(status().isForbidden());
+	}
+	
 }

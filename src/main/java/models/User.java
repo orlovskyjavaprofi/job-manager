@@ -16,12 +16,12 @@ import javax.validation.constraints.Size;
 
 public class User
 {
-	@NotEmpty(message = "User first name input must be 5 or more signs!")
-	@Size(min=5, max=40)
+	@NotEmpty(message = "User first name input must be 2 or more signs!")
+	@Size(min=2, max=40)
 	private String userFirstName;
 	
-	@NotEmpty(message = "User last name input must be 5 or more signs!")
-	@Size(min=5, max=40)
+	@NotEmpty(message = "User last name input must be 2 or more signs!")
+	@Size(min=2, max=40)
 	private String userLastName;
 	
 	@NotEmpty(message = "Invalid input for User email!")
@@ -89,7 +89,7 @@ public class User
 		this.setUserAccountState(false);
 		this.setUserNickName("");
 		this.setUserBirthDate("25.03.1978");
-		this.setUserPassword("tux");
+		this.setUserPassword("tuxtuxtux*");
 		formaRegDate();
 		// To-do implement a Reference to List or of some sort collection of job
 		// applications where belong to this user

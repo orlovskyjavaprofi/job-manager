@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ import models.UserSexState;
 @Controller
 public class RegistrationController
 {
+	
 	@GetMapping("/regnewuser")
 	public String showRegistrationForm(Model model)
 	{
@@ -38,15 +40,18 @@ public class RegistrationController
 	{
 
 		String pageAfterNewUserValidation = "newUserAddConfirmation";
-
-		if (bindingResult.hasErrors()) {
+        boolean resultOfInsertForNewUserIntoRepo = false;
+		if (bindingResult.hasErrors() || resultOfInsertForNewUserIntoRepo==false) {
 			pageAfterNewUserValidation = "regnewuserform";
 		}
 
+		//generate password for newly created user
+		//put user into a UserRepository!
 		
 		return pageAfterNewUserValidation;
 	}
 
+	
 	@ModelAttribute("allUserSexTypes")
 	public List<UserSexState> populateUserSexType()
 	{

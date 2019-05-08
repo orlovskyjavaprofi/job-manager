@@ -13,8 +13,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(HttpSecurity http) throws Exception
 	{
-		publicAccessForNonRegisteredUsers(http);	
-		restrictedAccesForRegUsers(http);
+		publicAccessForNonRegistereAndRegisteredUsers(http);	
 		restrictedAccesForAdminOnly(http);
 	}
 
@@ -25,22 +24,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 		    .httpBasic();
 	}
 
-	private void restrictedAccesForRegUsers(HttpSecurity http) throws Exception
-	{
-		http.authorizeRequests().antMatchers("/memberarea/**").hasRole("USER")
-		   .and()
-		    .httpBasic();
-	}
-
-	private void publicAccessForNonRegisteredUsers(HttpSecurity http) throws Exception
+	private void publicAccessForNonRegistereAndRegisteredUsers(HttpSecurity http) throws Exception
 	{
 		http.authorizeRequests().
 		antMatchers("/css/**", "/img/**", "/js/**", "/","/regnewuser",
 				"/newUserAddConfirmation","/loginAsUserToJobManger", "/recoverUserPass")
 		.permitAll()
+		.antMatchers("/memberarea/**").hasRole("USER")
 		.and()
-		.formLogin()
-	    .loginPage("/")
+		.formLogin().loginPage("/")
 	    .and()
 	    .httpBasic();
 	}

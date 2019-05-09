@@ -1,12 +1,14 @@
 package com.frontend.jobmanger.controller;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.frontend.jobmanager.service.InMemoryUserService;
+
 import models.User;
 import models.UserEmploymentState;
 import models.UserSexState;
@@ -22,36 +26,48 @@ import models.UserSexState;
 @Controller
 public class RegistrationController
 {
+	@Autowired
+	private InMemoryUserService inMemUserService;
 	
 	@GetMapping("/regnewuser")
 	public String showRegistrationForm(Model model)
 	{
 		model.addAttribute("user", new User());
+		
 		return "regnewuserform";
 	}
 
 	@PostMapping("/submitNewUserReg")
-	public String addNewUser(@RequestParam String userFirstName,@RequestParam String userLastName,
-			@RequestParam String userBirthDate, @RequestParam String userEmail, @RequestParam String userCity,
+	public String addNewUser(@RequestParam String userFirstName, @RequestParam String userLastName,
+			@RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate userBirthDate,
+			@RequestParam String userEmail, @RequestParam String userCity,
 			@RequestParam String userStreetName, @RequestParam Integer userStreetNumber,
 			@RequestParam String userCountryName, @RequestParam String userNickName,
 			@RequestParam UserSexState typesOfUserSex, @RequestParam UserEmploymentState currentEmploymentState,
-			@Valid @ModelAttribute User currentUser, BindingResult bindingResult)
+			@Valid @ModelAttribute User modelForValidatingUser, BindingResult bindingResult)
 	{
 
-		String pageAfterNewUserValidation = "newUserAddConfirmation";
-        boolean resultOfInsertForNewUserIntoRepo = false;
-		if (bindingResult.hasErrors() || resultOfInsertForNewUserIntoRepo==false) {
+		String pageAfterNewUserValidation = "regnewuserform";
+
+		if (bindingResult. hasErrors()) {
 			pageAfterNewUserValidation = "regnewuserform";
+		}else {
+	     	saveUserToInMemoryRepo(modelForValidatingUser);
+			pageAfterNewUserValidation = "newUserAddConfirmation";
 		}
 
-		//generate password for newly created user
-		//put user into a UserRepository!
-		
 		return pageAfterNewUserValidation;
 	}
 
-	
+	private void saveUserToInMemoryRepo(User modelForValidatingUser)
+	{
+		//To:DO add to user a random hashed password
+		
+		if (inMemUserService != null) {
+		  inMemUserService.saveNewUser(modelForValidatingUser);
+		}
+	}
+
 	@ModelAttribute("allUserSexTypes")
 	public List<UserSexState> populateUserSexType()
 	{

@@ -10,9 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import com.frontend.jobmanger.controller.RegistrationController;
-import org.junit.runners.Parameterized;
 
+import com.frontend.jobmanger.controller.RegistrationController;
 import models.UserEmploymentState;
 import models.UserSexState;
 
@@ -21,7 +20,7 @@ class RegistrationControllerTest
 {
 	private MockMvc mockMvc;
 	private RegistrationController regController;
-        
+	
 	@BeforeEach
 	public void setUp()
 	{
@@ -74,30 +73,29 @@ class RegistrationControllerTest
 				.param("typesOfUserSex", currentSexState.toString())
 				.param("currentEmploymentState", currentEmploymentState.toString())
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
-				.andExpect(status().isOk());		
+				.andExpect(status().isOk())		
+		        .andExpect(view().name("regnewuserform"));
     }
 	
-//    @Test
-//    void checkIfASubmitNewUserCanBeRegistered() throws Exception {
-//    	
-//    	mockMvc.perform(post("/submitNewUserReg")
-//				.param("userFirstName", "John")
-//				.param("userLastName", "Smith")
-//				.param("userBirthDate", "01.04.1957")
-//				.param("userEmail", "hardcorejavadev@hotmail.com")
-//				.param("userCity", "Detroit")
-//				.param("userStreetName", "Bankerstreet")
-//				.param("userStreetNumber", "1234556")
-//				.param("userCountryName", "USA")
-//				.param("userNickName", "superduperjavadev01")
-//				.param("typesOfUserSex", "MALE")
-//				.param("currentEmploymentState", "SELFEMPLOYED")
-//				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
-//				.andExpect(status().isOk())
-//				.andExpect(view().name("newUserAddConfirmation"));
-//    }
-    
-    
+    @Test
+    void checkIfASubmitNewUserCanBeRegistered() throws Exception {    	
+    	mockMvc.perform(post("/submitNewUserReg")
+				.param("userFirstName", "John")
+				.param("userLastName", "Smith")
+				.param("userBirthDate", "01.04.1957")
+				.param("userEmail", "hardcorejavadev@hotmail.com")
+				.param("userCity", "Detroit")
+				.param("userStreetName", "Bankerstreet")
+				.param("userStreetNumber", "1234556")
+				.param("userCountryName", "USA")
+				.param("userNickName", "superduperjavadev01")
+				.param("typesOfUserSex", "MALE")
+				.param("currentEmploymentState", "SELFEMPLOYED")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(status().isOk())
+				.andExpect(view().name("newUserAddConfirmation"));
+    }
+        
 	@Test
     void checkThatNoEmptyTextCanBePosForUserLastName() throws Exception
     {

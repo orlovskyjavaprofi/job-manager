@@ -40,6 +40,8 @@ public class LoginController
 		if (bindingResult.hasErrors()) {
 			pageAfterUserAuth = "loginUserPage";
 		}
+	    //else TO:DO verify if user activated and if only user activated allow to login!
+		
 
 		return pageAfterUserAuth;
 	}

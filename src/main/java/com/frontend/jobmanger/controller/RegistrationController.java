@@ -44,7 +44,7 @@ public class RegistrationController
 			@RequestParam String userStreetName, @RequestParam Integer userStreetNumber,
 			@RequestParam String userCountryName, @RequestParam String userNickName,
 			@RequestParam UserSexState typesOfUserSex, @RequestParam UserEmploymentState currentEmploymentState,
-			@Valid @ModelAttribute User modelForValidatingUser, BindingResult bindingResult)
+			@Valid @ModelAttribute User newRegUser, BindingResult bindingResult)
 	{
 
 		String pageAfterNewUserValidation = "regnewuserform";
@@ -52,19 +52,18 @@ public class RegistrationController
 		if (bindingResult. hasErrors()) {
 			pageAfterNewUserValidation = "regnewuserform";
 		}else {
-	     	saveUserToInMemoryRepo(modelForValidatingUser);
+	     	saveUserToInMemoryRepo(newRegUser);
 			pageAfterNewUserValidation = "newUserAddConfirmation";
 		}
 
 		return pageAfterNewUserValidation;
 	}
 
-	private void saveUserToInMemoryRepo(User modelForValidatingUser)
+	private void saveUserToInMemoryRepo(User userWhichReg)
 	{
-		//To:DO add to user a random hashed password
-		
+
 		if (inMemUserService != null) {
-		  inMemUserService.saveNewUser(modelForValidatingUser);
+		  inMemUserService.saveNewUser(userWhichReg);
 		}
 	}
 

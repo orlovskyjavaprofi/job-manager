@@ -30,4 +30,11 @@ public class InMemoryUserRepoTest
 	   Boolean actualResult = inMemUserRepo.addUser(userObj);
 	   assertEquals(expectedResult, actualResult, "User wasn't added to inmemory repo!");
    }
+   
+   @Test
+   void checkIfAGivenUserCanBeFound() {
+	   User userObj = new User();
+	   inMemUserRepo.addUser(userObj);
+	   assertNotNull(inMemUserRepo.findUser(userObj),"Given User can't be found");
+   }
 }

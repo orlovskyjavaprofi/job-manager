@@ -59,7 +59,7 @@ public class User
 	private UserEmploymentState currentEmploymentState;
 	
 	@NotEmpty(message = "User password must be 8 or more signs!")
-	@Size(min=8, max=12)
+	@Size(min=8, max=40)
 	private String userPassword;
 	
 	private Boolean userAccountState;

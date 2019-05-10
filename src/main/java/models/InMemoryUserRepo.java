@@ -44,4 +44,18 @@ public class InMemoryUserRepo
 		return "InMemoryUserRepo [ListOfUsers=" + ListOfUsers + "]";
 	}
 
+	public User findUser(User userForSearch)
+	{
+	   User userFound = null;
+	   for (User user : this.getListOfUsers())
+	   {
+		  if (userForSearch.equals(user)) {
+			  userFound = user;
+			  break;
+		  }
+	   }		
+	   
+	   return userFound;
+	}
+
 }

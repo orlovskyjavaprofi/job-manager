@@ -64,6 +64,7 @@ public class User
 	
 	private Boolean userAccountState;
 	private LocalDate userRegistrationDate;
+	private Boolean userLoginState;
 	
 	private List<UserSexState> typesOfUserSex = new ArrayList<UserSexState>();
 	private List<UserEmploymentState> typesOfUserEmploymentState = new ArrayList<UserEmploymentState>();
@@ -89,6 +90,7 @@ public class User
 		this.setUserNickName("");
 		this.setUserBirthDate("25.03.1978");
 		this.setUserPassword("tuxtuxtux*");
+		this.setUserLoginState(false);
 		formaRegDate();
 		// To-do implement a Reference to List or of some sort collection of job
 		// applications where belong to this user
@@ -99,6 +101,8 @@ public class User
 		this.setUserFirstName(firstNameOfUser);
 		this.setUserLastName(lastNameOfUser);
 		this.setUserAccountState(false);
+		this.setUserLoginState(false);
+
 		formaRegDate();
 	}
 
@@ -270,6 +274,16 @@ public class User
 		this.userPassword = userPassword;
 	}
 
+	public Boolean getUserLoginState()
+	{
+		return userLoginState;
+	}
+
+	public void setUserLoginState(Boolean userLoginState)
+	{
+		this.userLoginState = userLoginState;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -279,7 +293,8 @@ public class User
 				+ userCountryName + "\nuserBirthDate=" + userBirthDate +"\nuserSex=" + currentUserSexState
 				+ "\ncurrentEmploymentState=" + currentEmploymentState 
 				+ "\nuserStreetNumber=" + userStreetNumber + "\nuserAccountState="
-				+ userAccountState + "\nuserRegistrationDate=" + userRegistrationDate +"\nUser pass: "+ userPassword;
+				+ userAccountState + "\nuserRegistrationDate=" + userRegistrationDate +"\nUser pass: "+ userPassword+
+				"\nUser logged status: "+userLoginState;
 	}
 
 }

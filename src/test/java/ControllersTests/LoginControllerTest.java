@@ -12,17 +12,21 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.frontend.jobmanger.controller.LoginController;
+import com.frontend.jobmanger.controller.RegistrationController;
 
 class LoginControllerTest
 {
 	private MockMvc mockMvc;
+	private MockMvc mockMvcReg;
 	private LoginController loginController;
-        
+    private RegistrationController regController;
 	@BeforeEach
 	public void setUp()
 	{
 		loginController = new LoginController();
+		regController = new RegistrationController();
 		mockMvc = MockMvcBuilders.standaloneSetup(loginController).build();
+		mockMvcReg = MockMvcBuilders.standaloneSetup(regController).build();
 	}
 
 	@Test
@@ -63,5 +67,17 @@ class LoginControllerTest
 		mockMvc.perform(get("/adminarea"))
 	    .andExpect(status().isForbidden());
 	}
+	
+	@Test
+	public void checkIfUserCantLoginWithRandomStuffIntoPage() throws Exception {
+	
+	       mockMvc.perform(post("/loginAsUserToJobManger")
+	    			.param("userNickName", "tux")
+				.param("userPassword", "")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+			.andExpect(status().isOk())
+	        .andExpect(view().name("loginUserPage"));
+	}
+	
 	
 }

@@ -22,15 +22,48 @@ public class InMemoryUserService implements InMemoryUserRepoContract
 		passEncoder = new BCryptPasswordEncoder();
 	}
 	
-	public void saveNewUser(User newRegUser)
+	public void saveNewUserWithRandomPass(User newRegUser)
 	{		
 		if (newRegUser != null) {
+			String passwordInClear = this.genRandomClearPass(12);
+			System.out.println(passwordInClear);
+			newRegUser.setUserPassword( this.genHashedPassword(passwordInClear ));
 			System.out.println("following user was save to memory: "+ newRegUser.toString());
-			newRegUser.setUserPassword( this.genHashedPassword(this.genRandomClearPass(12)));
+			
 		   inMemRepo.addUser(newRegUser);
 		}
 	}
-
+	
+	public boolean saveUserWithGivenHashPass(User givenUser)
+	{
+		boolean result = false;
+		
+		if(givenUser != null) {
+			inMemRepo.addUser(givenUser);
+			result = true;
+		}
+		
+		return result;
+		
+	}
+	
+	public boolean authUserByGivenNickNameAndPass(String givenUserNickName, String givenUserPassword)
+	{
+		boolean result= false;
+	
+		System.out.println("\nUser supplied pass: "+givenUserPassword);
+		User userToBeAuthInSystem = findUserByNickname(givenUserNickName);
+		System.out.println("\nfollowing User was found "+ userToBeAuthInSystem);
+		
+		if (userToBeAuthInSystem != null) {
+			if( passEncoder.matches(givenUserPassword, userToBeAuthInSystem.getUserPassword()) ) {
+				result = true;
+			}
+		}
+		
+		return result;
+	}
+	
 	public User findUser(User userForSearch)
 	{	
 		User userFound = inMemRepo.findUser(userForSearch);
@@ -85,6 +118,11 @@ public class InMemoryUserService implements InMemoryUserRepoContract
 	public String genHashedPassword(String resultClearPassword)
 	{
 		return passEncoder.encode(resultClearPassword);
+	}
+
+	public User findUserByNickname(String userNickName)
+	{
+	   return inMemRepo.findUserByGivenName(userNickName);
 	}
 
 	

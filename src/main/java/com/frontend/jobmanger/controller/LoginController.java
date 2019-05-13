@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -13,18 +14,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.frontend.jobmanager.service.InMemoryUserService;
+
+import models.LoginCredentials;
 import models.User;
 
 @Controller
 public class LoginController
 {
-
+	@Autowired
+	private InMemoryUserService inMemUserService;
+	
 	@GetMapping(value = { "", "/", "/login" })
-	public String showLoginForm(User currenUser, @RequestParam Optional<String> error)
+	public String showLoginForm(LoginCredentials cridentialsOfUser, @RequestParam Optional<String> error)
 	{
-		String errorMessage = "Incorrect login, warning the user";
+		String errorMessage = "Something gone bad!";
 		if (error.isPresent())
 		{
+			//To:Do Log Error 
 			System.out.println(errorMessage);
 		}
 
@@ -32,17 +39,29 @@ public class LoginController
 	}
 
 	@PostMapping("/loginAsUserToJobManger")
-	public String authenticateUserForPrivateAccount(@RequestParam String userNickName,
-			@RequestParam String userPassword, @Valid @ModelAttribute User currentUser, BindingResult bindingResult)
+	public String authenticateUserForPrivateAccount(@RequestParam String userNickName, @RequestParam String userPassword, 
+			@Valid @ModelAttribute LoginCredentials cridentialsOfUser, BindingResult bindingResult)
 	{
-		String pageAfterUserAuth = "userAuthlandPage";
-
+		String pageAfterUserAuth = "loginUserPage";
 		if (bindingResult.hasErrors()) {
 			pageAfterUserAuth = "loginUserPage";
+			System.out.println(bindingResult.toString());
+		}else {
+			pageAfterUserAuth = userAuthSuccess(userNickName, userPassword, pageAfterUserAuth);
+			System.out.println("Login result: " +pageAfterUserAuth);
 		}
-	    //else TO:DO verify if user activated and if only user activated allow to login!
-		
 
+		return pageAfterUserAuth;
+	}
+	
+	private String userAuthSuccess(String userNickName, String userPassword, String pageAfterUserAuth)
+	{
+		boolean authUserResult;
+		authUserResult = inMemUserService.authUserByGivenNickNameAndPass(userNickName,userPassword);
+		
+		if (authUserResult == true) {
+			pageAfterUserAuth="memberarea/landingUserMemberAreaPage";	
+		}
 		return pageAfterUserAuth;
 	}
 	

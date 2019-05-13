@@ -58,4 +58,20 @@ public class InMemoryUserRepo
 	   return userFound;
 	}
 
+	public User findUserByGivenName(String userNickName)
+	{
+		User userFound = null;
+
+		for (User user : this.getListOfUsers())
+		{
+           if(user.getUserNickName().equals(userNickName)) {
+        	       userFound = user;
+//        	       System.out.println(userFound.toString());
+        	       break;
+           }
+		}
+
+		return userFound;
+	}
+
 }

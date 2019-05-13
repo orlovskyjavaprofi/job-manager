@@ -63,7 +63,7 @@ public class RegistrationController
 	{
 
 		if (inMemUserService != null) {
-		  inMemUserService.saveNewUser(userWhichReg);
+		  inMemUserService.saveNewUserWithRandomPass(userWhichReg);
 		}
 	}
 

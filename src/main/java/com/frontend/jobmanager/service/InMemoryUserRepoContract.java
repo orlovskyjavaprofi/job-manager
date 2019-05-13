@@ -4,5 +4,11 @@ import models.User;
 
 public interface InMemoryUserRepoContract
 {
-	void saveNewUser(User newRegUser);
+	void saveNewUserWithRandomPass(User newRegUser);
+	boolean saveUserWithGivenHashPass(User givenUser);
+	User findUser(User userForSearch);
+	String genRandomAlphabeticString(int expectLength);
+	String genRandomAlphaNumericString(int expectLength);
+	String genRandomClearPass(int expectLength);
+	String genHashedPassword(String resultClearPassword);
 }

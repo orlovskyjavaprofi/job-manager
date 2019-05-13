@@ -178,7 +178,7 @@ class UserModelTest
 	@Test
 	void checkIfNewUserCanBeCreated() {
 		User newUser = setUpANewUser();
-//		System.out.println(newUser.toString());
+		System.out.println(newUser.toString());
 		
 		assertNotNull(newUser,"New user creation failed!");
 	}

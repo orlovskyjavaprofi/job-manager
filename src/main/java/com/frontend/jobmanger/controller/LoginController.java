@@ -45,6 +45,7 @@ public class LoginController
 		String pageAfterUserAuth = "loginUserPage";
 		if (bindingResult.hasErrors()) {
 			pageAfterUserAuth = "loginUserPage";
+			//To:Do Log Error 
 			System.out.println(bindingResult.toString());
 		}else {
 			pageAfterUserAuth = userAuthSuccess(userNickName, userPassword, pageAfterUserAuth);
@@ -52,6 +53,13 @@ public class LoginController
 		}
 
 		return pageAfterUserAuth;
+	}
+	
+	@GetMapping( value = { "/memberarea", "/adminarea" })
+	@ResponseStatus(code = HttpStatus.FORBIDDEN)
+	public String notAuthAccessToMemberArea(){
+		
+		return "restrictedAccess";
 	}
 	
 	private String userAuthSuccess(String userNickName, String userPassword, String pageAfterUserAuth)
@@ -65,10 +73,5 @@ public class LoginController
 		return pageAfterUserAuth;
 	}
 	
-	@GetMapping( value = { "/memberarea", "/adminarea" })
-	@ResponseStatus(code = HttpStatus.FORBIDDEN)
-	public String notAuthAccessToMemberArea(){
-		
-		return "restrictedAccess";
-	}
+
 }

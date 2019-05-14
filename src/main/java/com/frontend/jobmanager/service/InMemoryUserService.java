@@ -29,7 +29,10 @@ public class InMemoryUserService implements InMemoryUserRepoContract
 			System.out.println(passwordInClear);
 			newRegUser.setUserPassword( this.genHashedPassword(passwordInClear ));
 			System.out.println("following user was save to memory: "+ newRegUser.toString());
-			
+			// Check if this User already exist in system, following criteria
+			// user first name and last name the same as user input or user provided the same email again
+			// check user street name and street number und user city name
+			// check user nickname is already available
 		   inMemRepo.addUser(newRegUser);
 		}
 	}
@@ -57,6 +60,8 @@ public class InMemoryUserService implements InMemoryUserRepoContract
 		
 		if (userToBeAuthInSystem != null) {
 			if( passEncoder.matches(givenUserPassword, userToBeAuthInSystem.getUserPassword()) ) {
+				// check if user has activated account
+				// if the user account activated then, only then he must be allowed to login into page, otherwise not! 
 				result = true;
 			}
 		}

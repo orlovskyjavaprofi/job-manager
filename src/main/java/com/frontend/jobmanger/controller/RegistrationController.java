@@ -49,8 +49,10 @@ public class RegistrationController
 
 		String pageAfterNewUserValidation = "regnewuserform";
 
-		if (bindingResult. hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			pageAfterNewUserValidation = "regnewuserform";
+			//To:Do Log Error 
+			System.out.println(bindingResult.toString() );
 		}else {
 	     	saveUserToInMemoryRepo(newRegUser);
 			pageAfterNewUserValidation = "newUserAddConfirmation";
@@ -61,7 +63,6 @@ public class RegistrationController
 
 	private void saveUserToInMemoryRepo(User userWhichReg)
 	{
-
 		if (inMemUserService != null) {
 		  inMemUserService.saveNewUserWithRandomPass(userWhichReg);
 		}

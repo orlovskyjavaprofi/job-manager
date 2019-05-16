@@ -11,4 +11,5 @@ public interface InMemoryUserRepoContract
 	String genRandomAlphaNumericString(int expectLength);
 	String genRandomClearPass(int expectLength);
 	String genHashedPassword(String resultClearPassword);
+	User findUserByNickname(String userNickName);
 }

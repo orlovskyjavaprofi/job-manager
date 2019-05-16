@@ -3,6 +3,7 @@ package com.frontend.jobmanger.controller;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import models.User;
 @Controller
 public class LoginController
 {
-	@Autowired
+	@Resource
 	private InMemoryUserService inMemUserService;
 
 	@GetMapping(value = { "", "/", "/login" })
@@ -66,20 +67,15 @@ public class LoginController
 		return "restrictedAccess";
 	}
 	
-	private String userAuthSuccess(String userNickName, String userPassword, String pageAfterUserAuth)
+	private String userAuthSuccess(String inputForUserNickName, String inputForUserPassword, String pageAfterUserAuth)
 	{
 		boolean authUserResult;
-		authUserResult = inMemUserService.authUserByGivenNickNameAndPass(userNickName,userPassword);
+		authUserResult = inMemUserService.authUserByGivenNickNameAndPass(inputForUserNickName,inputForUserPassword);
 		
 		if (authUserResult == true) {
 			pageAfterUserAuth="memberarea/landingUserMemberAreaPage";	
 		}
 		return pageAfterUserAuth;
-	}
-
-	public InMemoryUserService getInMemUserService()
-	{
-		return inMemUserService;
 	}
 
 }

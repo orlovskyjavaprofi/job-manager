@@ -22,6 +22,7 @@ public class InMemoryUserRepo
 		if (userObj != null)
 		{
 			result = true;
+			System.out.println("add USer to repo: \n"+userObj.toString());
 			ListOfUsers.add(userObj);
 		}
 		

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,9 @@ import models.UserSexState;
 @Controller
 public class RegistrationController
 {
-
-	@Autowired
+	@Resource
 	private InMemoryUserService inMemUserService;
-
+	
 	@GetMapping("/regnewuser")
 	public String showRegistrationForm(Model model)
 	{
@@ -69,9 +69,19 @@ public class RegistrationController
 
 	private String initInMemoryUserServiceAndGenClearPass()
 	{
-		inMemUserService = new InMemoryUserService();
+		
+		createInMemServiceForTheCaseWhenUnitTest();
+		
         String clearPassword = inMemUserService.genRandomClearPass(12);
-		return clearPassword;
+
+        return clearPassword;
+	}
+
+	private void createInMemServiceForTheCaseWhenUnitTest()
+	{
+		if (inMemUserService == null) {
+		  inMemUserService = new InMemoryUserService();
+		}
 	}
 
 	private void saveUserToInMemoryRepo(User userWhichReg, String clearPass)

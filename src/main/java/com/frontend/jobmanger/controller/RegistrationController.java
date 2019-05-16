@@ -5,11 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.frontend.jobmanager.service.InMemoryUserService;
 
+import models.LoginCredentials;
 import models.User;
 import models.UserEmploymentState;
 import models.UserSexState;
@@ -26,9 +29,10 @@ import models.UserSexState;
 @Controller
 public class RegistrationController
 {
+
 	@Autowired
 	private InMemoryUserService inMemUserService;
-	
+
 	@GetMapping("/regnewuser")
 	public String showRegistrationForm(Model model)
 	{
@@ -46,25 +50,34 @@ public class RegistrationController
 			@RequestParam UserSexState typesOfUserSex, @RequestParam UserEmploymentState currentEmploymentState,
 			@Valid @ModelAttribute User newRegUser, BindingResult bindingResult)
 	{
-
 		String pageAfterNewUserValidation = "regnewuserform";
-
+		String clearPassword = initInMemoryUserServiceAndGenClearPass();
+		
 		if (bindingResult.hasErrors()) {
 			pageAfterNewUserValidation = "regnewuserform";
 			//To:Do Log Error 
 			System.out.println(bindingResult.toString() );
 		}else {
-	     	saveUserToInMemoryRepo(newRegUser);
+			newRegUser.setUserLoginState(true);
+	     	saveUserToInMemoryRepo(newRegUser,clearPassword);
 			pageAfterNewUserValidation = "newUserAddConfirmation";
 		}
 
 		return pageAfterNewUserValidation;
 	}
 
-	private void saveUserToInMemoryRepo(User userWhichReg)
+
+	private String initInMemoryUserServiceAndGenClearPass()
+	{
+		inMemUserService = new InMemoryUserService();
+        String clearPassword = inMemUserService.genRandomClearPass(12);
+		return clearPassword;
+	}
+
+	private void saveUserToInMemoryRepo(User userWhichReg, String clearPass)
 	{
 		if (inMemUserService != null) {
-		  inMemUserService.saveNewUserWithRandomPass(userWhichReg);
+		  inMemUserService.saveNewUserWithRandomPass(userWhichReg,clearPass);
 		}
 	}
 

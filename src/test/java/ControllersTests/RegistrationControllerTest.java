@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -43,17 +44,17 @@ class RegistrationControllerTest
 	}
 
 	@Test
-	void runWithEnumsSexState() throws Exception
+	void checkThatEmptyInputForRegFormIsNotAllowed() throws Exception
 	{
 		for (UserSexState currentSex : UserSexState.values())
 		{
 			for (UserEmploymentState currentEmploymentState: UserEmploymentState.values()) {
-				checkThatNoEmptyTextCanBePostedForAllInputFields(currentSex, currentEmploymentState);
+				checkThatNoEmptyTextCantBePostedForAllInputFields(currentSex, currentEmploymentState);
 			}
 		}
 	}
 
-    void checkThatNoEmptyTextCanBePostedForAllInputFields(UserSexState currentSexState, 
+    void checkThatNoEmptyTextCantBePostedForAllInputFields(UserSexState currentSexState, 
     		                     UserEmploymentState currentEmploymentState) throws Exception
     {
 		System.out.println("Params sex: " + currentSexState );

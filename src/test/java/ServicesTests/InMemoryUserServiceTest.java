@@ -34,8 +34,19 @@ class InMemoryUserServiceTest
 	@Test
 	void checkIfUserCanBeAddedToInMemRepo()
 	{
+		String randomPassword = inMemUserService.genRandomClearPass(12);
 		User expectedUser = new User();
-		inMemUserService.saveNewUserWithRandomPass(expectedUser);
+		inMemUserService.saveNewUserWithRandomPass(expectedUser,randomPassword);
+		User actualUser = inMemUserService.findUser(expectedUser);
+
+		assertNotNull(actualUser, "User was not found in UserRepo");
+	}
+	
+	@Test 
+	void checkIFUserCanBeAddedWherePasswordNotGive(){
+		String randomPassword = "";
+		User expectedUser = new User();
+		inMemUserService.saveNewUserWithRandomPass(expectedUser,randomPassword);
 		User actualUser = inMemUserService.findUser(expectedUser);
 
 		assertNotNull(actualUser, "User was not found in UserRepo");
@@ -98,7 +109,9 @@ class InMemoryUserServiceTest
 	@Test
 	void checkIfAExistingUserCanBeReceivedForLoginAuth()
 	{	
-		inMemUserService.saveNewUserWithRandomPass(userSetUp(mockUser));
+		String randomPassword = inMemUserService.genRandomClearPass(12);
+		
+		inMemUserService.saveNewUserWithRandomPass(userSetUp(mockUser),randomPassword );
 		String userNickName = "superduperjavadev01";
 		User retrievedUser = inMemUserService.findUserByNickname(userNickName);
 

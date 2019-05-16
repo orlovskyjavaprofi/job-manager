@@ -14,7 +14,7 @@ public class InMemoryUserService implements InMemoryUserRepoContract
 {
 	@Autowired
 	private InMemoryUserRepo inMemRepo;
-
+	
 	private PasswordEncoder passEncoder;
 	
 	public InMemoryUserService() {
@@ -22,19 +22,38 @@ public class InMemoryUserService implements InMemoryUserRepoContract
 		passEncoder = new BCryptPasswordEncoder();
 	}
 	
-	public void saveNewUserWithRandomPass(User newRegUser)
-	{		
-		if (newRegUser != null) {
-			String passwordInClear = this.genRandomClearPass(12);
-			System.out.println(passwordInClear);
+	public void saveNewUserWithRandomPass(User newRegUser, String RandomPass)
+	{		String passwordInClear="";
+		if (newRegUser != null)  {
+			
+			passwordInClear = verifyRandomPassword(RandomPass);
+			System.out.println("current pass "+passwordInClear);
 			newRegUser.setUserPassword( this.genHashedPassword(passwordInClear ));
+						
 			System.out.println("following user was save to memory: "+ newRegUser.toString());
+			
 			// Check if this User already exist in system, following criteria
 			// user first name and last name the same as user input or user provided the same email again
 			// check user street name and street number und user city name
 			// check user nickname is already available
+			
 		   inMemRepo.addUser(newRegUser);
 		}
+	}
+
+	private String verifyRandomPassword(String RandomPass)
+	{ 
+		String passwordInClear = "";
+		
+		if ((RandomPass.length() <= 12) && (RandomPass.isEmpty() == false))
+		{
+			passwordInClear = RandomPass;			
+		} else
+		{
+			passwordInClear = this.genRandomClearPass(12);
+		}
+		
+		return passwordInClear;
 	}
 	
 	public boolean saveUserWithGivenHashPass(User givenUser)

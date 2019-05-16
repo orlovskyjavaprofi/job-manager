@@ -2,6 +2,7 @@ package com.frontend.jobmanger.controller;
 
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,12 @@ public class LoginController
 {
 	@Autowired
 	private InMemoryUserService inMemUserService;
-	
+
 	@GetMapping(value = { "", "/", "/login" })
 	public String showLoginForm(LoginCredentials cridentialsOfUser, @RequestParam Optional<String> error)
 	{
+		cridentialsOfUser = new LoginCredentials();
+		
 		String errorMessage = "Something gone bad!";
 		if (error.isPresent())
 		{
@@ -49,6 +52,7 @@ public class LoginController
 			System.out.println(bindingResult.toString());
 		}else {
 			pageAfterUserAuth = userAuthSuccess(userNickName, userPassword, pageAfterUserAuth);
+			
 			System.out.println("Login result: " +pageAfterUserAuth);
 		}
 
@@ -72,6 +76,10 @@ public class LoginController
 		}
 		return pageAfterUserAuth;
 	}
-	
+
+	public InMemoryUserService getInMemUserService()
+	{
+		return inMemUserService;
+	}
 
 }

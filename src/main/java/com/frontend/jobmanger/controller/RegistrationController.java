@@ -87,6 +87,7 @@ public class RegistrationController
 	private void saveUserToInMemoryRepo(User userWhichReg, String clearPass)
 	{
 		if (inMemUserService != null) {
+		  userWhichReg.setUserLoginState(false);
 		  inMemUserService.saveNewUserWithRandomPass(userWhichReg,clearPass);
 		}
 	}

@@ -29,6 +29,7 @@ class LoginControllerTest
 {
 	private MockMvc mockMvcLogin;
 	private LoginController loginController;
+	private RegistrationController regController;
     
     @MockBean
     private InMemoryUserService inMemService;
@@ -37,7 +38,8 @@ class LoginControllerTest
 	public void setUp()
 	{
 		loginController = new LoginController();
-		mockMvcLogin = MockMvcBuilders.standaloneSetup(loginController).build();
+		regController = new RegistrationController();
+		mockMvcLogin = MockMvcBuilders.standaloneSetup(loginController,regController).build();
 	}
 
 	@Test
@@ -88,6 +90,28 @@ class LoginControllerTest
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 			.andExpect(status().isOk())
 	        .andExpect(view().name("loginUserPage"));
+	}
+	
+	@Test
+	public void checkIfUserCanBeRegisteredAndSuccsessfulLoginIntoTheCreatedAccount() throws Exception {
+		UserSexState currentSexState = UserSexState.MALE;
+		UserEmploymentState currentEmploymentState = UserEmploymentState.SELFEMPLOYED;
+		
+        mockMvcLogin.perform(post("/submitNewUserReg")
+				.param("userFirstName", "Thomas")
+				.param("userLastName", "Jefferson")
+				.param("userBirthDate", "01.12.1978")
+				.param("userEmail", "cooldude@io.com")
+				.param("userCity", "Detroit")
+				.param("userStreetName", "BerlinerStreet")
+				.param("userStreetNumber", "123")
+				.param("userCountryName", "USA")
+				.param("userNickName", "cooldude001")
+				.param("typesOfUserSex", currentSexState.toString())
+				.param("currentEmploymentState", currentEmploymentState.toString())
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(status().isOk())		
+		        .andExpect(view().name("newUserAddConfirmation"));
 	}
 
 }

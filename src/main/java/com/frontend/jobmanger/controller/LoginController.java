@@ -69,7 +69,7 @@ public class LoginController
 	
 	private String userAuthSuccess(String inputForUserNickName, String inputForUserPassword, String pageAfterUserAuth)
 	{
-		boolean authUserResult;
+		boolean authUserResult = false;
 		authUserResult = inMemUserService.authUserByGivenNickNameAndPass(inputForUserNickName,inputForUserPassword);
 		
 		if (authUserResult == true) {

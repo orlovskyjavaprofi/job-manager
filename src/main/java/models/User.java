@@ -287,7 +287,7 @@ public class User
 	@Override
 	public String toString()
 	{
-		return "User: "+ userNickName + "\nuserFirstName=" + userFirstName + "\nuserLastName=" + userLastName 
+		return "\nUser: "+ userNickName + "\nuserFirstName=" + userFirstName + "\nuserLastName=" + userLastName 
 				+ "\nuserEmail=" + userEmail
 				+ "\nuserCity=" + userCity + "\nuserStreetName=" + userStreetName + "\nuserCountryName="
 				+ userCountryName + "\nuserBirthDate=" + userBirthDate +"\nuserSex=" + currentUserSexState

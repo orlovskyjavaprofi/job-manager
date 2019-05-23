@@ -58,7 +58,7 @@ public class RegistrationController
 			//To:Do Log Error 
 			System.out.println(bindingResult.toString() );
 		}else {
-			newRegUser.setUserLoginState(true);
+
 	     	saveUserToInMemoryRepo(newRegUser,clearPassword);
 			pageAfterNewUserValidation = "newUserAddConfirmation";
 		}
@@ -87,7 +87,6 @@ public class RegistrationController
 	private void saveUserToInMemoryRepo(User userWhichReg, String clearPass)
 	{
 		if (inMemUserService != null) {
-		  userWhichReg.setUserLoginState(false);
 		  inMemUserService.saveNewUserWithRandomPass(userWhichReg,clearPass);
 		}
 	}
@@ -103,4 +102,11 @@ public class RegistrationController
 	{
 		return Arrays.asList(UserEmploymentState.values());
 	}
+
+	public InMemoryUserService getInMemUserService()
+	{
+		return inMemUserService;
+	}
+	
+	
 }

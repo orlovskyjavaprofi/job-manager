@@ -23,7 +23,7 @@ public class InMemoryUserRepo
 		{
 			userObj.setUserLoginState(false);
 			result = true;
-			System.out.println("add Uer to repo: \n"+userObj.toString());
+			System.out.println("add User to repo: "+userObj.toString());
 			ListOfUsers.add(userObj);
 		}
 		

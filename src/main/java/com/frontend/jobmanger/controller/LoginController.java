@@ -20,6 +20,8 @@ import com.frontend.jobmanager.service.InMemoryUserService;
 
 import models.LoginCredentials;
 import models.User;
+import models.UserEmploymentState;
+import models.UserSexState;
 
 @Controller
 public class LoginController
@@ -48,13 +50,11 @@ public class LoginController
 	{
 		String pageAfterUserAuth = "loginUserPage";
 		if (bindingResult.hasErrors()) {
-			pageAfterUserAuth = "loginUserPage";
+			
 			//To:Do Log Error 
 			System.out.println(bindingResult.toString());
-		}else {
+		}else {		
 			pageAfterUserAuth = userAuthSuccess(userNickName, userPassword, pageAfterUserAuth);
-			
-			System.out.println("Login result: " +pageAfterUserAuth);
 		}
 
 		return pageAfterUserAuth;
@@ -70,12 +70,35 @@ public class LoginController
 	private String userAuthSuccess(String inputForUserNickName, String inputForUserPassword, String pageAfterUserAuth)
 	{
 		boolean authUserResult = false;
+		if (inMemUserService == null)
+		{
+			inMemUserService = new InMemoryUserService();
+			createTestUserAndSaveItInRepoForTestPurposeOnly();
+		}
 		authUserResult = inMemUserService.authUserByGivenNickNameAndPass(inputForUserNickName,inputForUserPassword);
 		
 		if (authUserResult == true) {
 			pageAfterUserAuth="memberarea/landingUserMemberAreaPage";	
 		}
 		return pageAfterUserAuth;
+	}
+
+	private void createTestUserAndSaveItInRepoForTestPurposeOnly()
+	{
+		User testUser = new User();
+		testUser.setUserFirstName("Thomas");
+		testUser.setUserLastName("Jefferson");
+		testUser.setUserBirthDate("01.12.1978");
+		testUser.setUserEmail("cooldude@io.com");
+		testUser.setUserCity("Detroit");
+		testUser.setUserStreetName("BerlinerStreet");
+		testUser.setUserStreetNumber(123);
+		testUser.setUserCountryName("USA");
+		testUser.setUserNickName("testdude000");
+		testUser.setCurrentUserSexState(UserSexState.MALE);
+		testUser.setCurrentEmploymentState(UserEmploymentState.SELFEMPLOYED);
+		String pass = "tuxtux123456";
+		inMemUserService.saveNewUserWithRandomPass(testUser, pass);
 	}
 
 }

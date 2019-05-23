@@ -54,6 +54,7 @@ public class InMemoryUserRepoTest
 		assertNotNull(retrievedUser,"User by given name cant be found!");
    }
    
+  
    private User userSetUp(User givenUser)
 	{
 		String clearPassword ="tuxtuxtux*";
@@ -73,4 +74,5 @@ public class InMemoryUserRepoTest
 		
 		return givenUser;
 	}
+   
 }

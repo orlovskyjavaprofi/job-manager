@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,10 +32,8 @@ class LoginControllerTest
 	private MockMvc mockMvcLogin;
 	private LoginController loginController;
 	private RegistrationController regController;
-    
-    @MockBean
-    private InMemoryUserService inMemService;
-    
+
+   
 	@BeforeEach
 	public void setUp()
 	{
@@ -96,7 +96,6 @@ class LoginControllerTest
 	public void checkIfUserCanBeRegisteredAndSuccsessfulLoginIntoTheCreatedAccount() throws Exception {
 		UserSexState currentSexState = UserSexState.MALE;
 		UserEmploymentState currentEmploymentState = UserEmploymentState.SELFEMPLOYED;
-		
         mockMvcLogin.perform(post("/submitNewUserReg")
 				.param("userFirstName", "Thomas")
 				.param("userLastName", "Jefferson")
@@ -106,12 +105,20 @@ class LoginControllerTest
 				.param("userStreetName", "BerlinerStreet")
 				.param("userStreetNumber", "123")
 				.param("userCountryName", "USA")
-				.param("userNickName", "cooldude001")
+				.param("userNickName", "testdude000")
 				.param("typesOfUserSex", currentSexState.toString())
 				.param("currentEmploymentState", currentEmploymentState.toString())
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
 				.andExpect(status().isOk())		
-		        .andExpect(view().name("newUserAddConfirmation"));
+		        .andExpect(view().name("newUserAddConfirmation"))
+		        .andDo(mvcResult -> mockMvcLogin.perform(post("/loginAsUserToJobManger")
+		        		             .param("userNickName", "testdude000")
+		        		             .param("userPassword", "tuxtux123456")
+		        		)
+		        		.andExpect(status().isOk())
+		        		.andExpect(view().name("memberarea/landingUserMemberAreaPage"))
+		        	);       
+		        
 	}
 
 }

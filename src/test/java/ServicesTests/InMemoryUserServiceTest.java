@@ -42,6 +42,7 @@ class InMemoryUserServiceTest
 		assertNotNull(actualUser, "User was not found in UserRepo");
 	}
 	
+	
 	@Test 
 	void checkIFUserCanBeAddedWherePasswordNotGive(){
 		String randomPassword = "";
@@ -105,7 +106,7 @@ class InMemoryUserServiceTest
 		
 		assertEquals(expectedResult, !hashedUserPass.isEmpty(), "A hash password for User was not generated!");
 	}
-
+	
 	@Test
 	void checkIfAExistingUserCanBeReceivedForLoginAuth()
 	{	
@@ -135,7 +136,7 @@ class InMemoryUserServiceTest
 
 		boolean actualAuthResponse = inMemUserService.authUserByGivenNickNameAndPass(givenUserNickName,givenUserPassword);
         
-		assertEquals(expectedAuthResponse,actualAuthResponse,"Give user nickname and password were invalid credentials!");
+		assertEquals(expectedAuthResponse,actualAuthResponse,"Given user nickname and password were invalid credentials!");
 	}
 	
 	private User userSetUp(User givenUser)
@@ -157,5 +158,5 @@ class InMemoryUserServiceTest
 
 		return givenUser;
 	}
-
+		
 }

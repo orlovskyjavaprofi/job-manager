@@ -1,12 +1,30 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
- <meta name="landingUserMemberAreaPage" http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="landingUserMemberAreaPage" http-equiv="Content-Type"
+	content="text/html; charset=UTF-8" />
 <title>User member area - Welcome to job manager</title>
 </head>
 <body>
-<h1>Welcome to job manager user member area!</h1>
-<br><br>
+	<div align="center">
+		<h1>Welcome to job manager user member area!</h1>
+	</div>
+	<table width="100%" height="67" border="0">
+		<tr>
+		 <th width="2%" scope="col"><div align="left">User:</div></th>
+		  <th width="200" scope="col"><u><div th:text="${userLoginName}" ></div></u> </th>		
+			<th width="183" rowspan="2" scope="col">&nbsp;</th>
+			<th width="524" rowspan="2" scope="col"><div align="center"><h1>Welcome to job manager!</h1></div></th>
+			<th width="334" rowspan="2" scope="col"><h1>Prototype 001</h1></th>
+			<th width="146" scope="col">$Logout send the post for logout</th>
+		</tr>
+		<tr>
+			<th colspan="2" scope="col"><div align="left">User account office</div></th>
+		</tr>
+	</table>
+
+
 
 </body>
 </html>

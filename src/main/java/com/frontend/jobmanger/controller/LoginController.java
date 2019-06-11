@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,7 +47,7 @@ public class LoginController
 
 	@PostMapping("/loginAsUserToJobManger")
 	public String authenticateUserForPrivateAccount(@RequestParam String userNickName, @RequestParam String userPassword, 
-			@Valid @ModelAttribute LoginCredentials cridentialsOfUser, BindingResult bindingResult)
+			@Valid @ModelAttribute LoginCredentials cridentialsOfUser, BindingResult bindingResult, Model userModel)
 	{
 		String pageAfterUserAuth = "loginUserPage";
 		if (bindingResult.hasErrors()) {
@@ -55,6 +56,9 @@ public class LoginController
 			System.out.println(bindingResult.toString());
 		}else {		
 			pageAfterUserAuth = userAuthSuccess(userNickName, userPassword, pageAfterUserAuth);
+			if(pageAfterUserAuth.isEmpty() == false) {
+				userModel.addAttribute("userLoginName",userNickName);
+			}
 		}
 
 		return pageAfterUserAuth;
@@ -80,6 +84,7 @@ public class LoginController
 		if (authUserResult == true) {
 			pageAfterUserAuth="memberarea/landingUserMemberAreaPage";	
 		}
+		
 		return pageAfterUserAuth;
 	}
 

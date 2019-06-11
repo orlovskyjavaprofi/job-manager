@@ -24,7 +24,57 @@
 		</tr>
 	</table>
 
+<!-- Display a form for insert, delete, search of application -->
+<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000" bordercolor="#000000" >
+<thead> <tr> <th colspan="7"><u>Current job applications</u></th> </tr> </thead>
+  <tr >
+    <td width="81"><div align="center"><strong>Selection</strong></div></td>
+    <td width="216"><div align="center"><strong>Company name</strong></div></td>
+    <td width="220"><div align="center"><strong>Date of applying</strong></div></td>
+    <td width="171"><div align="center"><strong>State of application</strong></div></td>
+    <td width="210"><div align="center"><strong>Application decline date</strong></div></td>
+    <td width="217"><div align="center"><strong>Job title</strong></div></td>
+    <td width="284"><div align="center"><strong>Special notice</strong></div></td>
+  </tr>
+  <!-- implement here the for loop , too loop trough the first 15 applications -->
+  <tr>
+    <td><div align="center"><input type="checkbox" name="checkbox" id="checkbox"></div></td>
+    <td><div align="center">Muster Inc place holder!</div></td>
+    <td><div align="center">01.03.2019 place holder!</div></td>
+    <td><div align="center">wating for feedback place holder!</div></td>
+    <td><div align="center">none place holder!</div></td>
+    <td><div align="center">developer place holder!</div></td>
+    <td><div align="center">cool company place holder!</div></td>
+  </tr>
+  <tr>
+    <td><div align="center"><input type="checkbox" name="checkbox" id="checkbox"></div></td>
+    <td><div align="center">Muster Inc place holder2!</div></td>
+    <td><div align="center">01.03.2019 place holder2!</div></td>
+    <td><div align="center">wating for feedback place holder2!</div></td>
+    <td><div align="center">none place holder2!</div></td>
+    <td><div align="center">developer place holder2!</div></td>
+    <td><div align="center">cool company place holder2!</div></td>
+  </tr>
+</table>
+<br>
+<div align="left">
+<table width="200" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <th scope="col"><input type="button" name="insertNewApplication" id="insertNewApplication" value="Insert new application"></th>
+    <th scope="col">&nbsp;</th>
+    <th scope="col"><input type="button" name="deleteNewApplication" id="deleteNewApplication" value="Delete new application"></th>
+    <th scope="col">&nbsp;</th>
+    <th scope="col"><input type="button" name="searchNewApplication" id="searchNewApplication" value="Search for application"></th>
+    <th scope="col"><input name="textfield" type="text" id="searchFieldForApplication" value="Type text for search..."></th>
+    <th scope="col">&nbsp;</th>
+    <th scope="col"><input type="button" name="printSelectedApplications" id="printSelectedApplications" value="Print selected applications"></th>
+  </tr>
+</table>
+<!-- Need to determine a way how to get data from memory and presented in human readable form -->
+<p>Page: <strong>[ 1 ]</strong> 2 3 4 5 &gt;&gt;</p>
+</div>
 
+<!-- End of submit form -->
 
 </body>
 </html>

@@ -64,7 +64,7 @@ public class LoginController
 		return pageAfterUserAuth;
 	}
 	
-	@GetMapping( value = { "/memberarea", "/adminarea" })
+	@GetMapping( value = {  "/adminarea" })
 	@ResponseStatus(code = HttpStatus.FORBIDDEN)
 	public String notAuthAccessToMemberArea(){
 		

@@ -8,13 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RolesAllowed("USER")
 public class UserAccountOfficeController
 {
-	@GetMapping( value = { "/memberarea/userAccountOffice", "/adminarea" })
+	
+	@GetMapping( value = { "/memberarea"})
 	@ResponseStatus(code = HttpStatus.FORBIDDEN)
 	public String notAuthAccessToMemberArea(){
 		
 		return "restrictedAccess";
 	}
+	
+	@GetMapping(value = { "/memberarea/landingUserMemberAreaPage"})	
+	@RolesAllowed("USER")
+	public String authUserAccessToOfficeMemberArea() {
+		
+		return "memberarea/userAccountOffice";
+	}
+	
 }

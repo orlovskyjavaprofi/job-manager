@@ -72,7 +72,7 @@ class LoginControllerTest
 	@Test
 	public void checkIfNotRegesteredUserTriesToAccessMemberArea() throws Exception{
 		mockMvcLogin.perform(get("/memberarea"))
-	    .andExpect(status().isForbidden());
+	    .andExpect(status().isNotFound());
 	}
 	
 	@Test

@@ -35,7 +35,7 @@ public class UserApplication
 	@Email
 	private String companyContactEmail;
 	
-	@NotNull(message = "Company salut type must be selected!")
+	@NotNull(message = "Company salutation type must be selected!")
 	private CompanySalutationType currentCompanySalutationType;
 	
 	@NotNull(message = "Company type must be selected!")

@@ -3,8 +3,15 @@ package models;
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import frontend.security.config.roles.SecurityRoles;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.constraints.Email;
@@ -13,8 +20,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
-public class User
+public class User implements UserDetails
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@NotEmpty(message = "User first name input must be 2 or more signs!")
 	@Size(min=2, max=40)
 	private String userFirstName;
@@ -68,6 +80,7 @@ public class User
 	
 	private List<UserSexState> typesOfUserSex = new ArrayList<UserSexState>();
 	private List<UserEmploymentState> typesOfUserEmploymentState = new ArrayList<UserEmploymentState>();
+	private String role;
 	
 	public User()
 	{
@@ -92,6 +105,8 @@ public class User
 		this.setUserPassword("tuxtuxtux*");
 		this.setUserLoginState(false);
 		formaRegDate();
+		this.setRole(SecurityRoles.USER.toString());
+		this.role = this.getRole();
 		// To-do implement a Reference to List or of some sort collection of job
 		// applications where belong to this user
 	}
@@ -104,6 +119,16 @@ public class User
 		this.setUserLoginState(false);
 
 		formaRegDate();
+	}
+
+	public String getRole()
+	{
+		return role;
+	}
+
+	public void setRole(String role)
+	{
+		this.role = role;
 	}
 
 	private void formaRegDate()
@@ -295,6 +320,51 @@ public class User
 				+ "\nuserStreetNumber=" + userStreetNumber + "\nuserAccountState="
 				+ userAccountState + "\nuserRegistrationDate=" + userRegistrationDate +"\nUser pass: "+ userPassword+
 				"\nUser logged status: "+userLoginState;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities()
+	{
+		List<GrantedAuthority> listOfAthorities = new ArrayList<GrantedAuthority>();
+		listOfAthorities.add(new SimpleGrantedAuthority(SecurityRoles.USER.toString()));
+		
+		return listOfAthorities;
+	}
+
+	@Override
+	public String getPassword()
+	{
+		return getPassword();
+	}
+
+	@Override
+	public String getUsername()
+	{
+		return getUserNickName();
+	}
+
+	@Override
+	public boolean isAccountNonExpired()
+	{
+		return getUserAccountState();
+	}
+
+	@Override
+	public boolean isAccountNonLocked()
+	{
+		return getUserAccountState();
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired()
+	{
+		return getUserAccountState();
+	}
+
+	@Override
+	public boolean isEnabled()
+	{
+		return getUserAccountState();
 	}
 
 }

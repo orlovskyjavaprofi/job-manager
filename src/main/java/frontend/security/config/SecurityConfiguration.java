@@ -6,10 +6,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import frontend.security.config.roles.SecurityRoles;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter 
 {
 
 	@Override
@@ -21,21 +23,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
 	private void restrictedAccesForAdminOnly(HttpSecurity http) throws Exception
 	{
-		http.authorizeRequests().antMatchers("/adminarea/**").hasRole("ADMIN")
+		http.authorizeRequests().antMatchers("/adminarea/**").hasRole(SecurityRoles.ADMIN.toString())
 		   .and()
 		    .httpBasic();
 	}
 
 	private void publicAccessForNonRegistereAndRegisteredUsers(HttpSecurity http) throws Exception
 	{
+	
 		http.authorizeRequests().
 		antMatchers("/css/**", "/img/**", "/js/**", "/","/regnewuser",
 				"/newUserAddConfirmation","/loginAsUserToJobManger", "/recoverUserPass")
 		.permitAll()
-		.antMatchers("/memberarea/**").hasRole("USER")
-		.and()
+		  .and()
 		.formLogin().loginPage("/")
 	    .and()
 	    .httpBasic();
+
 	}
 }

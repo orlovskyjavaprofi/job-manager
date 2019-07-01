@@ -20,7 +20,9 @@
 			<th width="146" scope="col">$Logout send the post for logout</th>
 		</tr>
 		<tr>
-			<th colspan="2" scope="col"><div align="left"><a th:href="@{/memberarea/landingUserMemberAreaPage}">User account office</a></div></th>
+			<th colspan="2" scope="col"><div align="left"><a th:href="@{/memberarea/userAccountOffice/(uName=${userLoginName})}">User account office</a></div>
+			&nbsp;<!-- add here home button or maybe logout -->
+			</th>
 		</tr>
 	</table>
 

@@ -22,9 +22,7 @@ import javax.validation.constraints.Size;
 
 public class User implements UserDetails
 {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty(message = "User first name input must be 2 or more signs!")

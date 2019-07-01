@@ -61,12 +61,16 @@ public class LoginController {
 
     private String userAuthSuccess(String inputForUserNickName, String inputForUserPassword, String pageAfterUserAuth) {
         boolean authUserResult = false;
+        
         if (inMemoryUserRepoContract == null) {
             inMemoryUserRepoContract = new InMemoryUserService();
             createTestUserAndSaveItInRepoForTestPurposeOnly();
         }
-        authUserResult = inMemoryUserRepoContract.authUserByGivenNickNameAndPass(inputForUserNickName, inputForUserPassword);
-
+        
+        if(inMemoryUserRepoContract != null ) {
+          authUserResult = inMemoryUserRepoContract.authUserByGivenNickNameAndPass(inputForUserNickName, inputForUserPassword);
+        }
+        
         if (authUserResult == true) {
             pageAfterUserAuth = "memberarea/landingUserMemberAreaPage";
         }
@@ -94,6 +98,11 @@ public class LoginController {
     @ModelAttribute("numberOfRegisteredUsers")
     public long populateNumberOfRegisteredUsers() {
 
+        if (inMemoryUserRepoContract == null) {
+            inMemoryUserRepoContract = new InMemoryUserService();
+            createTestUserAndSaveItInRepoForTestPurposeOnly();
+        }
+    	
         return inMemoryUserRepoContract.getNumberOfRegisteredUsers();
     }
 

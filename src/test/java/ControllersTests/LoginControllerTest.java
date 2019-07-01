@@ -8,8 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -32,10 +34,10 @@ class LoginControllerTest {
 
     @Test
     public void checkThatLoginPageHasAValidViewNameForLogin() throws Exception {
-        mockMvcLogin.perform(get("/login"))
+     mockMvcLogin.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("loginUserPage"))
-                .andExpect(model().attribute("numberOfRegisteredUsers", 0));
+                .andExpect(model().attribute("numberOfRegisteredUsers", equalTo(1L)));
     }
 
     @Test

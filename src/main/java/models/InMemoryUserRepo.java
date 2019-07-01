@@ -6,74 +6,66 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class InMemoryUserRepo
-{
-	private List<User> ListOfUsers;
+public class InMemoryUserRepo {
+    private List<User> listOfUsers;
 
-	public InMemoryUserRepo()
-	{
-		ListOfUsers = new ArrayList<User>();
-	}
+    public InMemoryUserRepo() {
+        listOfUsers = new ArrayList<User>();
+    }
 
-	public Boolean addUser(User userObj)
-	{
-		Boolean result = false;
+    public Boolean addUser(User userObj) {
+        Boolean result = false;
 
-		if (userObj != null)
-		{
-			userObj.setUserLoginState(false);
-			result = true;
-			System.out.println("add User to repo: "+userObj.toString());
-			ListOfUsers.add(userObj);
-		}
-		
-		return result;
-	}
+        if (userObj != null) {
+            userObj.setUserLoginState(false);
+            result = true;
+            System.out.println("add User to repo: " + userObj.toString());
+            listOfUsers.add(userObj);
+        }
 
-	public List<User> getListOfUsers()
-	{
-		return ListOfUsers;
-	}
+        return result;
+    }
 
-	public void setListOfUsers(List<User> listOfUsers)
-	{
-		ListOfUsers = listOfUsers;
-	}
+    public List<User> getListOfUsers() {
+        return listOfUsers;
+    }
 
-	@Override
-	public String toString()
-	{
-		return "InMemoryUserRepo [ListOfUsers=" + ListOfUsers + "]";
-	}
+    public void setListOfUsers(List<User> listOfUsers) {
+        this.listOfUsers = listOfUsers;
+    }
 
-	public User findUser(User userForSearch)
-	{
-	   User userFound = null;
-	   for (User user : this.getListOfUsers())
-	   {
-		  if (userForSearch.equals(user)) {
-			  userFound = user;
-			  break;
-		  }
-	   }		
-	   
-	   return userFound;
-	}
+    @Override
+    public String toString() {
+        return "InMemoryUserRepo [listOfUsers=" + listOfUsers + "]";
+    }
 
-	public User findUserByGivenName(String userNickName)
-	{
-		User userFound = null;
+    public User findUser(User userForSearch) {
+        User userFound = null;
+        for (User user : this.getListOfUsers()) {
+            if (userForSearch.equals(user)) {
+                userFound = user;
+                break;
+            }
+        }
 
-		for (User user : this.getListOfUsers())
-		{
-           if(user.getUserNickName().equals(userNickName)) {
-        	       userFound = user;
+        return userFound;
+    }
+
+    public User findUserByGivenName(String userNickName) {
+        User userFound = null;
+
+        for (User user : this.getListOfUsers()) {
+            if (user.getUserNickName().equals(userNickName)) {
+                userFound = user;
 //        	       System.out.println(userFound.toString());
-        	       break;
-           }
-		}
+                break;
+            }
+        }
 
-		return userFound;
-	}
+        return userFound;
+    }
 
+    public long getNumberOfRegisteredUsers() {
+        return listOfUsers.size();
+    }
 }

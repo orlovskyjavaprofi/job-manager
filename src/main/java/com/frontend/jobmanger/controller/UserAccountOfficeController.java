@@ -1,10 +1,14 @@
 package com.frontend.jobmanger.controller;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import com.frontend.jobmanager.service.InMemoryUserService;
@@ -29,12 +33,17 @@ public class UserAccountOfficeController
 	}
 
 	@GetMapping(value = { "/memberarea/userAccountOffice/" })
-	public String authUserAccessToOfficeMemberArea(@RequestParam String uName)
+	public String authUserAccessToOfficeMemberArea(@RequestParam String uName,
+			@Valid @ModelAttribute User currentLogedUser, BindingResult bindingResult, Model userModel)
 	{
 		String pathToUserAccountOffice = "restrictedAccess";
 
 		caseForRunningUnitTestsWhenInMemServiceNotAvailable();	
 		actualUserWhichIslogedIn = inMemUserService.findUserByNickname(uName);
+		if(actualUserWhichIslogedIn != null) {
+			currentLogedUser = actualUserWhichIslogedIn;
+			userModel.addAttribute("userLoginName",uName);
+		}
 		pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);
 
 		return pathToUserAccountOffice;

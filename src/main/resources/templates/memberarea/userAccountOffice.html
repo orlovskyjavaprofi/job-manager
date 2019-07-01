@@ -7,13 +7,13 @@
 <body>
 <table width="100%" border="2">
   <tr>
-    <th colspan="5" scope="col"><h1>User account office for Job - Manager</h1></th>
+    <th colspan="5" scope="col"><h1> Account office for user:  <span th:text="${userLoginName}" ></span></h1></th>
   </tr>
   <tr>
     <th width="440" scope="col">Manage your applications (drop down menu)</th>
     <th width="274" scope="col">Current date: 29.03.2019 10:00</th>
     <th width="454" scope="col">User selection for language UI ENG, DEU</th>
-    <th width="145" scope="col">Logged as: Username</th>
+    <th width="145" scope="col">Logged as: <div th:text="${userLoginName}" ></div></th>
     <th width="146" scope="col">>Logout link</th>
   </tr>
 </table>

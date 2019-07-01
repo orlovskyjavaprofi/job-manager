@@ -8,14 +8,14 @@
 </head>
 <body>
 	<div align="center">
-		<h1>Welcome to job manager user member area!</h1>
+		<h1>Welcome user: <span th:text="${userLoginName}" ></span> to member area of job manager!</h1>
 	</div>
 	<table width="100%" height="67" border="0">
 		<tr>
-		 <th width="2%" scope="col"><div align="left">User:</div></th>
-		  <th width="200" scope="col"><u><div th:text="${userLoginName}" ></div></u> </th>		
+		 <th width="10%" scope="col"><div align="left">User: &nbsp;<u><span th:text="${userLoginName}" ></span></u></div></th>
+		  <th width="200" scope="col">&nbsp;</th>		
 			<th width="183" rowspan="2" scope="col">&nbsp;</th>
-			<th width="524" rowspan="2" scope="col"><div align="center"><h1><u>Welcome to job manager!</u></h1></div></th>
+			<th width="769" rowspan="2" scope="col">&nbsp;</th>
 			<th width="334" rowspan="2" scope="col"><h1>Prototype 001</h1></th>
 			<th width="146" scope="col">$Logout send the post for logout</th>
 		</tr>

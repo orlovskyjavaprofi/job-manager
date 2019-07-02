@@ -1,22 +1,11 @@
 package com.frontend.controller.ControllersTests;
 
-import com.frontend.jobmanger.Application;
-import com.frontend.jobmanger.controller.LoginController;
 import models.UserEmploymentState;
 import models.UserSexState;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -24,20 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Application.class)
-@WebAppConfiguration
-@WebMvcTest()
-@AutoConfigureMockMvc
-
-class LoginControllerTest {
-    private MockMvc mockMvcLogin;
-    @Autowired
-    private WebApplicationContext wac;
-
-    @BeforeEach
-    public void setUp() {
-        mockMvcLogin = MockMvcBuilders.webAppContextSetup(this.wac).build();
-    }
+class LoginControllerTest extends BasicControllerTest {
 
     @Test
     public void checkIfLoginPageHasAValidViewNameForLogin() throws Exception {

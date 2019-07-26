@@ -6,19 +6,19 @@ import models.LoginCredentials;
 import models.User;
 import models.UserEmploymentState;
 import models.UserSexState;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
 public class LoginController {
-    @Resource
+    @Autowired
     private InMemoryUserRepoContract inMemoryUserRepoContract;
 
     @GetMapping(value = {"", "/", "/login"})
@@ -61,16 +61,16 @@ public class LoginController {
 
     private String userAuthSuccess(String inputForUserNickName, String inputForUserPassword, String pageAfterUserAuth) {
         boolean authUserResult = false;
-        
+
         if (inMemoryUserRepoContract == null) {
             inMemoryUserRepoContract = new InMemoryUserService();
             createTestUserAndSaveItInRepoForTestPurposeOnly();
         }
-        
-        if(inMemoryUserRepoContract != null ) {
-          authUserResult = inMemoryUserRepoContract.authUserByGivenNickNameAndPass(inputForUserNickName, inputForUserPassword);
+
+        if (inMemoryUserRepoContract != null) {
+            authUserResult = inMemoryUserRepoContract.authUserByGivenNickNameAndPass(inputForUserNickName, inputForUserPassword);
         }
-        
+
         if (authUserResult == true) {
             pageAfterUserAuth = "memberarea/landingUserMemberAreaPage";
         }
@@ -97,12 +97,6 @@ public class LoginController {
 
     @ModelAttribute("numberOfRegisteredUsers")
     public long populateNumberOfRegisteredUsers() {
-
-        if (inMemoryUserRepoContract == null) {
-            inMemoryUserRepoContract = new InMemoryUserService();
-            createTestUserAndSaveItInRepoForTestPurposeOnly();
-        }
-    	
         return inMemoryUserRepoContract.getNumberOfRegisteredUsers();
     }
 

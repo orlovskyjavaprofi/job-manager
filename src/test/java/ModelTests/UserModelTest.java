@@ -5,17 +5,22 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import models.CompanySalutationType;
+import models.CompanyType;
 import models.User;
+import models.UserApplication;
 import models.UserEmploymentState;
 import models.UserSexState;
 
 class UserModelTest
 {
     private User userObj;
+	private UserApplication userAppl;
 	
 	@BeforeEach
 	void setup() {
 		userObj = new User();
+		userAppl = new UserApplication();
 	}
    
 	@Test
@@ -190,6 +195,27 @@ class UserModelTest
 		assertEquals(simplePassword, userObj.getUserPassword(), "User password wasnt not set up!");
 	}
 
+	@Test
+	void checkIfACompanyApplicationCanBeInsertedIntoUsersListOfApplications() {
+		boolean expectedResult = true;
+		setUpApplicationForInsertToUserList();
+		boolean actualResult = userObj.insertNewCompanyApplication(userAppl);
+		
+		assertEquals(expectedResult, actualResult,"new Created application cant be inserted into User application list");
+	}
+
+	private void setUpApplicationForInsertToUserList()
+	{
+		userAppl.setCompanyAmountOfEmployee(250);
+		userAppl.setCompanyCityName("Alexandria");
+		userAppl.setCompanyContactEmail("coolcompany@siliconvaley.com");
+		userAppl.setCompanyCountryName("USA");
+		userAppl.setCompanyIndustry(CompanyType.MIDDLE.toString());
+		userAppl.setCurrentCompanySalutationType(CompanySalutationType.Mrs);
+		userAppl.setDateWhenApplicationWasSend("20.04.2018");
+		userAppl.setCompanyContactLastName("Uberson");
+	}
+	
 	private User setUpANewUser()
 	{
 		User newUser= new User("John","Doe");

@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -78,7 +80,10 @@ public class User implements UserDetails
 	
 	private List<UserSexState> typesOfUserSex = new ArrayList<UserSexState>();
 	private List<UserEmploymentState> typesOfUserEmploymentState = new ArrayList<UserEmploymentState>();
+	private SortedSet<UserApplication> userApplicationsSet = new TreeSet<UserApplication>();
 	private String role;
+	
+	
 	
 	public User()
 	{
@@ -364,5 +369,28 @@ public class User implements UserDetails
 	{
 		return getUserAccountState();
 	}
+
+	public boolean insertNewCompanyApplication(UserApplication inputUserCompanyApplication )
+	{
+		boolean result = false;
+		
+		if (inputUserCompanyApplication != null) {
+			getUserApplicationsSet().add(inputUserCompanyApplication);
+			result = true;
+		}
+		
+		return result;
+	}
+
+	public SortedSet<UserApplication> getUserApplicationsSet()
+	{
+		return userApplicationsSet;
+	}
+
+	public void setUserApplicationsSet(SortedSet<UserApplication> userApplicationsSet)
+	{
+		this.userApplicationsSet = userApplicationsSet;
+	}
+
 
 }

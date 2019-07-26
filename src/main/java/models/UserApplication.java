@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
-public class UserApplication
+public class UserApplication implements Comparable<UserApplication>
 {
 	@NotEmpty(message = "Company country name input must be 2 or more signs!")
 	@Size(min = 2, max = 40)
@@ -195,7 +195,15 @@ public class UserApplication
 				+ "\n companyContactLastName = " + companyContactLastName 
 				+ "\n dateWhenApplicationWasSend = " + dateWhenApplicationWasSend ;
 	}
-	
-	
-	
+
+	@Override
+	public int compareTo(UserApplication userApplication)
+	{
+  	    int result = 0;		
+
+  	    result = userApplication.getCompanyContactEmail().length() - this.getCompanyContactEmail().length();
+		
+		return result;
+	}
+
 }

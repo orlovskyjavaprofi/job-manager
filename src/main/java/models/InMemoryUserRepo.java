@@ -68,4 +68,17 @@ public class InMemoryUserRepo {
     public long getNumberOfRegisteredUsers() {
         return listOfUsers.size();
     }
+
+	public boolean insertJobApplicationToUserSet(User inputUser, UserApplication inputUserApplication)
+	{
+		boolean result = false;
+		
+		User userForApplicationInsert = findUser(inputUser);
+		if (userForApplicationInsert != null) {
+			userForApplicationInsert.insertNewCompanyApplication(inputUserApplication);
+			result = true;
+		}
+		
+		return result;
+	}
 }

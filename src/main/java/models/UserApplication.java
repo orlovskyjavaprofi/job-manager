@@ -197,11 +197,11 @@ public class UserApplication implements Comparable<UserApplication>
 	}
 
 	@Override
-	public int compareTo(UserApplication userApplication)
+	public int compareTo(UserApplication inputUserApplication)
 	{
   	    int result = 0;		
 
-  	    result = userApplication.getCompanyContactEmail().length() - this.getCompanyContactEmail().length();
+  	    result = inputUserApplication.getCompanyContactEmail().length() - this.getCompanyContactEmail().length();
 		
 		return result;
 	}

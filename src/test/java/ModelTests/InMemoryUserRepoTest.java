@@ -8,8 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import com.frontend.jobmanager.service.InMemoryUserService;
 
+import models.CompanySalutationType;
+import models.CompanyType;
 import models.InMemoryUserRepo;
 import models.User;
+import models.UserApplication;
 import models.UserEmploymentState;
 import models.UserSexState;
 
@@ -18,12 +21,14 @@ public class InMemoryUserRepoTest
    private InMemoryUserRepo inMemUserRepo;
    private InMemoryUserService inMemUserService;
    private User userObj;
+   private UserApplication userAppl;
    
    @BeforeEach
 	void setup() {
 	   inMemUserRepo = new InMemoryUserRepo();
 	   userObj= new User();
 	   inMemUserService = new InMemoryUserService();
+	   userAppl = new UserApplication();
    }
    
    @Test
@@ -54,6 +59,27 @@ public class InMemoryUserRepoTest
 		assertNotNull(retrievedUser,"User by given name cant be found!");
    }
    
+   @Test
+   void checkIfaNewUserCanInsertJobApplicationToHisSetsOfApplications() {
+	   boolean expectedResult = true;
+	   User mockUser= this.userSetUp(userObj);
+	   inMemUserRepo.addUser(mockUser);
+	   setUpApplicationForInsertToUserList();
+	   boolean actualResult = inMemUserRepo.insertJobApplicationToUserSet(mockUser, userAppl);
+	   assertEquals(expectedResult, actualResult, "User application can't be inserted via inmem repo service!");
+   }
+   
+   private void setUpApplicationForInsertToUserList()
+	{
+		userAppl.setCompanyAmountOfEmployee(250);
+		userAppl.setCompanyCityName("Alexandria");
+		userAppl.setCompanyContactEmail("coolcompany@siliconvaley.com");
+		userAppl.setCompanyCountryName("USA");
+		userAppl.setCompanyIndustry(CompanyType.MIDDLE.toString());
+		userAppl.setCurrentCompanySalutationType(CompanySalutationType.Mrs);
+		userAppl.setDateWhenApplicationWasSend("20.04.2018");
+		userAppl.setCompanyContactLastName("Uberson");
+	}
   
    private User userSetUp(User givenUser)
 	{

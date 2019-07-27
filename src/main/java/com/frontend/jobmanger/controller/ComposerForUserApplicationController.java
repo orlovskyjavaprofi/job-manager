@@ -1,20 +1,28 @@
 package com.frontend.jobmanger.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.frontend.jobmanager.service.InMemoryUserService;
 
+import models.CompanySalutationType;
+import models.CompanyType;
 import models.User;
+import models.UserApplication;
 import models.UserEmploymentState;
 import models.UserSexState;
 
@@ -48,6 +56,50 @@ public class ComposerForUserApplicationController
 		pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);
 		
 		return pathToUserAccountOffice;
+	}
+	
+	@PostMapping("/submitNewJobApplicationForUser")
+	public String insertNewJobApplicationToUserJobApplicationSet(
+			@RequestParam String userNickName, 
+			@RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate dateWhenUserSendApplicationToCompany,
+			@RequestParam String countryWhereCompanyLocated, @RequestParam String cityWhereCompanyLocated,
+			@RequestParam String industryOfCompany, @RequestParam String amountOfCompanyEmployees,
+			@RequestParam CompanyType typeOfCompany,	@RequestParam String companyContactEmail,
+			@RequestParam CompanySalutationType typesOfUserCompanyContactSalutation,
+			@RequestParam String companyContactPersonLastName,
+			@Valid @ModelAttribute UserApplication userJobApplicationAtCompany, BindingResult bindingResult
+		) {
+		
+		String pathToComposeNewJobApplication = "restrictedAccess";
+				
+		pathToComposeNewJobApplication = validateThatGivenUserReallyRegistered(userNickName,pathToComposeNewJobApplication);
+
+		if (pathToComposeNewJobApplication.equals("memberarea/composeAppForAUser")) {
+			
+			userJobApplicationAtCompany = 
+					createNewJobApplicationForUser(dateWhenUserSendApplicationToCompany, countryWhereCompanyLocated,
+							cityWhereCompanyLocated, industryOfCompany, amountOfCompanyEmployees, typeOfCompany,
+							companyContactEmail, typesOfUserCompanyContactSalutation, companyContactPersonLastName);
+	    }
+		
+		return pathToComposeNewJobApplication;
+	}
+
+	private UserApplication createNewJobApplicationForUser(LocalDate dateWhenUserSendApplicationToCompany,
+			String countryWhereCompanyLocated, String cityWhereCompanyLocated, String industryOfCompany,
+			String amountOfCompanyEmployees, CompanyType typeOfCompany, String companyContactEmail,
+			CompanySalutationType typesOfUserCompanyContactSalutation, String companyContactPersonLastName)
+	{
+		return new UserApplication(
+				dateWhenUserSendApplicationToCompany
+				  .format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+				  .toString(),
+		        countryWhereCompanyLocated, 
+		        cityWhereCompanyLocated,
+		        industryOfCompany,new Integer(amountOfCompanyEmployees),
+		        companyContactEmail, typesOfUserCompanyContactSalutation,
+		        companyContactPersonLastName,typeOfCompany
+		);
 	}
 	
 	private String validateThatGivenUserReallyRegistered(String uName, String pathToUserAccountOffice)
@@ -87,4 +139,6 @@ public class ComposerForUserApplicationController
 		String pass = "tuxtux123456";
 		inMemUserService.saveNewUserWithRandomPass(testUser, pass);
 	}
+	
+	
 }

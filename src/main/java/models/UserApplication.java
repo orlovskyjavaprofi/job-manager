@@ -2,6 +2,8 @@ package models;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -48,6 +50,9 @@ public class UserApplication implements Comparable<UserApplication>
 	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	@NotNull(message = "Date for application input is wrong, examle for valid input 12.01.2019") 
 	private LocalDate dateWhenApplicationWasSend;
+	
+	
+	private List<CompanySalutationType> typesOFCompanySalutationType = new ArrayList<CompanySalutationType>();
 	
 	public UserApplication() {
 		this.setDateWhenApplicationWasSend("01.01.1999");
@@ -204,6 +209,16 @@ public class UserApplication implements Comparable<UserApplication>
   	    result = inputUserApplication.getCompanyContactEmail().length() - this.getCompanyContactEmail().length();
 		
 		return result;
+	}
+
+	public List<CompanySalutationType> getTypesOFCompanySalutationType()
+	{
+		return typesOFCompanySalutationType;
+	}
+
+	public void setTypesOFCompanySalutationType(List<CompanySalutationType> typesOFCompanySalutationType)
+	{
+		this.typesOFCompanySalutationType = typesOFCompanySalutationType;
 	}
 
 }

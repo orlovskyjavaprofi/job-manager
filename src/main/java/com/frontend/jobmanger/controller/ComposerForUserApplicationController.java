@@ -2,6 +2,8 @@ package com.frontend.jobmanger.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -53,33 +55,53 @@ public class ComposerForUserApplicationController
 			userModel.addAttribute("userLoginName",uName);
 		}
 		
-		pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);
+		pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);	
+		verifyThatPathIsValidAndAddNewAtribute(userModel, pathToUserAccountOffice);
 		
 		return pathToUserAccountOffice;
+	}
+
+	private void verifyThatPathIsValidAndAddNewAtribute(Model userModel, String pathToUserAccountOffice)
+	{
+		if(pathToUserAccountOffice.equals("memberarea/composeAppForAUser")) {
+
+			userModel.addAttribute("userJobApplication", new UserApplication());
+		}
 	}
 	
 	@PostMapping("/submitNewJobApplicationForUser")
 	public String insertNewJobApplicationToUserJobApplicationSet(
 			@RequestParam String userNickName, 
-			@RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate dateWhenUserSendApplicationToCompany,
-			@RequestParam String countryWhereCompanyLocated, @RequestParam String cityWhereCompanyLocated,
-			@RequestParam String industryOfCompany, @RequestParam String amountOfCompanyEmployees,
-			@RequestParam CompanyType typeOfCompany,	@RequestParam String companyContactEmail,
-			@RequestParam CompanySalutationType typesOfUserCompanyContactSalutation,
-			@RequestParam String companyContactPersonLastName,
+			@RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate dateWhenApplicationWasSend,
+			@RequestParam String companyCountryName, @RequestParam String companyCityName,
+			@RequestParam String companyIndustry, @RequestParam String companyAmountOfEmployee,
+			@RequestParam CompanyType currentCompanyType,	@RequestParam String companyContactEmail,
+			@RequestParam CompanySalutationType typesOFCompanySalutationType,
+			@RequestParam String companyContactLastName,
 			@Valid @ModelAttribute UserApplication userJobApplicationAtCompany, BindingResult bindingResult
 		) {
+		
+		//output
+		System.out.println("Following information received: ");
+		System.out.print("Username: "+userNickName+"\nUserJobDate: "+dateWhenApplicationWasSend+
+				"\nCountry: "+companyCountryName+"\nCity: "+companyCityName+"\nIndustry: "+companyIndustry+"\n"
+						+ "Employee amount: "+ companyAmountOfEmployee+"\nType of company: "+ 
+				        currentCompanyType+"\nCompany contact email: "+
+						companyContactEmail+"\nTypes of salutation: "+typesOFCompanySalutationType+
+						"\nCompany contact person last name: "+companyContactLastName+"\n");
 		
 		String pathToComposeNewJobApplication = "restrictedAccess";
 				
 		pathToComposeNewJobApplication = validateThatGivenUserReallyRegistered(userNickName,pathToComposeNewJobApplication);
 
 		if (pathToComposeNewJobApplication.equals("memberarea/composeAppForAUser")) {
+			UserApplication newUserJobApplication = 	createNewJobApplicationForUser(dateWhenApplicationWasSend, companyCountryName,
+							companyCityName, companyIndustry, companyAmountOfEmployee, currentCompanyType,
+							companyContactEmail, typesOFCompanySalutationType, companyContactLastName);
 			
-			userJobApplicationAtCompany = 
-					createNewJobApplicationForUser(dateWhenUserSendApplicationToCompany, countryWhereCompanyLocated,
-							cityWhereCompanyLocated, industryOfCompany, amountOfCompanyEmployees, typeOfCompany,
-							companyContactEmail, typesOfUserCompanyContactSalutation, companyContactPersonLastName);
+			inMemUserService.findUserByNickname(userNickName).insertNewCompanyApplication(newUserJobApplication);
+			pathToComposeNewJobApplication = "memberarea/userAccountOffice";
+			System.out.println("current path "+pathToComposeNewJobApplication );
 	    }
 		
 		return pathToComposeNewJobApplication;
@@ -107,6 +129,7 @@ public class ComposerForUserApplicationController
 		if (actualUserWhichIslogedIn != null)
 		{
 			if(actualUserWhichIslogedIn.getUserNickName().equals(uName) ) {
+				
 			  pathToUserAccountOffice = "memberarea/composeAppForAUser";
 			}
 		}
@@ -140,5 +163,16 @@ public class ComposerForUserApplicationController
 		inMemUserService.saveNewUserWithRandomPass(testUser, pass);
 	}
 	
+	@ModelAttribute("allCompanySalutationTypes")
+	public List<CompanySalutationType> populateCompanySalutationType()
+	{
+		return Arrays.asList(CompanySalutationType.values());
+	}
+	
+	@ModelAttribute("allCompanyStateTypes")
+	public List<CompanyType> populateCompanyTypes()
+	{
+		return Arrays.asList(CompanyType.values());
+	}
 	
 }

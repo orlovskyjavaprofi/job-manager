@@ -8,7 +8,7 @@
 
 <table width="100%" border="2">
   <tr>
-    <th colspan="4" scope="col"><h1>List of user <span th:text="${userLoginName}" ></span> applications</h1></th>
+    <th colspan="4" scope="col"><h1>List of user <span th:text="${userLoginName}" ></span>job applications</h1></th>
   </tr>
   <tr>
     <th width="415" scope="col"><a th:href="@{/memberarea/userAccountOffice/(uName=${userLoginName})}">Manage your applications</a> (drop down menu)</th>
@@ -33,7 +33,7 @@
     <td width="713"><div align="center"><strong>Company name</strong></div></td>
     <td width="593"><div align="center"><strong>Job title</strong></div></td>
   </tr>
-   <tr th:each="jobapplication: ${userJobApplications}">
+   <tr th:each="jobapplication: *{userJobApplications}">
       <td><input type="checkbox" th:value="${jobapplication.companyName}"/> </td>
       <td th:text="${jobapplication.companyName}" />
       <td th:text="${jobapplication.jobTittleOfApplicationForCompany}" />

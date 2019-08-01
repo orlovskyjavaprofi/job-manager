@@ -47,7 +47,7 @@ public class ShowApplicationsListController
 		if(actualUserWhichIslogedIn != null) {
 			currentLogedUser = actualUserWhichIslogedIn;
 			userModel.addAttribute("userLoginName",uName);
-			userJobApplications=actualUserWhichIslogedIn.getUserApplicationsSet();			
+			userJobApplications=actualUserWhichIslogedIn.getUserApplicationsSet();		
 			userModel.addAttribute("userJobApplications",userJobApplications);
 			pathToUserApplShowListPage = "memberarea/listOfUserJobApplications";
 		}

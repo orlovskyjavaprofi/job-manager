@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="userJobApplicationsList" http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>List of users applications</title>
+</head>
+<body>
+
+<table width="100%" border="2">
+  <tr>
+    <th colspan="4" scope="col"><h1>List of user <span th:text="${userLoginName}" ></span> applications</h1></th>
+  </tr>
+  <tr>
+    <th width="415" scope="col"><a th:href="@{/memberarea/userAccountOffice/(uName=${userLoginName})}">Manage your applications</a> (drop down menu)</th>
+    <th width="309" scope="col">Current date: 29.03.2019 10:00</th>
+    <th width="377" scope="col">User selection for language UI ENG , DEU</th>
+    <th width="280" scope="col">Logged as: <span th:text="${userLoginName}" ></span></th>
+     <th width="146" scope="col"><a href="/">Logout</a></th>
+  </tr>
+</table>
+<br>
+<br>
+
+<!-- form start -->
+<table width="100%" height="231" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000" bordercolor="#000000" >
+  <thead>
+    <tr>
+      <th colspan="3">List of user <span th:text="${userLoginName}" ></span> applications</th>
+    </tr>
+  </thead>
+  <tr>
+    <td width="97" height="32"><div align="center"><strong>Selection</strong></div></td>
+    <td width="713"><div align="center"><strong>Company name</strong></div></td>
+    <td width="593"><div align="center"><strong>Job title</strong></div></td>
+  </tr>
+   <tr th:each="jobapplication: ${userJobApplications}">
+      <td><input type="checkbox" th:value="${jobapplication.companyName}"/> </td>
+      <td th:text="${jobapplication.companyName}" />
+      <td th:text="${jobapplication.jobTittleOfApplicationForCompany}" />
+   </tr>
+
+</table>
+
+<br>
+<table width="1411" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <th scope="col"><div align="left">
+      <input type="reset" name="resetForm" id="ResetForm" value="Reset">
+    </div></th>
+    <th scope="col"><div align="right">
+      <input type="submit" name="SubmitApplicationToComposer" id="SubmitApplicationToComposer" value="Compose a letter/'s for company/'s">
+    </div></th>
+  </tr>
+</table>
+<!-- form ending -->
+
+<br>
+</body>
+</html>

@@ -56,6 +56,7 @@ public class ComposerForUserApplicationController
 		}
 		
 		pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);	
+		
 		verifyThatPathIsValidAndAddNewAtribute(userModel, pathToUserAccountOffice);
 		
 		return pathToUserAccountOffice;
@@ -78,7 +79,8 @@ public class ComposerForUserApplicationController
 			@RequestParam CompanyType currentCompanyType,	@RequestParam String companyContactEmail,
 			@RequestParam CompanySalutationType typesOFCompanySalutationType,
 			@RequestParam String companyContactLastName,
-			@Valid @ModelAttribute UserApplication userJobApplicationAtCompany, BindingResult bindingResult
+			@Valid @ModelAttribute UserApplication userJobApplicationAtCompany, BindingResult bindingResult,
+			Model userModel
 		) {
 		
 		//output
@@ -101,8 +103,8 @@ public class ComposerForUserApplicationController
 			
 			inMemUserService.findUserByNickname(userNickName).insertNewCompanyApplication(newUserJobApplication);
 			pathToComposeNewJobApplication = "memberarea/userAccountOffice";
-			System.out.println("current path "+pathToComposeNewJobApplication );
 	    }
+		userModel.addAttribute("userLoginName",userNickName);
 		
 		return pathToComposeNewJobApplication;
 	}

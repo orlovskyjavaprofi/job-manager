@@ -36,6 +36,18 @@
     <td><div align="left" th:if="${#fields.hasErrors('dateWhenApplicationWasSend')}" th:errors="*{dateWhenApplicationWasSend}">Invalid input for company application send date!</div></td>
   </tr>
   <tr>
+    <td><div align="left"><strong>Company name:</strong></div></td>
+    <td>&nbsp;</td>
+    <td><input type="text" name="inputForCompanyName" id="inputForCompanyName" th:field="*{companyName}" /></td>
+    <td><div align="left" th:if="${#fields.hasErrors('companyName')}" th:errors="*{companyName}">Invalid input for company name!</div></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>Job title at company:</strong></div></td>
+    <td>&nbsp;</td>
+    <td><input type="text" name="inputJobTitleAtCompany" id="inputJobTitleAtCompany" th:field="*{jobTittleOfApplicationForCompany}" /></td>
+    <td><div align="left" th:if="${#fields.hasErrors('jobTittleOfApplicationForCompany')}" th:errors="*{jobTittleOfApplicationForCompany}">Invalid input for company job title!</div></td>
+  </tr>
+  <tr>
     <td><div align="left"><strong>Country:</strong></div></td>
     <td>&nbsp;</td>
     <td><input type="text" name="countryWhereCompanyLocated" id="countryWhereCompanyLocated" th:field="*{companyCountryName}" /></td>
@@ -89,7 +101,7 @@
    </ul>
 </td>
   </tr>
-   <tr>
+ <tr>
     <td><div align="left"><strong>Contact last name:</strong></div></td>
     <td>&nbsp;</td>
     <td><input type="text" name="companyContactPersonLastName" id="companyContactPersonLastName"  th:field="*{companyContactLastName}"></td>
@@ -99,9 +111,8 @@
     <td>&nbsp;</td>
     <td colspan="2">&nbsp;</td>
   </tr>
-  <br>
 </table>
-
+<br>
 
 <table width="1490" border="0" cellpadding="0" cellspacing="0">
   <tr>

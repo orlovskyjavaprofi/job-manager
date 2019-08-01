@@ -19,6 +19,22 @@ class UserApplicationTest
 	}
 	
 	@Test
+	void checkIfCompanyNameCanBeSet() {
+		String expectedCompanyName = "Lockheed Martin";
+		userApplObj.setCompanyName(expectedCompanyName);
+		
+		assertEquals(expectedCompanyName,userApplObj.getCompanyName(),"Company name cant be set up!");
+	}
+	
+	@Test
+	void checkJobTitleForApplicationCanBeSet() {
+		String expectedJobTitleForCompanyApplication = "Software developer";
+		userApplObj.setJobTittleOfApplicationForCompany(expectedJobTitleForCompanyApplication);
+		
+		assertEquals(expectedJobTitleForCompanyApplication,userApplObj.getJobTittleOfApplicationForCompany(),"Job title for company can't be set up!");
+	}
+	
+	@Test
 	void checkIfUserApplObjExist(){
 
 		assertNotNull(userApplObj,"User application object was not created!");
@@ -117,12 +133,14 @@ class UserApplicationTest
 		CompanySalutationType currentSalut = CompanySalutationType.Mrs;
 		String expectedContactLastName = "Meyers";
 		CompanyType companyType = CompanyType.MIDDLE;
+		String expectCompanyName = "Lockheed Martin";
+		String jobTitle = "Developer";
 		
 		UserApplication aplForComapny = new UserApplication(
 				userDateWhenApplicationWasSend, expectedCompanyCountryName,
 				expectedCompanyCityName, expectedCompanyIndustry,
 				expectedAmountOfEmployeeInCompany, expectedContactEmail,
-				currentSalut, expectedContactLastName, companyType
+				currentSalut, expectedContactLastName, companyType, expectCompanyName, jobTitle
 				);
 
 		assertNotNull(aplForComapny);

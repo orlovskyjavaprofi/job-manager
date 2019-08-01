@@ -78,7 +78,7 @@ public class ComposerForUserApplicationController
 			@RequestParam String companyIndustry, @RequestParam String companyAmountOfEmployee,
 			@RequestParam CompanyType currentCompanyType,	@RequestParam String companyContactEmail,
 			@RequestParam CompanySalutationType typesOFCompanySalutationType,
-			@RequestParam String companyContactLastName,
+			@RequestParam String companyContactLastName, @RequestParam String companyName, @RequestParam String jobTittleOfApplicationForCompany,
 			@Valid @ModelAttribute UserApplication userJobApplicationAtCompany, BindingResult bindingResult,
 			Model userModel
 		) {
@@ -90,7 +90,9 @@ public class ComposerForUserApplicationController
 						+ "Employee amount: "+ companyAmountOfEmployee+"\nType of company: "+ 
 				        currentCompanyType+"\nCompany contact email: "+
 						companyContactEmail+"\nTypes of salutation: "+typesOFCompanySalutationType+
-						"\nCompany contact person last name: "+companyContactLastName+"\n");
+						"\nCompany contact person last name: "+companyContactLastName+
+						"\nCompany name: "+companyName+"\nJob title at company: "+jobTittleOfApplicationForCompany+"\n"
+						);
 		
 		String pathToComposeNewJobApplication = "restrictedAccess";
 				
@@ -99,7 +101,7 @@ public class ComposerForUserApplicationController
 		if (pathToComposeNewJobApplication.equals("memberarea/composeAppForAUser")) {
 			UserApplication newUserJobApplication = 	createNewJobApplicationForUser(dateWhenApplicationWasSend, companyCountryName,
 							companyCityName, companyIndustry, companyAmountOfEmployee, currentCompanyType,
-							companyContactEmail, typesOFCompanySalutationType, companyContactLastName);
+							companyContactEmail, typesOFCompanySalutationType, companyContactLastName,companyName,jobTittleOfApplicationForCompany);
 			
 			inMemUserService.findUserByNickname(userNickName).insertNewCompanyApplication(newUserJobApplication);
 			pathToComposeNewJobApplication = "memberarea/userAccountOffice";
@@ -112,7 +114,8 @@ public class ComposerForUserApplicationController
 	private UserApplication createNewJobApplicationForUser(LocalDate dateWhenUserSendApplicationToCompany,
 			String countryWhereCompanyLocated, String cityWhereCompanyLocated, String industryOfCompany,
 			String amountOfCompanyEmployees, CompanyType typeOfCompany, String companyContactEmail,
-			CompanySalutationType typesOfUserCompanyContactSalutation, String companyContactPersonLastName)
+			CompanySalutationType typesOfUserCompanyContactSalutation, String companyContactPersonLastName, 
+			String inputForCompanyName, String inputForJobTitle)
 	{
 		return new UserApplication(
 				dateWhenUserSendApplicationToCompany
@@ -122,8 +125,8 @@ public class ComposerForUserApplicationController
 		        cityWhereCompanyLocated,
 		        industryOfCompany,new Integer(amountOfCompanyEmployees),
 		        companyContactEmail, typesOfUserCompanyContactSalutation,
-		        companyContactPersonLastName,typeOfCompany
-		);
+		        companyContactPersonLastName,typeOfCompany, inputForCompanyName, inputForJobTitle
+		     );
 	}
 	
 	private String validateThatGivenUserReallyRegistered(String uName, String pathToUserAccountOffice)

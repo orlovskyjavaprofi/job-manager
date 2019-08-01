@@ -20,6 +20,14 @@ public class UserApplication implements Comparable<UserApplication>
 	@Size(min = 2, max = 40)
 	private String companyCountryName;
 
+	@NotEmpty(message = "Company name input must be 2 or more signs!")
+	@Size(min = 2, max = 40)
+	private String companyName;
+	
+	@NotEmpty(message = "Job title for application at company input must be 4 or more signs!")
+	@Size(min = 4, max = 40)
+	private String jobTittleOfApplicationForCompany;
+	
 	@NotEmpty(message = "Company city name input must be 2 or more signs!")
 	@Size(min = 2, max = 40)
 	private String companyCityName;
@@ -56,6 +64,9 @@ public class UserApplication implements Comparable<UserApplication>
 	
 	public UserApplication() {
 		this.setDateWhenApplicationWasSend("01.01.1999");
+		
+		this.setCompanyName("defaultCompanyName");
+		this.setJobTittleOfApplicationForCompany("defaultJobTitleDescription");
 		this.setCompanyCountryName("defaultName");
 		this.setCompanyCityName("defaultCityName");
 		this.setCompanyIndustry("defaultIndustry");
@@ -69,7 +80,8 @@ public class UserApplication implements Comparable<UserApplication>
 	public UserApplication(String userDateWhenApplicationWasSend, String companyCountryName,
 			String companyCityName, String companyIndustry, 
 			Integer amountOfEmployeeInCompany, String contactEmail, 
-			CompanySalutationType currentSalut, String contactLastName,CompanyType companyType)
+			CompanySalutationType currentSalut, String contactLastName,CompanyType companyType, 
+			String companyName, String jobTitle)
 	{
 		this.setDateWhenApplicationWasSend(userDateWhenApplicationWasSend);
 		this.setCompanyCountryName(companyCountryName);
@@ -80,6 +92,8 @@ public class UserApplication implements Comparable<UserApplication>
 		this.setCurrentCompanySalutationType(currentSalut);
 		this.setCompanyContactLastName(contactLastName);
 		this.setCurrentCompanyType(companyType);
+		this.setCompanyName(companyName);
+		this.setJobTittleOfApplicationForCompany(jobTitle);
 	}
 
 	public String getCompanyCountryName()
@@ -191,6 +205,7 @@ public class UserApplication implements Comparable<UserApplication>
 	{
 		return "UserApplication:"
 				+ "\n companyCountryName = " + companyCountryName + 
+				"\n companyName = " + companyName+
 				"\n companyCityName = " + companyCityName
 				+ "\n companyIndustry = " + companyIndustry 
 				+ "\n companyAmountOfEmployee = " + companyAmountOfEmployee
@@ -221,4 +236,27 @@ public class UserApplication implements Comparable<UserApplication>
 		this.typesOFCompanySalutationType = typesOFCompanySalutationType;
 	}
 
+	public String getCompanyName()
+	{
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName)
+	{
+		this.companyName = companyName;
+	}
+
+	public String getJobTittleOfApplicationForCompany()
+	{
+		return jobTittleOfApplicationForCompany;
+	}
+
+	public void setJobTittleOfApplicationForCompany(String jobTittleOfApplicationForCompany)
+	{
+		this.jobTittleOfApplicationForCompany = jobTittleOfApplicationForCompany;
+	}
+
+
+
+	
 }

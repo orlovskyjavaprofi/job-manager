@@ -78,30 +78,20 @@ public class ComposerForUserApplicationController
 			@RequestParam String companyIndustry, @RequestParam String companyAmountOfEmployee,
 			@RequestParam CompanyType currentCompanyType,	@RequestParam String companyContactEmail,
 			@RequestParam CompanySalutationType typesOFCompanySalutationType,
-			@RequestParam String companyContactLastName, @RequestParam String companyName, @RequestParam String jobTittleOfApplicationForCompany,
+			@RequestParam String companyContactLastName, @RequestParam String companyName,
+			@RequestParam String jobTittleOfApplicationForCompany,
 			@Valid @ModelAttribute UserApplication userJobApplicationAtCompany, BindingResult bindingResult,
 			Model userModel
 		) {
-		
-		//output
-		System.out.println("Following information received: ");
-		System.out.print("Username: "+userNickName+"\nUserJobDate: "+dateWhenApplicationWasSend+
-				"\nCountry: "+companyCountryName+"\nCity: "+companyCityName+"\nIndustry: "+companyIndustry+"\n"
-						+ "Employee amount: "+ companyAmountOfEmployee+"\nType of company: "+ 
-				        currentCompanyType+"\nCompany contact email: "+
-						companyContactEmail+"\nTypes of salutation: "+typesOFCompanySalutationType+
-						"\nCompany contact person last name: "+companyContactLastName+
-						"\nCompany name: "+companyName+"\nJob title at company: "+jobTittleOfApplicationForCompany+"\n"
-						);
-		
+				
 		String pathToComposeNewJobApplication = "restrictedAccess";
 				
 		pathToComposeNewJobApplication = validateThatGivenUserReallyRegistered(userNickName,pathToComposeNewJobApplication);
 
 		if (pathToComposeNewJobApplication.equals("memberarea/composeAppForAUser")) {
 			UserApplication newUserJobApplication = 	createNewJobApplicationForUser(dateWhenApplicationWasSend, companyCountryName,
-							companyCityName, companyIndustry, companyAmountOfEmployee, currentCompanyType,
-							companyContactEmail, typesOFCompanySalutationType, companyContactLastName,companyName,jobTittleOfApplicationForCompany);
+			companyCityName, companyIndustry, companyAmountOfEmployee, currentCompanyType,
+			companyContactEmail, typesOFCompanySalutationType, companyContactLastName,companyName,jobTittleOfApplicationForCompany);
 			
 			inMemUserService.findUserByNickname(userNickName).insertNewCompanyApplication(newUserJobApplication);
 			pathToComposeNewJobApplication = "memberarea/userAccountOffice";

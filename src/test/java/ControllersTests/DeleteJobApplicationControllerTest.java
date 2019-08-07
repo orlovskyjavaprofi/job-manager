@@ -107,9 +107,9 @@ class DeleteJobApplicationControllerTest extends BasicControllerTest {
                                  .andExpect(view().name("memberarea/listOfUserJobApplicationsForDeletion"))
                          )
                          .andDo(accessUserAccountOfficeComposePageMvcResult ->
-                         mockMvcLogin.perform(post("/deleteUserJobApplication")
+                         mockMvcLogin.perform(post("/deleteUserJobApplication/")
+                        		         .param("companyNameSelection", "Lockheed Martin")
                         		         .param("userNickName", "testdude000")
-                        		         .param("companyName", "Lockheed Martin")
                         		         .param("jobTittleOfApplicationForCompany", "Software developer")  
                         		 )
                           .andExpect(status().isOk())

@@ -21,11 +21,11 @@
 <br>
 <br>
 
-<!-- form start -->
+<form action="#" th:action="@{/deleteUserJobApplication/}" th:object="${userJobApplication}" method="post">
 <table width="100%" height="231" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000" bordercolor="#000000" >
   <thead>
     <tr>
-      <th colspan="3">List of user <span th:text="${userLoginName}" ></span> job applications for delete!</th>
+      <th colspan="3">List of user <input type ="text" name="userNickName" id="userNickName" th:value="${userLoginName}" readonly /> job applications for delete!</th>
     </tr>
   </thead>
   <tr>
@@ -33,16 +33,16 @@
     <td width="713"><div align="center"><strong>Company name</strong></div></td>
     <td width="593"><div align="center"><strong>Job title</strong></div></td>
   </tr>
-   <tr th:each="jobapplication: *{userJobApplications}">
-      <td><input type="checkbox" th:value="${jobapplication.companyName}"/> </td>
-      <td th:text="${jobapplication.companyName}" />
-      <td th:text="${jobapplication.jobTittleOfApplicationForCompany}" />
+   <tr th:each="jobapplication: ${setOfUserJobAppl}">
+      <td><input type="checkbox" name="companyNameSelection" th:value="${jobapplication.companyName}"/> </td>
+      <td><span th:text="${jobapplication.companyName}"></span>
+      <td><input type ="text" name="jobTittleOfApplicationForCompany" id="jobTittleOfApplicationForCompany" th:value="${jobapplication.jobTittleOfApplicationForCompany}" readonly /></td>
    </tr>
 
 </table>
 
 <br>
-<table width="1411" border="0" cellpadding="0" cellspacing="0">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <th scope="col"><div align="left">
       <input type="reset" name="resetForm" id="ResetForm" value="Reset">
@@ -52,7 +52,7 @@
     </div></th>
   </tr>
 </table>
-<!-- form ending -->
+</form>
 
 <br>
 </body>

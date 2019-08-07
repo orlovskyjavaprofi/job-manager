@@ -45,32 +45,51 @@ public class DeleteJobApplicationController
 		
 		if(actualUserWhichIslogedIn != null) {
 			currentLogedUser = actualUserWhichIslogedIn;
-			userModel.addAttribute("userLoginName",uName);
+			pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);			
+			verifyThatPathIsValidAndAddNewAtribute(userModel, pathToUserAccountOffice, uName);
 		}
-		
-		pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);
-		
-		verifyThatPathIsValidAndAddNewAtribute(userModel, pathToUserAccountOffice);
-		
+
 		return pathToUserAccountOffice;
 	}
 	
 	
-	@PostMapping("/deleteUserJobApplication")
-	public String deleteUserJobApplication(@RequestParam String userNickName, @RequestParam String companyName,
-	 @RequestParam String jobTittleOfApplicationForCompany, @Valid @ModelAttribute UserApplication userJobApplication,
-	BindingResult bindingResult, Model userModel) {
+	@PostMapping("/deleteUserJobApplication/")
+	public String deleteUserJobApplication(@RequestParam String[] companyNameSelection ,
+	   @RequestParam String userNickName, @RequestParam String jobTittleOfApplicationForCompany, 
+	   @Valid @ModelAttribute UserApplication userJobApplication,	BindingResult bindingResult, Model userModel) {
 		String pathToPageForDeletionOfJobApplication = "restrictedAccess";
 		
+		pathToPageForDeletionOfJobApplication = deleteAllSelectedJobApplications(companyNameSelection, userNickName,
+				jobTittleOfApplicationForCompany, userModel, pathToPageForDeletionOfJobApplication);
+		
+		return pathToPageForDeletionOfJobApplication;
+	}
+
+	private String deleteAllSelectedJobApplications(String[] companyNameSelection, String userNickName,
+			String jobTittleOfApplicationForCompany, Model userModel, String pathToPageForDeletionOfJobApplication)
+	{
+		for (String companyWhichWasSelectedByUser : companyNameSelection)
+		{
+			if (companyWhichWasSelectedByUser.isEmpty() == false) {
+				pathToPageForDeletionOfJobApplication = deleteJobApplOfUser(userNickName, companyWhichWasSelectedByUser,
+						jobTittleOfApplicationForCompany, userModel, pathToPageForDeletionOfJobApplication);
+				}
+		}
+		return pathToPageForDeletionOfJobApplication;
+	}
+
+	private String deleteJobApplOfUser(String userNickName, String companyName, String jobTittleOfApplicationForCompany,
+			Model userModel, String pathToPageForDeletionOfJobApplication)
+	{
 		pathToPageForDeletionOfJobApplication = validateThatGivenUserReallyRegistered(userNickName,pathToPageForDeletionOfJobApplication);
 		
 		if(pathToPageForDeletionOfJobApplication.equals("memberarea/listOfUserJobApplicationsForDeletion")) {
 			if (jobTittleOfApplicationForCompany.isEmpty() == false) {
 			  inMemUserService.findUserByNickname(userNickName).deleteJobApplicationByCompanyName(companyName);
+			  userModel.addAttribute("userLoginName",userNickName);
 			  pathToPageForDeletionOfJobApplication = "memberarea/userAccountOffice";
 			}
-		}
-		
+		  }
 		return pathToPageForDeletionOfJobApplication;
 	}
 	
@@ -87,12 +106,12 @@ public class DeleteJobApplicationController
 		return pathToUserAccountOffice;
 	}	
 	
-	private void verifyThatPathIsValidAndAddNewAtribute(Model userModel, String pathToUserAccountOffice)
+	private void verifyThatPathIsValidAndAddNewAtribute(Model userModel, String pathToUserAccountOffice, String inputName)
 	{
 		if(pathToUserAccountOffice.equals("memberarea/listOfUserJobApplicationsForDeletion")) {
-
-			userModel.addAttribute("userJobApplication", inMemUserService.
-					               findUserByNickname(actualUserWhichIslogedIn.getUserNickName()).getUserApplicationsSet());
+			userModel.addAttribute("userLoginName",inputName);
+			userModel.addAttribute("setOfUserJobAppl", inMemUserService.
+					               findUserByNickname(actualUserWhichIslogedIn.getUserNickName()).getUserApplicationsSet());			
 		}
 	}
 

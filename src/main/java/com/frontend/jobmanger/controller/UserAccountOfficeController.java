@@ -42,11 +42,18 @@ public class UserAccountOfficeController
 		actualUserWhichIslogedIn = inMemUserService.findUserByNickname(uName);
 		if(actualUserWhichIslogedIn != null) {
 			currentLogedUser = actualUserWhichIslogedIn;
-			userModel.addAttribute("userLoginName",uName);
+			setUpPageValuesForUser(uName, userModel);
 		}
 		pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);
 
 		return pathToUserAccountOffice;
+	}
+
+	private void setUpPageValuesForUser(String uName, Model userModel)
+	{
+		userModel.addAttribute("userLoginName",uName);
+		userModel.addAttribute("userFirstName",actualUserWhichIslogedIn.getUserFirstName());
+		userModel.addAttribute("userLastName",actualUserWhichIslogedIn.getUserLastName());
 	}
 
 	private String validateThatGivenUserReallyRegistered(String uName, String pathToUserAccountOffice)

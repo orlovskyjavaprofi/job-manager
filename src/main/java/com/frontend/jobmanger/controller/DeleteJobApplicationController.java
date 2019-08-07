@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -54,6 +55,26 @@ public class DeleteJobApplicationController
 		return pathToUserAccountOffice;
 	}
 	
+	
+	@PostMapping("/deleteUserJobApplication")
+	public String deleteUserJobApplication(@RequestParam String userNickName, @RequestParam String companyName,
+	 @RequestParam String jobTittleOfApplicationForCompany, @Valid @ModelAttribute UserApplication userJobApplication,
+	BindingResult bindingResult, Model userModel) {
+		String pathToPageForDeletionOfJobApplication = "restrictedAccess";
+		
+		pathToPageForDeletionOfJobApplication = validateThatGivenUserReallyRegistered(userNickName,pathToPageForDeletionOfJobApplication);
+		
+		if(pathToPageForDeletionOfJobApplication.equals("memberarea/listOfUserJobApplicationsForDeletion")) {
+			if (jobTittleOfApplicationForCompany.isEmpty() == false) {
+			  inMemUserService.findUserByNickname(userNickName).deleteJobApplicationByCompanyName(companyName);
+			  pathToPageForDeletionOfJobApplication = "memberarea/userAccountOffice";
+			}
+		}
+		
+		return pathToPageForDeletionOfJobApplication;
+	}
+	
+	
 	private String validateThatGivenUserReallyRegistered(String uName, String pathToUserAccountOffice)
 	{
 		if (actualUserWhichIslogedIn != null)
@@ -70,7 +91,8 @@ public class DeleteJobApplicationController
 	{
 		if(pathToUserAccountOffice.equals("memberarea/listOfUserJobApplicationsForDeletion")) {
 
-			userModel.addAttribute("userJobApplication", new UserApplication());
+			userModel.addAttribute("userJobApplication", inMemUserService.
+					               findUserByNickname(actualUserWhichIslogedIn.getUserNickName()).getUserApplicationsSet());
 		}
 	}
 

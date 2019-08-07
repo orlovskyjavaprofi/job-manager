@@ -28,10 +28,10 @@
     <td colspan="4">&nbsp;</td>
   </tr>
   <tr>
-    <td colspan="4">First name: $firstname username</td>
+    <td colspan="4">First name: <span th:text="${userFirstName}" ></span></td>
   </tr>
   <tr>
-    <td colspan="4">Last name: $lastname username</td>
+    <td colspan="4">Last name: <span th:text="${userLastName}" ></span></td>
   </tr>
   <tr>
     <td colspan="4">Company offers: $amount <strong>(this option will show up only if user has given a approval to be contacted by companys)</strong></td>
@@ -65,7 +65,7 @@
   <a th:href="@{/memberarea/userAccountOffice/showListOfUserJobApplications/(uName=${userLoginName})}">List of new applications</a><br>
   Compose email from application or applications<br>
   Edit,search and delete application<br>
-  Show already applications already sent to the user!(Due to GDPR regulation all job application mail must be send to a user!) <br>
+  Show already sent application or applications to the user!(Due to GDPR regulation all job application email will be send to a user which did created them!) <br>
   <b>Other important features below should be second menu: probable name upload your files</b>
   Create or upload cover letter template<br>
   Create or upload your curriculum vitae<br>

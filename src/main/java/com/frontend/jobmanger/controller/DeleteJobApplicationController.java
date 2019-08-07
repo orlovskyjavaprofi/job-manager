@@ -1,15 +1,21 @@
 package com.frontend.jobmanger.controller;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.frontend.jobmanager.service.InMemoryUserService;
 
 import models.User;
+import models.UserApplication;
 import models.UserEmploymentState;
 import models.UserSexState;
 
@@ -27,6 +33,47 @@ public class DeleteJobApplicationController
 		return "restrictedAccess";
 	}
 	
+	@GetMapping(value = {"/memberarea/userAccountOffice/deleteApp/" })
+	public String authUserAccessToOfficeMemberArea(@RequestParam String uName,
+			@Valid @ModelAttribute User currentLogedUser, BindingResult bindingResult, Model userModel)
+	{
+		String pathToUserAccountOffice = "restrictedAccess";
+		
+		caseForRunningUnitTestsWhenInMemServiceNotAvailable();
+		actualUserWhichIslogedIn = inMemUserService.findUserByNickname(uName);
+		
+		if(actualUserWhichIslogedIn != null) {
+			currentLogedUser = actualUserWhichIslogedIn;
+			userModel.addAttribute("userLoginName",uName);
+		}
+		
+		pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);
+		
+		verifyThatPathIsValidAndAddNewAtribute(userModel, pathToUserAccountOffice);
+		
+		return pathToUserAccountOffice;
+	}
+	
+	private String validateThatGivenUserReallyRegistered(String uName, String pathToUserAccountOffice)
+	{
+		if (actualUserWhichIslogedIn != null)
+		{
+			if(actualUserWhichIslogedIn.getUserNickName().equals(uName) ) {
+				
+			  pathToUserAccountOffice = "memberarea/listOfUserJobApplicationsForDeletion";
+			}
+		}
+		return pathToUserAccountOffice;
+	}	
+	
+	private void verifyThatPathIsValidAndAddNewAtribute(Model userModel, String pathToUserAccountOffice)
+	{
+		if(pathToUserAccountOffice.equals("memberarea/listOfUserJobApplicationsForDeletion")) {
+
+			userModel.addAttribute("userJobApplication", new UserApplication());
+		}
+	}
+
 	private void caseForRunningUnitTestsWhenInMemServiceNotAvailable()
 	{
 		if (inMemUserService == null)

@@ -49,10 +49,10 @@
     <td colspan="4">&nbsp;</td>
   </tr>
   <tr>
-    <td width="197"><!-- print view applications --></td>
-    <td width="94"><!-- view stats --></td>
-    <td width="1050"><!-- allowed to be contacted by company --></td>
-    <td width="150"><!-- delete my account! --></td>
+    <td width="197"><!-- to do add print view applications --></td>
+    <td width="94"><!-- to do view stats --></td>
+    <td width="1050"><!-- to do allowed to be contacted by company --></td>
+    <td width="150"><!-- to do delete my account! --></td>
   </tr>
 </table>
 <h2><br>
@@ -61,13 +61,15 @@
 <p><strong>
   Home landing page<br>
   <a th:href="@{/memberarea/userAccountOffice/composeNewApp/(uName=${userLoginName})}">Create new application</a><br>
+  <a th:href="@{/memberarea/userAccountOffice/deleteApp/(uName=${userLoginName})}">Delete application or applications</a><br>
+  <a th:href="@{/memberarea/userAccountOffice/showListOfUserJobApplications/(uName=${userLoginName})}">List of new applications</a><br>
+  Compose email from application or applications<br>
+  Edit,search and delete application<br>
+  Show already applications already sent to the user!(Due to GDPR regulation all job application mail must be send to a user!) <br>
+  <b>Other important features below should be second menu: probable name upload your files</b>
   Create or upload cover letter template<br>
   Create or upload your curriculum vitae<br>
   Upload your school credentials and/or certificates<br>
-  <a th:href="@{/memberarea/userAccountOffice/showListOfUserJobApplications/(uName=${userLoginName})}">List of new applications</a><br>
-  Compose email from application<br>
-  Edit,search and delete application<br>
-  Show already sent applications<br>
   </strong><br>
 </p>
 </body>

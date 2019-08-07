@@ -392,5 +392,29 @@ public class User implements UserDetails
 		this.userApplicationsSet = userApplicationsSet;
 	}
 
+	public boolean deleteJobApplicationByCompanyName(String companyName)
+	{
+		boolean deletionResult = false;
+
+		for (UserApplication jobApplication : this.getUserApplicationsSet())
+		{
+		   deletionResult = findByCompanyNameJobApplicationAndDeleteIt(companyName, deletionResult, jobApplication);
+		   if (deletionResult == true) {  break;}
+		}
+		
+		return deletionResult;
+	}
+
+	private boolean findByCompanyNameJobApplicationAndDeleteIt(String companyName, boolean deletionResult,
+			UserApplication jobApplication)
+	{
+		if(jobApplication.getCompanyName().equals(companyName)) {
+			   this.getUserApplicationsSet().remove(jobApplication);
+			   deletionResult = true;
+			  
+		   }
+		return deletionResult;
+	}
+
 
 }

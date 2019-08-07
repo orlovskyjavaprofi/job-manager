@@ -124,6 +124,13 @@ class UserApplicationTest
 	@Test
 	void checkIfANewApplicationForCompanyCanBeCreated()
 	{
+		UserApplication aplForComapny = createNewAppl();
+
+		assertNotNull(aplForComapny);
+	}
+
+	private UserApplication createNewAppl()
+	{
 		String userDateWhenApplicationWasSend = "01.02.2019";
 		String expectedCompanyCountryName = "USA";
 		String expectedCompanyCityName = "Austin";
@@ -142,8 +149,9 @@ class UserApplicationTest
 				expectedAmountOfEmployeeInCompany, expectedContactEmail,
 				currentSalut, expectedContactLastName, companyType, expectCompanyName, jobTitle
 				);
-
-		assertNotNull(aplForComapny);
+		return aplForComapny;
 	}
+	
+
     
 }

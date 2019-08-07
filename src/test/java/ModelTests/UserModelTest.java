@@ -201,12 +201,24 @@ class UserModelTest
 		setUpApplicationForInsertToUserList();
 		boolean actualResult = userObj.insertNewCompanyApplication(userAppl);
 		
-		assertEquals(expectedResult, actualResult,"new Created application cant be inserted into User application list");
+		assertEquals(expectedResult, actualResult,"new created application cant be inserted into User application list");
 	}
 
+	@Test
+	void checkIfGivenApplicationCanBeDeleted() {
+		boolean expectedResult = true;
+		String companyName ="SUSE";
+		setUpApplicationForInsertToUserList();
+		userObj.insertNewCompanyApplication(userAppl);
+		boolean actualResult = userObj.deleteJobApplicationByCompanyName(companyName);
+		
+		assertEquals(expectedResult, actualResult,"new created application cant be delete from User application list");
+	}
+	
 	private void setUpApplicationForInsertToUserList()
 	{
 		userAppl.setCompanyAmountOfEmployee(250);
+		userAppl.setCompanyName("SUSE");
 		userAppl.setCompanyCityName("Alexandria");
 		userAppl.setCompanyContactEmail("coolcompany@siliconvaley.com");
 		userAppl.setCompanyCountryName("USA");

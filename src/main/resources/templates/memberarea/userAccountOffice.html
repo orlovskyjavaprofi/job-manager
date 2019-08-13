@@ -59,7 +59,7 @@
   Take notice: &quot;Manage your applications&quot; will include following operations:<br>
 </h2>
 <p><strong>
-  Home landing page<br>
+  <a th:href="@{/memberarea/userLandingPage/(uName=${userLoginName})}">Home landing page</a><br>
   <a th:href="@{/memberarea/userAccountOffice/composeNewApp/(uName=${userLoginName})}">Create new application</a><br>
   <a th:href="@{/memberarea/userAccountOffice/deleteApp/(uName=${userLoginName})}">Delete application or applications</a><br>
   <a th:href="@{/memberarea/userAccountOffice/showListOfUserJobApplications/(uName=${userLoginName})}">List of new applications</a><br>

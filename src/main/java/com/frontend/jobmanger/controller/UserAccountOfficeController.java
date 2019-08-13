@@ -32,6 +32,19 @@ public class UserAccountOfficeController
 		return "restrictedAccess";
 	}
 
+	@GetMapping(value = {"/memberarea/userLandingPage/"})
+	public String authUserAccessToLandingPageAtMemberArea(@RequestParam String uName,
+			@Valid @ModelAttribute User currentLogedUser, BindingResult bindingResult, Model userModel) {
+		
+		String pathToUserAccountOffice = "restrictedAccess";
+		caseForRunningUnitTestsWhenInMemServiceNotAvailable();
+		checkIfUserLogedIn(uName, userModel, currentLogedUser);
+		
+		pathToUserAccountOffice = validateThatGivenUserAllowedToGoBackToLandingPage(uName, pathToUserAccountOffice);
+		
+		return pathToUserAccountOffice;
+	}
+	
 	@GetMapping(value = { "/memberarea/userAccountOffice/" })
 	public String authUserAccessToOfficeMemberArea(@RequestParam String uName,
 			@Valid @ModelAttribute User currentLogedUser, BindingResult bindingResult, Model userModel)
@@ -40,13 +53,20 @@ public class UserAccountOfficeController
 
 		caseForRunningUnitTestsWhenInMemServiceNotAvailable();	
 		actualUserWhichIslogedIn = inMemUserService.findUserByNickname(uName);
+		checkIfUserLogedIn(uName, userModel, currentLogedUser );
+		
+		pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);
+
+		return pathToUserAccountOffice;
+	}
+
+	private void checkIfUserLogedIn(String uName, Model userModel,User currentLogedUser)
+	{
+	
 		if(actualUserWhichIslogedIn != null) {
 			currentLogedUser = actualUserWhichIslogedIn;
 			setUpPageValuesForUser(uName, userModel);
 		}
-		pathToUserAccountOffice = validateThatGivenUserReallyRegistered(uName, pathToUserAccountOffice);
-
-		return pathToUserAccountOffice;
 	}
 
 	private void setUpPageValuesForUser(String uName, Model userModel)
@@ -66,7 +86,18 @@ public class UserAccountOfficeController
 		}
 		return pathToUserAccountOffice;
 	}
-
+	
+	private String validateThatGivenUserAllowedToGoBackToLandingPage(String uName, String pathToUserAccountOffice)
+	{
+		if (actualUserWhichIslogedIn != null)
+		{
+			if(actualUserWhichIslogedIn.getUserNickName().equals(uName) ) {
+			  pathToUserAccountOffice = "memberarea/landingUserMemberAreaPage";
+			}
+		}
+		return pathToUserAccountOffice;
+	}
+	
 	private void caseForRunningUnitTestsWhenInMemServiceNotAvailable()
 	{
 		if (inMemUserService == null)

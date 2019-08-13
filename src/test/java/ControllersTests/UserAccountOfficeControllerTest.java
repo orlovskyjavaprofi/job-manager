@@ -27,7 +27,7 @@ class UserAccountOfficeControllerTest extends BasicControllerTest {
     }
 
     @Test
-    public void checkIfUserCanGoBackToLandingPage() throws Exception{
+    public void checkIfUserCanGoBackToLandingPageFromUserAccountOffice() throws Exception{
         mockMvcLogin.perform(post("/submitNewUserReg")
                 .param("userFirstName", "Thomas")
                 .param("userLastName", "Jefferson")

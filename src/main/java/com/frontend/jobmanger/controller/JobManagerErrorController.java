@@ -55,6 +55,9 @@ public class JobManagerErrorController implements ErrorController
 		if(failedRequestUri.equals("/submitNewUserReg")) {
 			defaultPage = "userFormForRegNotFilled";
 		}
+		if(failedRequestUri.equals("/submitNewJobApplicationForUser")) {
+		   defaultPage= "memberarea/errorpages/userFormForInsertNewJobApplNotFilled";	
+		}
 		 
 		return defaultPage;
 	}

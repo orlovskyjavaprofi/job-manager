@@ -121,6 +121,13 @@ class UserApplicationTest
 		assertEquals(userDateWhenApplicationWasSend,userApplObj.getDateWhenApplicationWasSend());
     }
     
+    @Test
+    void checkIfDefaultStateOfApplicationSetUp() {
+    	   String expectedStateOfJobApplication = "NOTAPPLIED";
+    	   String actualStateOfJobApplication = userApplObj.getUserJobApplicationState().toString();
+    		assertEquals(expectedStateOfJobApplication,actualStateOfJobApplication, "The default state of user job application not set!");
+    }
+    
 	@Test
 	void checkIfANewApplicationForCompanyCanBeCreated()
 	{

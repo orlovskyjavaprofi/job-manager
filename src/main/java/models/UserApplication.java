@@ -59,6 +59,7 @@ public class UserApplication implements Comparable<UserApplication>
 	@NotNull(message = "Date for application input is wrong, examle for valid input 12.01.2019") 
 	private LocalDate dateWhenApplicationWasSend;
 	
+	private UserJobApplicationState userJobApplicationState;
 	
 	private List<CompanySalutationType> typesOFCompanySalutationType = new ArrayList<CompanySalutationType>();
 	
@@ -75,6 +76,7 @@ public class UserApplication implements Comparable<UserApplication>
 		this.setCurrentCompanySalutationType(currentCompanySalutationType.Mrs);
 		this.setCompanyContactLastName("defaultLastName");
 		this.setCurrentCompanyType(CompanyType.MIDDLE);
+		this.setUserJobApplicationState(userJobApplicationState.NOTAPPLIED);
 	}
 	
 	public UserApplication(String userDateWhenApplicationWasSend, String companyCountryName,
@@ -94,6 +96,8 @@ public class UserApplication implements Comparable<UserApplication>
 		this.setCurrentCompanyType(companyType);
 		this.setCompanyName(companyName);
 		this.setJobTittleOfApplicationForCompany(jobTitle);
+		this.setUserJobApplicationState(userJobApplicationState.NOTAPPLIED);
+		
 	}
 
 	public String getCompanyCountryName()
@@ -213,7 +217,8 @@ public class UserApplication implements Comparable<UserApplication>
 				+ "\n currentCompanySalutationType = " + currentCompanySalutationType 
 				+ "\n currentCompanyType = " + currentCompanyType
 				+ "\n companyContactLastName = " + companyContactLastName 
-				+ "\n dateWhenApplicationWasSend = " + dateWhenApplicationWasSend ;
+				+ "\n dateWhenApplicationWasSend = " + dateWhenApplicationWasSend 
+				+ "\n userJobApplicationState = " + userJobApplicationState;
 	}
 
 	@Override
@@ -254,6 +259,16 @@ public class UserApplication implements Comparable<UserApplication>
 	public void setJobTittleOfApplicationForCompany(String jobTittleOfApplicationForCompany)
 	{
 		this.jobTittleOfApplicationForCompany = jobTittleOfApplicationForCompany;
+	}
+
+	public UserJobApplicationState getUserJobApplicationState()
+	{
+		return userJobApplicationState;
+	}
+
+	public void setUserJobApplicationState(UserJobApplicationState userJobApplicationState)
+	{
+		this.userJobApplicationState = userJobApplicationState;
 	}
 
 

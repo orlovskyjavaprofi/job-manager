@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="header" http-equiv="Content-Type"
+	content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div th:fragment="header" >
+			<th width="20%" scope="col"><a th:href="@{/memberarea/userAccountOffice/(uName=${userLoginName})}">Manage your applications</a> (drop down menu)</th>
+			<th width="30%" scope="col">Current date: 29.03.2019 10:00</th>
+			<th width="30%" scope="col">User selection for language UI ENG , DEU</th>
+			<th width="30%" scope="col">Logged as: <span th:text="${userLoginName}"></span></th>
+			<th width="20%" scope="col"><a href="/">Logout</a></th>
+</div>	
+
+</body>
+</html>

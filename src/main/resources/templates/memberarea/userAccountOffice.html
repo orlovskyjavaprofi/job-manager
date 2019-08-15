@@ -7,16 +7,9 @@
 <body>
 <table width="100%" border="2">
   <tr>
-    <th colspan="5" scope="col"><h1> Account office for user:  <span th:text="${userLoginName}" ></span></h1></th>
-  </tr>
-  <!-- This stuff will be moved to separate page -->
-  <tr>
-    <th width="440" scope="col">Manage your applications (drop down menu)</th>
-    <th width="274" scope="col">Current date: 29.03.2019 10:00</th>
-    <th width="454" scope="col">User selection for language UI ENG, DEU</th>
-    <th width="145" scope="col">Logged as: <div th:text="${userLoginName}" ></div></th>
-    <th width="146" scope="col">>Logout link</th>
-  </tr>
+    <th width="100%" colspan="5" scope="col"><h1> Account office for user:  <span th:text="${userLoginName}" ></span></h1></th>
+  </tr> 
+  <tr th:insert="~{elements/header::header}"></tr>
 </table>
 <table width="1491" height="105" border="0" cellpadding="0" cellspacing="0">
 <tr>
@@ -64,12 +57,14 @@
   <a th:href="@{/memberarea/userAccountOffice/deleteApp/(uName=${userLoginName})}">Delete application or applications</a><br>
   <a th:href="@{/memberarea/userAccountOffice/showListOfUserJobApplications/(uName=${userLoginName})}">List of new applications</a><br>
   Compose email from application or applications<br>
-  Edit,search and delete application<br>
-  Show already sent application or applications to the user!(Due to GDPR regulation all job application email will be send to a user which did created them!) <br>
-  <b>The followin entries should be a separate menu: probable name of menu item upload your personal files</b>
-  Create or upload cover letter template<br>
-  Create or upload your curriculum vitae<br>
-  Upload your school credentials and/or certificates<br>
+  Edit, search and delete application<br><br>
+  Show already sent application or applications to the user!(Due to GDPR regulation all job application email will be send to a user which did created them!) <br><br>
+  <b>The following entries should be a separate menu: probable name of menu item upload your personal files</b>
+  <ul>
+  		<li>Create or upload cover letter template</li><br>
+  		<li>Create or upload your curriculum vitae</li><br>
+  		<li>Upload your school credentials and/or certificates</li><br>
+  </ul>
   </strong><br>
 </p>
 </body>

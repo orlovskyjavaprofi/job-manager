@@ -8,15 +8,9 @@
 
 <table width="100%" border="2">
   <tr>
-    <th colspan="4" scope="col"><h1>List of user <span th:text="${userLoginName}" ></span>job applications for delete</h1></th>
+     <th width="100%" colspan="5" scope="col"><h1>List of user <span th:text="${userLoginName}" ></span>job applications for delete</h1></th>
   </tr>
-  <tr>
-    <th width="415" scope="col"><a th:href="@{/memberarea/userAccountOffice/(uName=${userLoginName})}">Manage your applications</a> (drop down menu)</th>
-    <th width="309" scope="col">Current date: 29.03.2019 10:00</th>
-    <th width="377" scope="col">User selection for language UI ENG , DEU</th>
-    <th width="280" scope="col">Logged as: <span th:text="${userLoginName}" ></span></th>
-     <th width="146" scope="col"><a href="/">Logout</a></th>
-  </tr>
+<tr th:insert="~{elements/header::header}"></tr>
 </table>
 <br>
 <br>

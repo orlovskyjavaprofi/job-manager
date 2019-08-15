@@ -6,18 +6,13 @@
 </head>
 <body>
 
-<table width="100%" border="2">
+<table width="100%" border="1">
   <tr>
-    <th width="100%" colspan="4" scope="col"><h1>Print view  of user <span th:text="${userLoginName}" ></span> job applications</h1></th>
+    <th width="100%" colspan="5" scope="col"><h1>Print view  of user <span th:text="${userLoginName}" ></span> job applications</h1></th>
   </tr>
-  <tr>
-    <th width="415" scope="col"><a th:href="@{/memberarea/userAccountOffice/(uName=${userLoginName})}">Manage your applications</a> (drop down menu)</th>
-    <th width="309" scope="col">Current date: 29.03.2019 10:00</th>
-    <th width="377" scope="col">User selection for language UI ENG , DEU</th>
-    <th width="280" scope="col">Logged as: <span th:text="${userLoginName}" ></span></th>
-     <th width="146" scope="col"><a href="/">Logout</a></th>
-  </tr>
+  <tr th:insert="~{elements/header::header}"></tr>
 </table>
+
 <br>
 <br>
 
@@ -25,7 +20,7 @@
 <table width="100%" height="231" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000" bordercolor="#000000" >
   <thead>
     <tr width="100">
-      <th colspan="3">Print view of user <input type ="text" name="userNickName" id="userNickName" th:value="${userLoginName}" readonly />job applications</th>
+      <th colspan="5">Print view of user <input type ="text" name="userNickName" id="userNickName" th:value="${userLoginName}" readonly />job applications</th>
     </tr>
   </thead>
   <tr>

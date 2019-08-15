@@ -6,17 +6,11 @@
 </head>
 <body>
 
-<table width="1491" border="2">
+<table width="100%" border="2">
   <tr>
-    <th colspan="4" scope="col"><h1>Create new application for user <span th:text="${userLoginName}"></span></h1></th>
+    <th width="100%" colspan="5" scope="col"><h1>Create new application for user <span th:text="${userLoginName}"></span></h1></th>
   </tr>
-  <tr>
-    <th width="440" scope="col">Manage your applications link to new applications</a> (drop down menu)</th>
-    <th width="274" scope="col">Current date: 29.03.2019 10:00</th>
-    <th width="454" scope="col">User selection for language UI ENG , DEU</th>
-    <th width="293" scope="col">Logged as:&nbsp;<span th:text="${userLoginName}" ></span></th>
-     <th width="146" scope="col">Logout -> after user click logout just deliver login page</th>
-  </tr>
+<tr th:insert="~{elements/header::header}"></tr>
 </table>
 
 <form action="#" th:action="@{/submitNewJobApplicationForUser}" th:object="${userJobApplication}" method="post">

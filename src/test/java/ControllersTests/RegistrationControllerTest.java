@@ -96,7 +96,24 @@ class RegistrationControllerTest
 				.andExpect(status().isOk())
 				.andExpect(view().name("newUserAddConfirmation"));
     }
-        
+      
+    @Test
+    void checkIfASubmitNewUserNotFullFilledCanBeRegistered() throws Exception {    	
+    	mockMvc.perform(post("/submitNewUserReg")
+				.param("userFirstName", "John")
+				.param("userLastName", "Smith")
+				.param("userBirthDate", "01.04.1957")
+				.param("userEmail", "hardcorejavadev@hotmail.com")
+				.param("userCity", "Detroit")
+				.param("userStreetName", "Bankerstreet")
+				.param("userStreetNumber", "1234556")
+				.param("userCountryName", "USA")
+				.param("userNickName", "superduperjavadev01")
+				.param("currentEmploymentState", "SELFEMPLOYED")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(status().isBadRequest());				
+    }
+    
 	@Test
     void checkThatNoEmptyTextCanBePosForUserLastName() throws Exception
     {

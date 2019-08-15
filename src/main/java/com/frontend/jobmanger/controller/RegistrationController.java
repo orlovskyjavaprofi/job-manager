@@ -5,6 +5,7 @@ import models.User;
 import models.UserEmploymentState;
 import models.UserSexState;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,15 +13,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.ResponseErrorHandler;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
 @Controller
-public class RegistrationController
+public class RegistrationController 
 {
 	@Resource
 	private InMemoryUserService inMemUserService;
@@ -57,7 +61,6 @@ public class RegistrationController
 
 		return pageAfterNewUserValidation;
 	}
-
 
 	private String initInMemoryUserServiceAndGenClearPass()
 	{
@@ -99,6 +102,5 @@ public class RegistrationController
 	{
 		return inMemUserService;
 	}
-	
 	
 }

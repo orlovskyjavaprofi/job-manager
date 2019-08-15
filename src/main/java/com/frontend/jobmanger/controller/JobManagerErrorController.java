@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -29,22 +28,35 @@ public class JobManagerErrorController implements ErrorController
 		if (status != null)
 		{
 			Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-			
-			resultPage = casePageNotExist(resultPage, statusCode);
+			resultPage = caseCheckOrginOfErrorAndShowPageAgain(resultPage, statusCode, request);
 		}
 		
 		return resultPage;
 	}
 
-	private String casePageNotExist(String resultPage, Integer statusCode)
+	private String caseCheckOrginOfErrorAndShowPageAgain(String resultPage, Integer statusCode, HttpServletRequest actualRequest)
 	{
-		if (statusCode == HttpStatus.NOT_FOUND.value())
+		String failedRequestUri = (String) actualRequest.getAttribute( RequestDispatcher.ERROR_REQUEST_URI.toString() );
+		
+		if (statusCode == HttpStatus.BAD_REQUEST.value())
 		{
-			System.out.println("Web page status: "+statusCode);
-			resultPage = "pageNotAvailable";
+			//To:Do log when something goes wrong!
+			System.out.println("Web page error status: "+statusCode+ " "+failedRequestUri);		
+			resultPage = caseOfErrorDetailsShowThePreviosPageBeforeError(failedRequestUri);
+
 		}
 		
 		return resultPage;
+	}
+
+	private String caseOfErrorDetailsShowThePreviosPageBeforeError(String failedRequestUri)
+	{ 
+		String defaultPage = "errorPage"; 
+		if(failedRequestUri.equals("/submitNewUserReg")) {
+			defaultPage = "userFormForRegNotFilled";
+		}
+		 
+		return defaultPage;
 	}
 
 	@Override

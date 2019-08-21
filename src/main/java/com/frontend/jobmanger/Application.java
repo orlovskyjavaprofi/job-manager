@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan({"com.frontend.jobmanager.service", 
 	            "com.frontend.jobmanger.controller", 
 	            "frontend.security.config",
-	            "models"})
+	            "models","utils"})
 public class Application {
 	
     public static void main(String[] args) {

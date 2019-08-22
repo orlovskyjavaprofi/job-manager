@@ -42,9 +42,9 @@
      <tr>
     <td colspan="4">&nbsp;</td>
   </tr>
-  <tr> <td width="94"><!-- to do view stats --></td></tr>
-  <tr> <td width="1050"><!-- to do allowed to be contacted by company --></td></tr>
-  <tr><td width="150"><!-- to do delete my account! --></td></tr>
+  <tr> <td width="94">View stats<!-- to do view stats --></td></tr>
+  <tr> <td width="1050">Activate receive offers from companys<!-- to do allowed to be contacted by company --></td></tr>
+  <tr><td width="150">Delete my account<!-- to do delete my account! --></td></tr>
   
 </table>
 <h2><br>
@@ -57,7 +57,7 @@
   <a th:href="@{/memberarea/userAccountOffice/deleteApp/(uName=${userLoginName})}">Delete application or applications</a><br>
   <a th:href="@{/memberarea/userAccountOffice/showListOfUserJobApplications/(uName=${userLoginName})}">List of new applications</a><br>
   Compose email from application or applications<br>
-  Edit, search and delete application<br><br>
+  <a th:href="@{/memberarea/userAccountOffice/searchForUserApplications/(uName=${userLoginName})}">Edit, search and delete application</a><br><br>
   Show already sent application or applications to the user!(Due to GDPR regulation all job application email will be send to a user which did created them!) <br><br>
   <b>The following entries should be a separate menu: probable name of menu item upload your personal files</b>
   <ul>

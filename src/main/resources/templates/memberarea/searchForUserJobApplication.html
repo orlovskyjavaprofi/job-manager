@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="searchForUserJobApplications" http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Search for user job application/s</title>
+</head>
+<body>
+
+<table width="100%" border="2">
+  <tr>
+     <th width="100%" colspan="5" scope="col"><h1>Search in archive for <span th:text="${userLoginName}" ></span> job applications</h1></th>
+  </tr>
+<tr th:insert="~{elements/header::header}"></tr>
+</table>
+<br>
+<br>
+<!-- form begin-->
+<table width="100%" height="231" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000" bordercolor="#000000" >
+  <thead>
+    <tr>
+      <th colspan="3">List of user <input type ="text" name="userNickName" id="userNickName" th:value="${userLoginName}" readonly /> job applications for delete!</th>
+    </tr>
+  </thead>
+  <tr>
+    <td width="215">Company name: </td>
+    <td colspan="2"><input type="text" name="companyNameForSearch" id="companyNameForSearch"></td>
+  </tr>
+  <tr>
+    <td>Company contact person: </td>
+    <td colspan="2"><input type="text" name="companyContactPersonForSearch" id="companyContactPersonForSearch"></td>
+  </tr>
+  <tr>
+    <td>Company email: </td>
+    <td colspan="2"><input type="text" name="companyContactEmailForSearch" id="companyContactEmailForSearch"></td>
+    
+  </tr>
+  <tr>
+    <td>Job title: </td>
+    <td colspan="2"><input type="text" name="companyJobTitleForSearch" id="companyJobTitleForSearch"></td>
+  </tr>
+  <tr>
+    <td>Date: </td>
+    <td colspan="2"><input type="text" name="companyDateWhenUserAppliedForJobForSearch" id="companyDateWhenUserAppliedForJobForSearch"></td>
+  </tr>
+  <tr>
+    <td>Industry: </td>
+    <td colspan="2"><input type="text" name="companyIndustryTypeForJobForSearch" id="companyIndustryTypeForJobForSearch"></td>
+  </tr>
+   <tr>
+    <td><div align="left"> <input type="submit" name="submitUserJobApplQuery" id="submitUserJobApplQuery" value="Search"></div></td>
+    <td colspan="3"> <div align="left"> <input type="reset" name="resetForm" id="resetForm" value="Reset"></div></td>   
+  </tr>
+</table>
+<!-- form end-->
+<br>
+<!-- form start-->
+<table width="100%"  border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000" bordercolor="#000000" >
+  <thead>
+    <tr>
+      <th colspan="8">Current job applications</th>
+    </tr>
+  </thead>
+  <tr>
+    <td width="81" height="32"><div align="center"><strong>Selection</strong></div></td>
+    <td width="216"><div align="center"><strong>Company name</strong></div></td>
+    <td width="220"><div align="center"><strong>Date of applying</strong></div></td>
+    <td width="171"><div align="center"><strong>Country</strong></div></td>
+    <td width="210"><div align="center"><strong>Application decline date</strong></div></td>
+    <td width="217"><div align="center"><strong>Job title</strong></div></td>
+    <td width="217"><div align="center"><strong>City</strong></div></td>
+    <td width="217"><div align="center"><strong>Industry</strong></div></td>
+  </tr>
+  <!-- show the Result of query here -->
+</table>
+<br><br>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <th width="77" scope="col"><div align="left">
+      <input type="submit" name="deleteSelectedUserJobApplications" id="deleteSelectedUserJobApplications" value="Delete">
+    </div></th>
+    <th width="43" scope="col"><input type="submit" name="editSelectedUserJobApplications" id="editSelectedUserJobApplications" value="Edit"></th>
+    <th width="85" scope="col">
+    <div align="right">
+      <input type="submit" name="searchSelectedUserJobApplications" id="searchSelectedUserJobApplications" value="Search">
+    </div></th>
+    <th width="5" scope="col">&nbsp;</th>
+    <th width="778" scope="col">
+    <div align="left">
+      <input  type="text" name="txtFieldForUserJobAppl" id="txtFieldForUserJobAppl" value="Type text here ...">
+    </div></th>
+    <th width="507" scope="col"><div align="right">Page: <strong>[ 1 ]</strong> 2 3 4 5 &gt;&gt;</div></th>
+  </tr>
+</table>
+<!-- form end-->
+
+<table> 
+<tr><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td></tr>
+ <tr>
+   <td th:insert="~{elements/footer::footer}" colspan="7"></td>
+   </tr></table>
+<br>
+</body>
+</html>

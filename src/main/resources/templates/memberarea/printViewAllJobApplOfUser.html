@@ -31,11 +31,11 @@
     <td width="593"><div align="center"><strong>Current State of job application</strong></div></td>
   </tr>
    <tr th:each="jobapplication: *{currentUserJobApplications}">      
-      <td th:text="${jobapplication.companyName}" />
-      <td th:text="${jobapplication.currentCompanySalutationType +' '+ jobapplication.companyContactLastName}" />
-      <td th:text="${jobapplication.dateWhenApplicationWasSend}" />
-      <td th:text="${jobapplication.jobTittleOfApplicationForCompany}" />
-      <td th:text="${jobapplication.userJobApplicationState}" />
+      <td align="center" th:text="${jobapplication.companyName}" />
+      <td align="center" th:text="${jobapplication.currentCompanySalutationType +' '+ jobapplication.companyContactLastName}" />
+      <td align="center" th:text="${jobapplication.dateWhenApplicationWasSend}" />
+      <td align="center" th:text="${jobapplication.jobTittleOfApplicationForCompany}" />
+      <td align="center" th:text="${jobapplication.userJobApplicationState}" />
    </tr>
 
 </table>

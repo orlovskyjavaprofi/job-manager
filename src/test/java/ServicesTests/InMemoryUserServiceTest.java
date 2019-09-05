@@ -1,7 +1,11 @@
 package ServicesTests;
 
 import com.frontend.jobmanager.service.InMemoryUserService;
+
+import models.CompanySalutationType;
+import models.CompanyType;
 import models.User;
+import models.UserApplication;
 import models.UserEmploymentState;
 import models.UserSexState;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,14 +14,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 class InMemoryUserServiceTest {
     private InMemoryUserService inMemUserService;
     private User mockUser, anotherMockUser;
-
+    private UserApplication userMockJobApplication;
+    
     @BeforeEach
     void setup() {
         inMemUserService = new InMemoryUserService();
         mockUser = new User();
+        userMockJobApplication = new UserApplication();
     }
 
     @Test
@@ -126,6 +135,74 @@ class InMemoryUserServiceTest {
         assertEquals(expectedAuthResponse, actualAuthResponse, "Given user nickname and password were invalid credentials!");
     }
 
+    @Test
+    void testGetNumberOfRegisteredUsers() {
+        inMemUserService.saveUserWithGivenHashPass(userSetUp(mockUser));
+        assertEquals(1, inMemUserService.getNumberOfRegisteredUsers(),
+                "Number of registered users seems OK.");
+        anotherMockUser = new User();
+        inMemUserService.saveUserWithGivenHashPass(userSetUp(anotherMockUser));
+        assertEquals(2, inMemUserService.getNumberOfRegisteredUsers(),
+                "Number of registered users seems OK.");
+    }
+    
+    @Test
+    void testIfGivenUserJobApplicationCanBeFound() {
+    	    User userAtTest;
+    	    UserApplication actualUserJobApplication  = new UserApplication();
+    	    
+	    	Integer companySize = 250;
+	    	String companyName = "SUSE";
+	    	String companyCityName = "Alexandria";
+	    	String companyContactEmail = "coolcompany@siliconvaley.com";
+	    	String companyCountryName = "USA";
+	    	String companyTypeSize = CompanyType.MIDDLE.toString();
+	    	CompanySalutationType companySalut = CompanySalutationType.Mrs;
+	    	String companyDate = "20.04.2018";
+	    	String companyContactLastName = "Uberson";
+    	    String companyJobTitle ="Software Developer";
+    	    String companyIndustry ="Auerospace";
+	    	initMockUserJobApp(companySize, companyName, companyCityName, companyContactEmail, companyCountryName,
+					companyTypeSize, companySalut, companyDate, companyContactLastName,companyJobTitle,companyIndustry);
+	    	
+	    	userAtTest=userSetUp(mockUser);
+	    	userAtTest.getUserApplicationsSet().add(userMockJobApplication);
+	 	inMemUserService.saveUserWithGivenHashPass(userAtTest);
+	    	mockUser = inMemUserService.findUserByNickname("superduperjavadev01");
+	    	actualUserJobApplication = inMemUserService.searchForFullMatchOfUserJobAppl(
+	    			     userAtTest.getUserNickName(), 
+	    			     companyName, companyContactLastName, 
+	    			     companyContactEmail, companyJobTitle,
+	    			     companyDate, companyIndustry );
+	    	    	
+	    	System.out.println("test");
+	    	System.out.println(companyName);
+	    	System.out.println(companyContactLastName);
+	    	System.out.println(companyContactEmail);
+	    	System.out.println(companyJobTitle);
+	    	System.out.println(companyDate);
+	    	System.out.println(companyIndustry);
+	    	assertEquals(userMockJobApplication, actualUserJobApplication, "The complete full match for user job application wasnt found! " );
+        
+    }
+
+	private void initMockUserJobApp(Integer companySize, String companyName, String companyCityName,
+			String companyContactEmail, String companyCountryName, String companyTypeSize,
+			CompanySalutationType companySalut, String companyDate, String companyContactLastName, String jobTitle, String industryType)
+	{
+		userMockJobApplication.setCompanyAmountOfEmployee(companySize);
+		userMockJobApplication.setCompanyName(companyName);
+		userMockJobApplication.setCompanyCityName(companyCityName);
+		userMockJobApplication.setCompanyContactEmail(companyContactEmail);
+		userMockJobApplication.setCompanyCountryName(companyCountryName);
+		userMockJobApplication.setCompanyIndustry(companyTypeSize);
+		userMockJobApplication.setCurrentCompanySalutationType(companySalut);
+		userMockJobApplication.setDateWhenApplicationWasSend(companyDate);
+		userMockJobApplication.setCompanyContactLastName(companyContactLastName);
+		userMockJobApplication.setJobTittleOfApplicationForCompany(jobTitle);
+		userMockJobApplication.setCompanyIndustry(industryType);
+	}
+    
     private User userSetUp(User givenUser) {
         String clearPassword = "tuxtuxtux*";
         String protectedPassword = inMemUserService.genHashedPassword(clearPassword);
@@ -145,15 +222,6 @@ class InMemoryUserServiceTest {
         return givenUser;
     }
 
-    @Test
-    void testGetNumberOfRegisteredUsers() {
-        inMemUserService.saveUserWithGivenHashPass(userSetUp(mockUser));
-        assertEquals(1, inMemUserService.getNumberOfRegisteredUsers(),
-                "Number of registered users seems OK.");
-        anotherMockUser = new User();
-        inMemUserService.saveUserWithGivenHashPass(userSetUp(anotherMockUser));
-        assertEquals(2, inMemUserService.getNumberOfRegisteredUsers(),
-                "Number of registered users seems OK.");
-    }
+   
 
 }

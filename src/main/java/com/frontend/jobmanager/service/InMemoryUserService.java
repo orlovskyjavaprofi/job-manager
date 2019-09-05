@@ -1,7 +1,14 @@
 package com.frontend.jobmanager.service;
 
+import models.CompanySalutationType;
 import models.InMemoryUserRepo;
 import models.User;
+import models.UserApplication;
+
+import java.util.Iterator;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -150,4 +157,45 @@ public class InMemoryUserService implements InMemoryUserRepoContract {
     public long getNumberOfRegisteredUsers() {
         return inMemRepo.getNumberOfRegisteredUsers();
     }
+
+	public  UserApplication searchForFullMatchOfUserJobAppl(String userNickName, String companyName,
+			String companyContactLastName, String companyContactEmail, String companyJobTitle, String companyDate, 
+			 String companyIndustryType  )
+	{
+		 UserApplication resultOfSearchUserAppl = new UserApplication();
+		 User userForSearchRequest = inMemRepo.findUserByGivenName(userNickName);
+		 if ( userForSearchRequest != null ) {
+			 userForSearchRequest.getUserApplicationsSet();
+			resultOfSearchUserAppl = compareAllUserJobApplicationsWithAllTheirFields( 
+					companyName, companyContactLastName, 
+					companyContactEmail, companyJobTitle, companyDate, 
+				    companyIndustryType, userForSearchRequest,resultOfSearchUserAppl
+				);
+		 }
+
+		return resultOfSearchUserAppl;
+	}
+
+	private UserApplication compareAllUserJobApplicationsWithAllTheirFields( 
+			  String companyName, String companyContactLastName, String companyContactEmail,
+			  String companyJobTitle, String companyDate, String companyIndustryType, 
+			  User userForSearchRequest,UserApplication resultOfSearchUserAppl   
+			)
+	{
+		for (UserApplication currentUserJobAppl : userForSearchRequest.getUserApplicationsSet())
+		{
+			if ( 
+			     ( currentUserJobAppl.getCompanyName().equals(companyName) ) &&
+			     ( currentUserJobAppl.getCompanyContactLastName().toString().equals(companyContactLastName)) &&
+			     ( currentUserJobAppl.getCompanyContactEmail().equals(companyContactEmail)) &&
+			     ( currentUserJobAppl.getJobTittleOfApplicationForCompany().equals(companyJobTitle) ) &&
+			     ( currentUserJobAppl.getDateWhenApplicationWasSend().equals(companyDate) ) &&
+			     ( currentUserJobAppl.getCompanyIndustry().equals(companyIndustryType) )
+			   ){
+				  resultOfSearchUserAppl = currentUserJobAppl;
+				  break;
+			    }
+		}
+		return resultOfSearchUserAppl;
+	}
 }

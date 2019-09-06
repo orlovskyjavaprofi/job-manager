@@ -147,7 +147,7 @@ class InMemoryUserServiceTest {
     }
     
     @Test
-    void testIfGivenUserJobApplicationCanBeFound() {
+    void testIfGivenUserOneJobApplicationCanBeFound() {
     	    User userAtTest;
     	    UserApplication actualUserJobApplication  = new UserApplication();
     	    
@@ -162,6 +162,7 @@ class InMemoryUserServiceTest {
 	    	String companyContactLastName = "Uberson";
     	    String companyJobTitle ="Software Developer";
     	    String companyIndustry ="Auerospace";
+    	    
 	    	initMockUserJobApp(companySize, companyName, companyCityName, companyContactEmail, companyCountryName,
 					companyTypeSize, companySalut, companyDate, companyContactLastName,companyJobTitle,companyIndustry);
 	    	
@@ -175,17 +176,41 @@ class InMemoryUserServiceTest {
 	    			     companyContactEmail, companyJobTitle,
 	    			     companyDate, companyIndustry );
 	    	    	
-	    	System.out.println("test");
-	    	System.out.println(companyName);
-	    	System.out.println(companyContactLastName);
-	    	System.out.println(companyContactEmail);
-	    	System.out.println(companyJobTitle);
-	    	System.out.println(companyDate);
-	    	System.out.println(companyIndustry);
 	    	assertEquals(userMockJobApplication, actualUserJobApplication, "The complete full match for user job application wasnt found! " );
         
     }
 
+    @Test
+    void testIfAUserSearchForCompanyNameOnly() {
+    	   User userAtTest;
+   	    UserApplication actualUserJobApplication  = new UserApplication();
+   	    
+	    	Integer companySize = 250;
+	    	String companyName = "SUSE";
+	    	String companyCityName = "Alexandria";
+	    	String companyContactEmail = "coolcompany@siliconvaley.com";
+	    	String companyCountryName = "USA";
+	    	String companyTypeSize = CompanyType.MIDDLE.toString();
+	    	CompanySalutationType companySalut = CompanySalutationType.Mrs;
+	    	String companyDate = "20.04.2018";
+	    	String companyContactLastName = "Uberson";
+   	    String companyJobTitle ="Software Developer";
+   	    String companyIndustry ="Auerospace";
+   	    
+    	    initMockUserJobApp(companySize, companyName, companyCityName, companyContactEmail, companyCountryName,
+				companyTypeSize, companySalut, companyDate, companyContactLastName,companyJobTitle,companyIndustry);
+    	    
+    	  	userAtTest=userSetUp(mockUser);
+	    	userAtTest.getUserApplicationsSet().add(userMockJobApplication);
+	 	inMemUserService.saveUserWithGivenHashPass(userAtTest);
+	    	mockUser = inMemUserService.findUserByNickname("superduperjavadev01");
+	    	actualUserJobApplication = inMemUserService.searchOnlyForCompanyNameMatchOfUserJobAppl(userAtTest.getUserNickName(), 
+	    			     companyName);
+	    	    	
+	    	assertEquals(userMockJobApplication, actualUserJobApplication, "The company name match for user job application wasnt found! " );
+    }
+    
+    
 	private void initMockUserJobApp(Integer companySize, String companyName, String companyCityName,
 			String companyContactEmail, String companyCountryName, String companyTypeSize,
 			CompanySalutationType companySalut, String companyDate, String companyContactLastName, String jobTitle, String industryType)

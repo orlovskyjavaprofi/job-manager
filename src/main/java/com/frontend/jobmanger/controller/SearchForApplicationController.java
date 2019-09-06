@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import javax.validation.constraints.Null;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -67,7 +68,7 @@ public class SearchForApplicationController
 		
 		String pathToPageForSearchOfJobApplication = "restrictedAccess";
 		String pageToForwardTo = validateThatGivenUserReallyRegistered(userNickName,pathToPageForSearchOfJobApplication );
-
+        String dateOfJobAppl= new String("");
         Boolean companyNameForSearchState =false;
         Boolean companyContactPersonForSearchState =false;
         Boolean companyContactEmailForSearchState =false;
@@ -77,28 +78,48 @@ public class SearchForApplicationController
        		
 		if (pageToForwardTo.isEmpty() == false) {
 			
-			companyNameForSearchState = companyNameForSearch.isEmpty();
-			companyContactPersonForSearchState = companyContactPersonForSearch.isEmpty();
-			companyContactEmailForSearchState = companyContactEmailForSearch.isEmpty();
-			companyJobTitleForSearchState = companyJobTitleForSearch.isEmpty();
-			companyDateWhenUserAppliedForJobForSearchState = companyDateWhenUserAppliedForJobForSearch.toString().isEmpty();
-			companyIndustryTypeForJobForSearchState = companyIndustryTypeForJobForSearch.isEmpty();
+			companyNameForSearchState = checkThatGivenStringIsNotNull(companyNameForSearch,
+					companyNameForSearchState);
 
+			companyContactPersonForSearchState = checkThatGivenStringIsNotNull(companyContactPersonForSearch,
+					companyContactPersonForSearchState);
+
+			companyContactEmailForSearchState = checkThatGivenStringIsNotNull(companyContactEmailForSearch,
+					companyContactEmailForSearchState);
+
+			companyJobTitleForSearchState = checkThatGivenStringIsNotNull(companyJobTitleForSearch,
+					companyJobTitleForSearchState);
+			
+			if(companyDateWhenUserAppliedForJobForSearch != null) {
+				dateOfJobAppl = companyDateWhenUserAppliedForJobForSearch.toString();
+			}
+			
+			companyDateWhenUserAppliedForJobForSearchState = checkThatGivenStringIsNotNull(
+					dateOfJobAppl, companyDateWhenUserAppliedForJobForSearchState);
+			
+			companyIndustryTypeForJobForSearchState = checkThatGivenStringIsNotNull(
+					companyIndustryTypeForJobForSearch, companyIndustryTypeForJobForSearchState);
+			
+			System.out.println(companyNameForSearchState);
+			System.out.println(companyContactPersonForSearchState);
+			System.out.println(companyContactEmailForSearchState);
+			System.out.println(companyJobTitleForSearchState);
+			System.out.println(companyDateWhenUserAppliedForJobForSearchState);
+			System.out.println(companyIndustryTypeForJobForSearchState);
 			
 			pathToPageForSearchOfJobApplication = caseAllSearchJobApplFieldsFilled(userNickName, companyNameForSearch,
 					companyContactPersonForSearch, companyContactEmailForSearch, companyJobTitleForSearch,
-					companyDateWhenUserAppliedForJobForSearch.toString(),
+					dateOfJobAppl,
 					companyIndustryTypeForJobForSearch, userModel, pathToPageForSearchOfJobApplication,
 					companyNameForSearchState, companyContactPersonForSearchState, companyContactEmailForSearchState,
 					companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
 					companyIndustryTypeForJobForSearchState);
-//			
-//			if( (companyNameForSearchState == false) && (companyContactPersonForSearchState == true) &&
-//					(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == true) &&
-//					(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == true)
-//				  ) {
-//					 // case when only company name is given: call inMemService!
-//				    }
+
+			pathToPageForSearchOfJobApplication = caseSearchForCompanyNameOnly(userNickName, companyNameForSearch,
+					userModel, pathToPageForSearchOfJobApplication, companyNameForSearchState,
+					companyContactPersonForSearchState, companyContactEmailForSearchState,
+					companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
+					companyIndustryTypeForJobForSearchState);
 //			
 //			if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == false) &&
 //					(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == true) &&
@@ -140,6 +161,34 @@ public class SearchForApplicationController
 		return pathToPageForSearchOfJobApplication;
 	}
 
+	private String caseSearchForCompanyNameOnly(String userNickName, String companyNameForSearch, Model userModel,
+			String pathToPageForSearchOfJobApplication, Boolean companyNameForSearchState,
+			Boolean companyContactPersonForSearchState, Boolean companyContactEmailForSearchState,
+			Boolean companyJobTitleForSearchState, Boolean companyDateWhenUserAppliedForJobForSearchState,
+			Boolean companyIndustryTypeForJobForSearchState)
+	{
+		if( (companyNameForSearchState == false) && (companyContactPersonForSearchState == true) &&
+				(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == true) &&
+				(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == true)
+			  ) {
+			       userModel.addAttribute("userLoginName",userNickName);
+			       userModel.addAttribute("searchResult", 
+			    		   inMemUserService.searchOnlyForCompanyNameMatchOfUserJobAppl(userNickName, companyNameForSearch));
+			       pathToPageForSearchOfJobApplication = "memberarea/searchForUserJobApplication";
+			    }
+		return pathToPageForSearchOfJobApplication;
+	}
+
+	private Boolean checkThatGivenStringIsNotNull(String givenString, Boolean searchState)
+	{
+		if (givenString != null)
+		{
+			searchState = givenString.isEmpty();
+		}
+		
+		return searchState;
+	}
+
 	private String caseAllSearchJobApplFieldsFilled(String userNickName, String companyNameForSearch,
 			String companyContactPersonForSearch, String companyContactEmailForSearch, String companyJobTitleForSearch,
 			String companyDateWhenUserAppliedForJobForSearch,
@@ -148,7 +197,7 @@ public class SearchForApplicationController
 			Boolean companyContactEmailForSearchState, Boolean companyJobTitleForSearchState,
 			Boolean companyDateWhenUserAppliedForJobForSearchState, Boolean companyIndustryTypeForJobForSearchState) throws ParseException
 	{
-
+      
 		if( (companyNameForSearchState == false) && (companyContactPersonForSearchState == false) &&
 			(companyContactEmailForSearchState == false) &&(companyJobTitleForSearchState == false) &&
 			(companyDateWhenUserAppliedForJobForSearchState == false) && (companyIndustryTypeForJobForSearchState == false)
@@ -170,16 +219,8 @@ public class SearchForApplicationController
 			Model userModel) throws ParseException
 	{
 		userModel.addAttribute("userLoginName",userNickName);
-		System.out.println(userNickName);
-		System.out.println(companyNameForSearch);
-		System.out.println(companyContactPersonForSearch);
-		System.out.println(companyContactEmailForSearch);
-		System.out.println(companyJobTitleForSearch);
 	
 		String formatedDateEU = convertUsDateToEuDate(companyDateWhenUserAppliedForJobForSearch);
-		
-		System.out.println(formatedDateEU);
-		System.out.println(companyIndustryTypeForJobForSearch);
 		
 		userModel.addAttribute("searchResult", inMemUserService.searchForFullMatchOfUserJobAppl(
 				                  userNickName, companyNameForSearch, companyContactPersonForSearch,

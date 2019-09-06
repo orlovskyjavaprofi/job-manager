@@ -120,13 +120,12 @@ public class SearchForApplicationController
 					companyContactPersonForSearchState, companyContactEmailForSearchState,
 					companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
 					companyIndustryTypeForJobForSearchState);
-//			
-//			if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == false) &&
-//					(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == true) &&
-//					(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == true)
-//				  ) {
-//					 // case when only company contact person is given: call inMemService!
-//				    }
+			
+			pathToPageForSearchOfJobApplication = caseSearchForCompanyContactLastNameOnly(userNickName,
+					companyContactPersonForSearch, userModel, pathToPageForSearchOfJobApplication,
+					companyNameForSearchState, companyContactPersonForSearchState, companyContactEmailForSearchState,
+					companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
+					companyIndustryTypeForJobForSearchState);
 //			
 //			if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
 //					(companyContactEmailForSearchState == false) &&(companyJobTitleForSearchState == true) &&
@@ -158,6 +157,24 @@ public class SearchForApplicationController
 			
 		}
 		
+		return pathToPageForSearchOfJobApplication;
+	}
+
+	private String caseSearchForCompanyContactLastNameOnly(String userNickName, String companyContactPersonForSearch,
+			Model userModel, String pathToPageForSearchOfJobApplication, Boolean companyNameForSearchState,
+			Boolean companyContactPersonForSearchState, Boolean companyContactEmailForSearchState,
+			Boolean companyJobTitleForSearchState, Boolean companyDateWhenUserAppliedForJobForSearchState,
+			Boolean companyIndustryTypeForJobForSearchState)
+	{
+		if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == false) &&
+				(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == true) &&
+				(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == true)
+			  ) {					 
+			     userModel.addAttribute("userLoginName", userNickName);
+			     userModel.addAttribute("searchResult", inMemUserService
+					.searchForCompanyContactLastNameofUserJobAppl(userNickName, companyContactPersonForSearch));
+			     pathToPageForSearchOfJobApplication = "memberarea/searchForUserJobApplication";
+			    }
 		return pathToPageForSearchOfJobApplication;
 	}
 

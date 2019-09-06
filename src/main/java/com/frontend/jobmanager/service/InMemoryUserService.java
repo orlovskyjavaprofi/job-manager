@@ -197,6 +197,27 @@ public class InMemoryUserService implements InMemoryUserRepoContract {
 		return resultOfSearchUserAppl;
 	}
 	
+	public UserApplication searchForCompanyContactLastNameofUserJobAppl(String userNickName,
+			String companyContactLastName)
+	{
+		UserApplication resultOfSearchUserAppl = new UserApplication();
+		User userForSearchRequest = inMemRepo.findUserByGivenName(userNickName);
+		
+		if (userForSearchRequest != null)
+		{
+			for (UserApplication currentUserJobAppl : userForSearchRequest.getUserApplicationsSet())
+			{
+               if (currentUserJobAppl.getCompanyContactLastName().equals(companyContactLastName)) {
+            	     resultOfSearchUserAppl = currentUserJobAppl;
+            	     break;
+               }
+               
+			}
+		}
+		
+		return resultOfSearchUserAppl;
+	}
+	
 	private UserApplication compareAllUserJobApplicationsWithAllTheirFields( 
 			  String companyName, String companyContactLastName, String companyContactEmail,
 			  String companyJobTitle, String companyDate, String companyIndustryType, 
@@ -219,6 +240,8 @@ public class InMemoryUserService implements InMemoryUserRepoContract {
 		}
 		return resultOfSearchUserAppl;
 	}
+
+
 
 	
 }

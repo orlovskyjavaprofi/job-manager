@@ -126,13 +126,16 @@ public class SearchForApplicationController
 					companyNameForSearchState, companyContactPersonForSearchState, companyContactEmailForSearchState,
 					companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
 					companyIndustryTypeForJobForSearchState);
-//			
-//			if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
-//					(companyContactEmailForSearchState == false) &&(companyJobTitleForSearchState == true) &&
-//					(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == true)
-//				  ) {
-//					 // case when only company contact email is given: call inMemService!
-//				    }
+			
+			if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
+					(companyContactEmailForSearchState == false) &&(companyJobTitleForSearchState == true) &&
+					(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == true)
+				  ) {
+						userModel.addAttribute("userLoginName", userNickName);
+						userModel.addAttribute("searchResult", inMemUserService
+						.searchForCompanyContactEmailOfUserJobAppl(userNickName, companyContactEmailForSearch));
+						pathToPageForSearchOfJobApplication = "memberarea/searchForUserJobApplication";
+				    }
 //			
 //			if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
 //					(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == false) &&

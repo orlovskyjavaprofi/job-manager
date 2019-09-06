@@ -76,6 +76,25 @@ public class SearchForApplicationController
         Boolean companyDateWhenUserAppliedForJobForSearchState =false;
         Boolean companyIndustryTypeForJobForSearchState =false;
        		
+		pathToPageForSearchOfJobApplication = caseWhenTheRequestIsValid(userNickName, companyNameForSearch,
+				companyContactPersonForSearch, companyContactEmailForSearch, companyJobTitleForSearch,
+				companyDateWhenUserAppliedForJobForSearch, companyIndustryTypeForJobForSearch, userModel,
+				pathToPageForSearchOfJobApplication, pageToForwardTo, dateOfJobAppl, companyNameForSearchState,
+				companyContactPersonForSearchState, companyContactEmailForSearchState, companyJobTitleForSearchState,
+				companyDateWhenUserAppliedForJobForSearchState, companyIndustryTypeForJobForSearchState);
+		
+		return pathToPageForSearchOfJobApplication;
+	}
+
+	private String caseWhenTheRequestIsValid(String userNickName, String companyNameForSearch,
+			String companyContactPersonForSearch, String companyContactEmailForSearch, String companyJobTitleForSearch,
+			LocalDate companyDateWhenUserAppliedForJobForSearch, String companyIndustryTypeForJobForSearch,
+			Model userModel, String pathToPageForSearchOfJobApplication, String pageToForwardTo, String dateOfJobAppl,
+			Boolean companyNameForSearchState, Boolean companyContactPersonForSearchState,
+			Boolean companyContactEmailForSearchState, Boolean companyJobTitleForSearchState,
+			Boolean companyDateWhenUserAppliedForJobForSearchState, Boolean companyIndustryTypeForJobForSearchState)
+			throws ParseException
+	{
 		if (pageToForwardTo.isEmpty() == false) {
 			
 			companyNameForSearchState = checkThatGivenStringIsNotNull(companyNameForSearch,
@@ -100,66 +119,144 @@ public class SearchForApplicationController
 			companyIndustryTypeForJobForSearchState = checkThatGivenStringIsNotNull(
 					companyIndustryTypeForJobForSearch, companyIndustryTypeForJobForSearchState);
 			
-			System.out.println(companyNameForSearchState);
-			System.out.println(companyContactPersonForSearchState);
-			System.out.println(companyContactEmailForSearchState);
-			System.out.println(companyJobTitleForSearchState);
-			System.out.println(companyDateWhenUserAppliedForJobForSearchState);
-			System.out.println(companyIndustryTypeForJobForSearchState);
 			
-			pathToPageForSearchOfJobApplication = caseAllSearchJobApplFieldsFilled(userNickName, companyNameForSearch,
+			pathToPageForSearchOfJobApplication = userSearchRequests(userNickName, companyNameForSearch,
 					companyContactPersonForSearch, companyContactEmailForSearch, companyJobTitleForSearch,
-					dateOfJobAppl,
-					companyIndustryTypeForJobForSearch, userModel, pathToPageForSearchOfJobApplication,
+					companyIndustryTypeForJobForSearch, userModel, pathToPageForSearchOfJobApplication, dateOfJobAppl,
 					companyNameForSearchState, companyContactPersonForSearchState, companyContactEmailForSearchState,
 					companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
-					companyIndustryTypeForJobForSearchState);
-
-			pathToPageForSearchOfJobApplication = caseSearchForCompanyNameOnly(userNickName, companyNameForSearch,
-					userModel, pathToPageForSearchOfJobApplication, companyNameForSearchState,
-					companyContactPersonForSearchState, companyContactEmailForSearchState,
-					companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
-					companyIndustryTypeForJobForSearchState);
-			
-			pathToPageForSearchOfJobApplication = caseSearchForCompanyContactLastNameOnly(userNickName,
-					companyContactPersonForSearch, userModel, pathToPageForSearchOfJobApplication,
-					companyNameForSearchState, companyContactPersonForSearchState, companyContactEmailForSearchState,
-					companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
-					companyIndustryTypeForJobForSearchState);
-			
-			if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
-					(companyContactEmailForSearchState == false) &&(companyJobTitleForSearchState == true) &&
-					(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == true)
-				  ) {
-						userModel.addAttribute("userLoginName", userNickName);
-						userModel.addAttribute("searchResult", inMemUserService
-						.searchForCompanyContactEmailOfUserJobAppl(userNickName, companyContactEmailForSearch));
-						pathToPageForSearchOfJobApplication = "memberarea/searchForUserJobApplication";
-				    }
-//			
-//			if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
-//					(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == false) &&
-//					(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == true)
-//				  ) {
-//					 // case when only Job title is given: call inMemService!
-//				    }
-//			
-//			if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
-//					(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == true) &&
-//					(companyDateWhenUserAppliedForJobForSearchState == false) &&(companyIndustryTypeForJobForSearchState == true)
-//				  ) {
-//					 // case when only date of application is given: call inMemService!
-//				    }
-//			
-//			if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
-//					(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == true) &&
-//					(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == false)
-//				  ) {
-//					 // case when only company industry type is given: call inMemService!
-//				    }
-			
+					companyIndustryTypeForJobForSearchState);			
 		}
+		return pathToPageForSearchOfJobApplication;
+	}
+
+	private String userSearchRequests(String userNickName, String companyNameForSearch,
+			String companyContactPersonForSearch, String companyContactEmailForSearch, String companyJobTitleForSearch,
+			String companyIndustryTypeForJobForSearch, Model userModel, String pathToPageForSearchOfJobApplication,
+			String dateOfJobAppl, Boolean companyNameForSearchState, Boolean companyContactPersonForSearchState,
+			Boolean companyContactEmailForSearchState, Boolean companyJobTitleForSearchState,
+			Boolean companyDateWhenUserAppliedForJobForSearchState, Boolean companyIndustryTypeForJobForSearchState)
+			throws ParseException
+	{
+		pathToPageForSearchOfJobApplication = caseAllSearchJobApplFieldsFilled(userNickName, companyNameForSearch,
+				companyContactPersonForSearch, companyContactEmailForSearch, companyJobTitleForSearch,
+				dateOfJobAppl,
+				companyIndustryTypeForJobForSearch, userModel, pathToPageForSearchOfJobApplication,
+				companyNameForSearchState, companyContactPersonForSearchState, companyContactEmailForSearchState,
+				companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
+				companyIndustryTypeForJobForSearchState);
+
+		pathToPageForSearchOfJobApplication = caseSearchForCompanyNameOnly(userNickName, companyNameForSearch,
+				userModel, pathToPageForSearchOfJobApplication, companyNameForSearchState,
+				companyContactPersonForSearchState, companyContactEmailForSearchState,
+				companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
+				companyIndustryTypeForJobForSearchState);
 		
+		pathToPageForSearchOfJobApplication = caseSearchForCompanyContactLastNameOnly(userNickName,
+				companyContactPersonForSearch, userModel, pathToPageForSearchOfJobApplication,
+				companyNameForSearchState, companyContactPersonForSearchState, companyContactEmailForSearchState,
+				companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
+				companyIndustryTypeForJobForSearchState);
+		
+		pathToPageForSearchOfJobApplication = caseSearchForCompanyContactEmailOnly(userNickName,
+				companyContactEmailForSearch, userModel, pathToPageForSearchOfJobApplication,
+				companyNameForSearchState, companyContactPersonForSearchState, companyContactEmailForSearchState,
+				companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
+				companyIndustryTypeForJobForSearchState);
+		
+		pathToPageForSearchOfJobApplication = caseSearchForCompanyJobTitleOnly(userNickName,
+				companyJobTitleForSearch, userModel, pathToPageForSearchOfJobApplication, companyNameForSearchState,
+				companyContactPersonForSearchState, companyContactEmailForSearchState,
+				companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
+				companyIndustryTypeForJobForSearchState);
+		
+		pathToPageForSearchOfJobApplication = caseSearchForCompanyDateOfApplying(userNickName, userModel,
+				pathToPageForSearchOfJobApplication, dateOfJobAppl, companyNameForSearchState,
+				companyContactPersonForSearchState, companyContactEmailForSearchState,
+				companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
+				companyIndustryTypeForJobForSearchState);
+		
+		pathToPageForSearchOfJobApplication = caseSearchForCompanyIndustryType(userNickName,
+				companyIndustryTypeForJobForSearch, userModel, pathToPageForSearchOfJobApplication,
+				companyNameForSearchState, companyContactPersonForSearchState, companyContactEmailForSearchState,
+				companyJobTitleForSearchState, companyDateWhenUserAppliedForJobForSearchState,
+				companyIndustryTypeForJobForSearchState);
+		return pathToPageForSearchOfJobApplication;
+	}
+
+	private String caseSearchForCompanyIndustryType(String userNickName, String companyIndustryTypeForJobForSearch,
+			Model userModel, String pathToPageForSearchOfJobApplication, Boolean companyNameForSearchState,
+			Boolean companyContactPersonForSearchState, Boolean companyContactEmailForSearchState,
+			Boolean companyJobTitleForSearchState, Boolean companyDateWhenUserAppliedForJobForSearchState,
+			Boolean companyIndustryTypeForJobForSearchState)
+	{
+		if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
+				(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == true) &&
+				(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == false)
+			  ) {
+					userModel.addAttribute("userLoginName", userNickName);
+					userModel.addAttribute("searchResult", inMemUserService.searchForIndustryTypeOfCompany(
+							userNickName, companyIndustryTypeForJobForSearch));
+					pathToPageForSearchOfJobApplication = "memberarea/searchForUserJobApplication";
+			    }
+		return pathToPageForSearchOfJobApplication;
+	}
+
+	private String caseSearchForCompanyDateOfApplying(String userNickName, Model userModel,
+			String pathToPageForSearchOfJobApplication, String dateOfJobAppl, Boolean companyNameForSearchState,
+			Boolean companyContactPersonForSearchState, Boolean companyContactEmailForSearchState,
+			Boolean companyJobTitleForSearchState, Boolean companyDateWhenUserAppliedForJobForSearchState,
+			Boolean companyIndustryTypeForJobForSearchState) throws ParseException
+	{
+		if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
+				(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == true) &&
+				(companyDateWhenUserAppliedForJobForSearchState == false) &&(companyIndustryTypeForJobForSearchState == true)
+			  ) {
+				
+			      userModel.addAttribute("userLoginName", userNickName);
+			      String EUdate = convertUsDateToEuDate(dateOfJobAppl);
+			      
+			      userModel.addAttribute("searchResult", inMemUserService.searchForDateOfApplyingAtCompany(
+					userNickName, EUdate));
+			      
+			      pathToPageForSearchOfJobApplication = "memberarea/searchForUserJobApplication";
+			    }
+		return pathToPageForSearchOfJobApplication;
+	}
+
+	private String caseSearchForCompanyJobTitleOnly(String userNickName, String companyJobTitleForSearch,
+			Model userModel, String pathToPageForSearchOfJobApplication, Boolean companyNameForSearchState,
+			Boolean companyContactPersonForSearchState, Boolean companyContactEmailForSearchState,
+			Boolean companyJobTitleForSearchState, Boolean companyDateWhenUserAppliedForJobForSearchState,
+			Boolean companyIndustryTypeForJobForSearchState)
+	{
+		if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
+				(companyContactEmailForSearchState == true) &&(companyJobTitleForSearchState == false) &&
+				(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == true)
+			  ) {
+					userModel.addAttribute("userLoginName", userNickName);
+					userModel.addAttribute("searchResult", inMemUserService.searchForCompanyJobTitleUserJobApplications(
+							userNickName, companyJobTitleForSearch));
+					pathToPageForSearchOfJobApplication = "memberarea/searchForUserJobApplication";
+			    }
+		return pathToPageForSearchOfJobApplication;
+	}
+
+	private String caseSearchForCompanyContactEmailOnly(String userNickName, String companyContactEmailForSearch,
+			Model userModel, String pathToPageForSearchOfJobApplication, Boolean companyNameForSearchState,
+			Boolean companyContactPersonForSearchState, Boolean companyContactEmailForSearchState,
+			Boolean companyJobTitleForSearchState, Boolean companyDateWhenUserAppliedForJobForSearchState,
+			Boolean companyIndustryTypeForJobForSearchState)
+	{
+		if( (companyNameForSearchState == true) && (companyContactPersonForSearchState == true) &&
+				(companyContactEmailForSearchState == false) &&(companyJobTitleForSearchState == true) &&
+				(companyDateWhenUserAppliedForJobForSearchState == true) &&(companyIndustryTypeForJobForSearchState == true)
+			  ) {
+					userModel.addAttribute("userLoginName", userNickName);
+					userModel.addAttribute("searchResult", inMemUserService
+					.searchForCompanyContactEmailOfUserJobAppl(userNickName, companyContactEmailForSearch));
+					pathToPageForSearchOfJobApplication = "memberarea/searchForUserJobApplication";
+			    }
 		return pathToPageForSearchOfJobApplication;
 	}
 

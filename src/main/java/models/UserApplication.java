@@ -211,6 +211,7 @@ public class UserApplication implements Comparable<UserApplication>
 				+ "\n companyCountryName = " + companyCountryName + 
 				"\n companyName = " + companyName+
 				"\n companyCityName = " + companyCityName
+				+ "\n companyJobTitle = " + jobTittleOfApplicationForCompany
 				+ "\n companyIndustry = " + companyIndustry 
 				+ "\n companyAmountOfEmployee = " + companyAmountOfEmployee
 				+ "\n companyContactEmail = " + companyContactEmail 

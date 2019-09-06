@@ -5,6 +5,7 @@ import models.InMemoryUserRepo;
 import models.User;
 import models.UserApplication;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -238,6 +239,67 @@ public class InMemoryUserService implements InMemoryUserRepoContract {
 		return resultOfSearchUserAppl;
 	}
 	
+	public ArrayList<UserApplication> searchForCompanyJobTitleUserJobApplications(String userNickName,
+			String companyJobTitle)
+	{
+		ArrayList<UserApplication> resultListOfUserJobApplications = new ArrayList<UserApplication>();
+		User userForSearchRequest = inMemRepo.findUserByGivenName(userNickName);
+
+		if (userForSearchRequest != null)
+		{
+			
+			for (UserApplication currentUserJobAppl : userForSearchRequest.getUserApplicationsSet())
+			{
+				 if (currentUserJobAppl.getJobTittleOfApplicationForCompany().equals(companyJobTitle)) {
+			
+					 resultListOfUserJobApplications.add(currentUserJobAppl);
+				 }
+			}
+		}
+		
+		return resultListOfUserJobApplications;
+	}
+	
+	public ArrayList<UserApplication> searchForDateOfApplyingAtCompany(String userNickName, String companyDate)
+	{
+		ArrayList<UserApplication> resultListOfUserJobApplications = new ArrayList<UserApplication>();
+		User userForSearchRequest = inMemRepo.findUserByGivenName(userNickName);
+		
+		if (userForSearchRequest != null)
+		{
+			
+			for (UserApplication currentUserJobAppl : userForSearchRequest.getUserApplicationsSet())
+			{
+				 if (currentUserJobAppl.getDateWhenApplicationWasSend().toString().equals(companyDate) ) {
+			
+					 resultListOfUserJobApplications.add(currentUserJobAppl);
+				 }
+			}
+		}
+		
+		return resultListOfUserJobApplications;
+	}
+	
+	public ArrayList<UserApplication> searchForIndustryTypeOfCompany(String userNickName, String companyIndustry)
+	{
+		ArrayList<UserApplication> resultListOfUserJobApplications = new ArrayList<UserApplication>();
+		User userForSearchRequest = inMemRepo.findUserByGivenName(userNickName);
+		
+		if (userForSearchRequest != null)
+		{
+			
+			for (UserApplication currentUserJobAppl : userForSearchRequest.getUserApplicationsSet())
+			{
+				 if (currentUserJobAppl.getCompanyIndustry().equals(companyIndustry) ) {
+			
+					 resultListOfUserJobApplications.add(currentUserJobAppl);
+				 }
+			}
+		}
+		
+		return resultListOfUserJobApplications;
+	}
+	
 	private UserApplication compareAllUserJobApplicationsWithAllTheirFields( 
 			  String companyName, String companyContactLastName, String companyContactEmail,
 			  String companyJobTitle, String companyDate, String companyIndustryType, 
@@ -262,8 +324,6 @@ public class InMemoryUserService implements InMemoryUserRepoContract {
 	}
 
 	
-
-
 
 	
 }

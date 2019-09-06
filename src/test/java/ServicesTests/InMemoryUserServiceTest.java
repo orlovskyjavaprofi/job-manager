@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -273,6 +274,156 @@ class InMemoryUserServiceTest {
 	        
 	    }
 	
+	    @Test
+	    void testIfJobTitleOfUserJobApplicationsCanBeFound() {
+	      	User userAtTest;
+	    	    ArrayList<UserApplication> expectedListOfUserJobApplications = new ArrayList<UserApplication>();
+	    	    	ArrayList<UserApplication> actualListOfUserJobApplications = new ArrayList<UserApplication>();   	    
+	    	   	Integer companySize = 250;
+		    	String companyName = "SUSE";
+		    	String companyCityName = "Alexandria";
+		    	String companyContactEmail = "coolcompany@siliconvaley.com";
+		    	String companyCountryName = "USA";
+		    	String companyTypeSize = CompanyType.MIDDLE.toString();
+		    	CompanySalutationType companySalut = CompanySalutationType.Mrs;
+		    	String companyDate = "20.04.2018";
+		    	String companyContactLastName = "Uberson";
+	    	    String companyJobTitle ="Software Developer";
+	    	    String companyIndustry ="Auerospace";
+	    	    
+	    		Integer companySize2 = 250;
+		    	String companyName2 = "IMDB";
+		    	String companyCityName2 = "Berlin";
+		    	String companyContactEmail2 = "imdb@imdb.com";
+		    	String companyCountryName2 = "Germany";
+		    	String companyTypeSize2 = CompanyType.MIDDLE.toString();
+		    	CompanySalutationType companySalut2 = CompanySalutationType.Mrs;
+		    	String companyDate2 = "13.04.2018";
+		    	String companyContactLastName2 = "Peterson";
+	    	    String companyJobTitle2 ="Software Developer";
+	    	    String companyIndustry2 ="Heavy industry";
+	    	    UserApplication userJobAppl2;
+	    	    
+	    	    userAtTest = userSetUp(mockUser);
+	    	    inMemUserService.saveUserWithGivenHashPass(userAtTest);
+	    	    
+	    	    initMockUserJobApp(companySize, companyName, companyCityName, companyContactEmail, companyCountryName,
+						companyTypeSize, companySalut, companyDate, companyContactLastName,companyJobTitle,companyIndustry);
+	    	    userAtTest.getUserApplicationsSet().add(userMockJobApplication);
+	    	    userJobAppl2 = new UserApplication(companyDate2, companyCountryName2, 
+	    	    		companyCityName2, companyIndustry2, companySize2, companyContactEmail2,  companySalut2, companyContactLastName2,
+	    	    		CompanyType.MIDDLE ,companyName2, companyJobTitle2);
+	    	    userAtTest.getUserApplicationsSet().add(userJobAppl2); 	
+    	 
+	    	    expectedListOfUserJobApplications.add(userMockJobApplication);
+	    	    expectedListOfUserJobApplications.add(userJobAppl2);    	    
+	    	    actualListOfUserJobApplications = inMemUserService.searchForCompanyJobTitleUserJobApplications(userAtTest.getUserNickName(),companyJobTitle );
+	    	    
+	    	 	assertEquals(expectedListOfUserJobApplications, actualListOfUserJobApplications, "The job title of companys for user job applications wasnt found! " );
+	    	    
+	    }
+	    
+	    @Test
+	    void testIfAppliedDateOfUserJobApplicationsCanBeFound() {
+	      	User userAtTest;
+	    	    ArrayList<UserApplication> expectedListOfUserJobApplications = new ArrayList<UserApplication>();
+	    	    	ArrayList<UserApplication> actualListOfUserJobApplications = new ArrayList<UserApplication>();   	    
+	    	   	Integer companySize = 250;
+		    	String companyName = "SUSE";
+		    	String companyCityName = "Alexandria";
+		    	String companyContactEmail = "coolcompany@siliconvaley.com";
+		    	String companyCountryName = "USA";
+		    	String companyTypeSize = CompanyType.MIDDLE.toString();
+		    	CompanySalutationType companySalut = CompanySalutationType.Mrs;
+		    	String companyDate = "20.04.2018";
+		    	String companyContactLastName = "Uberson";
+	    	    String companyJobTitle ="Software Developer";
+	    	    String companyIndustry ="Auerospace";
+	    	    
+	    		Integer companySize2 = 250;
+		    	String companyName2 = "IMDB";
+		    	String companyCityName2 = "Berlin";
+		    	String companyContactEmail2 = "imdb@imdb.com";
+		    	String companyCountryName2 = "Germany";
+		    	String companyTypeSize2 = CompanyType.MIDDLE.toString();
+		    	CompanySalutationType companySalut2 = CompanySalutationType.Mrs;
+		    	String companyDate2 = "20.04.2018";
+		    	String companyContactLastName2 = "Peterson";
+	    	    String companyJobTitle2 ="Software Developer";
+	    	    String companyIndustry2 ="Heavy industry";
+	    	    UserApplication userJobAppl2;
+	    	    
+	    	    userAtTest = userSetUp(mockUser);
+	    	    inMemUserService.saveUserWithGivenHashPass(userAtTest);
+	    	    
+	    	    initMockUserJobApp(companySize, companyName, companyCityName, companyContactEmail, companyCountryName,
+						companyTypeSize, companySalut, companyDate, companyContactLastName,companyJobTitle,companyIndustry);
+	    	    userAtTest.getUserApplicationsSet().add(userMockJobApplication);
+	    	    userJobAppl2 = new UserApplication(companyDate2, companyCountryName2, 
+	    	    		companyCityName2, companyIndustry2, companySize2, companyContactEmail2,  companySalut2, companyContactLastName2,
+	    	    		CompanyType.MIDDLE ,companyName2, companyJobTitle2);
+	    	    userAtTest.getUserApplicationsSet().add(userJobAppl2); 	
+    	 
+	    	    expectedListOfUserJobApplications.add(userMockJobApplication);
+	    	    expectedListOfUserJobApplications.add(userJobAppl2);    	    
+	    	    actualListOfUserJobApplications = inMemUserService.searchForDateOfApplyingAtCompany(
+	    	    		userAtTest.getUserNickName(), companyDate );
+	    	    
+	    	 	assertEquals(expectedListOfUserJobApplications, actualListOfUserJobApplications, "The date of appliying for user job applications wasnt found! " );
+	    	    
+	    }
+	    
+	    
+	    @Test
+	    void testIfIndustryTypeOfUserJobApplicationsCanBeFound() {
+	      	User userAtTest;
+	    	    ArrayList<UserApplication> expectedListOfUserJobApplications = new ArrayList<UserApplication>();
+	    	    	ArrayList<UserApplication> actualListOfUserJobApplications = new ArrayList<UserApplication>();   	    
+	    	   	Integer companySize = 250;
+		    	String companyName = "SUSE";
+		    	String companyCityName = "Alexandria";
+		    	String companyContactEmail = "coolcompany@siliconvaley.com";
+		    	String companyCountryName = "USA";
+		    	String companyTypeSize = CompanyType.MIDDLE.toString();
+		    	CompanySalutationType companySalut = CompanySalutationType.Mrs;
+		    	String companyDate = "20.04.2018";
+		    	String companyContactLastName = "Uberson";
+	    	    String companyJobTitle ="Software Developer";
+	    	    String companyIndustry ="Heavy industry";
+	    	    
+	    		Integer companySize2 = 250;
+		    	String companyName2 = "IMDB";
+		    	String companyCityName2 = "Berlin";
+		    	String companyContactEmail2 = "imdb@imdb.com";
+		    	String companyCountryName2 = "Germany";
+		    	String companyTypeSize2 = CompanyType.MIDDLE.toString();
+		    	CompanySalutationType companySalut2 = CompanySalutationType.Mrs;
+		    	String companyDate2 = "20.04.2018";
+		    	String companyContactLastName2 = "Peterson";
+	    	    String companyJobTitle2 ="Software Developer";
+	    	    String companyIndustry2 ="Heavy industry";
+	    	    UserApplication userJobAppl2;
+	    	    
+	    	    userAtTest = userSetUp(mockUser);
+	    	    inMemUserService.saveUserWithGivenHashPass(userAtTest);
+	    	    
+	    	    initMockUserJobApp(companySize, companyName, companyCityName, companyContactEmail, companyCountryName,
+						companyTypeSize, companySalut, companyDate, companyContactLastName,companyJobTitle,companyIndustry);
+	    	    userAtTest.getUserApplicationsSet().add(userMockJobApplication);
+	    	    userJobAppl2 = new UserApplication(companyDate2, companyCountryName2, 
+	    	    		companyCityName2, companyIndustry2, companySize2, companyContactEmail2,  companySalut2, companyContactLastName2,
+	    	    		CompanyType.MIDDLE ,companyName2, companyJobTitle2);
+	    	    userAtTest.getUserApplicationsSet().add(userJobAppl2); 	
+    	 
+	    	    expectedListOfUserJobApplications.add(userMockJobApplication);
+	    	    expectedListOfUserJobApplications.add(userJobAppl2);   
+	    	    
+	    	    actualListOfUserJobApplications = inMemUserService.searchForIndustryTypeOfCompany(
+	    	    		userAtTest.getUserNickName(), companyIndustry );
+	    	    
+	    	 	assertEquals(expectedListOfUserJobApplications, actualListOfUserJobApplications, "The industry type of company of user job applications wasnt found! " );
+	    	    
+	    }
     
 	private void initMockUserJobApp(Integer companySize, String companyName, String companyCityName,
 			String companyContactEmail, String companyCountryName, String companyTypeSize,
